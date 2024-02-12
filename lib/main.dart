@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:konnet/home.dart';
 // import 'package:konnet/login.dart';
 import 'package:konnet/quiz.dart';
 
@@ -10,5 +11,5 @@ void main() {
         primarySwatch: mine,
         //<-- SEE HERE
       ),
-      home: const QuizScreen()));
+      home: const HomePage()));
 }
