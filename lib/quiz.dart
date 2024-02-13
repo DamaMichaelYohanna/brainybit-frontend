@@ -68,12 +68,9 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Quiz Section"),
-          backgroundColor: Colors.white,
-          leading: const Icon(
-            Icons.restart_alt_sharp,
-            color: Colors.brown,
-          )),
+        title: const Text("Quiz Section"),
+        backgroundColor: Colors.white,
+      ),
       body: ListView(
         children: [
           Padding(
