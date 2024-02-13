@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/course_list.dart';
 import 'colorScheme.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
+
+  final me = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class IndexPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
+                    padding: EdgeInsets.only(bottom: 5.0),
                     child: Text(
                       "Task For Today 🔥",
                       style: TextStyle(fontSize: 20),
@@ -68,85 +71,115 @@ class IndexPage extends StatelessWidget {
           style: TextStyle(fontSize: 12),
         ),
       ),
-      Container(
-        color: Colors.white10,
-        height: 150,
-        padding: EdgeInsets.all(10),
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            Container(
-                // height: 80,
-                width: 150,
-                margin: EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5)),
-                        child: Image.asset("assets/images/read.jpg")),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "General Studies Courses",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                )),
-            Container(
-                width: 150,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5)),
-                        child: Image.asset("assets/images/esp.jpg")),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Entreprenuer Courses",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                )),
-            Container(
-              // height: 80,
-              width: 150,
-              margin: EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: Column(
-                children: [
-                  ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5)),
-                      child: Image.asset("assets/images/cmp.jpg")),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Computer Science Courses",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
+      InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CourseListTile(dept: "GST"),
             ),
-          ],
+          );
+        },
+        child: Container(
+          color: Colors.white10,
+          height: 150,
+          padding: const EdgeInsets.all(10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              Container(
+                  // height: 80,
+                  width: 150,
+                  margin: const EdgeInsets.only(right: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5)),
+                          child: Image.asset("assets/images/read.jpg")),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "General Studies Courses",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  )),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CourseListTile(dept: "ESP"),
+                    ),
+                  );
+                },
+                child: Container(
+                    width: 150,
+                    margin: const EdgeInsets.only(right: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5)),
+                            child: Image.asset("assets/images/esp.jpg")),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Entreprenuer Courses",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CourseListTile(
+                        dept: "CMP",
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  // height: 80,
+                  width: 150,
+                  margin: EdgeInsets.only(right: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5)),
+                          child: Image.asset("assets/images/cmp.jpg")),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Computer Science Courses",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ]);
