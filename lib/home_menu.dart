@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:konnet/chat.dart';
 import 'package:konnet/index.dart';
 import 'package:konnet/quiz.dart';
-import 'colorScheme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,14 +14,12 @@ class _HomePageState extends State<HomePage> {
   void _tabSwitch(int index) {
     setState(() {
       _selectedIndex = index;
-      debugPrint("clicked");
-      print(index);
     });
   }
 
   List<Widget> tabScreen = [
     const IndexPage(),
-    const QuizScreen(),
+    const ChatScreen(),
     const Text("Third Screen!")
   ];
 
