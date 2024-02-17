@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,10 +13,52 @@ class _LoginScreenState extends State<LoginScreen> {
   final usernameControl = TextEditingController();
   final passwordControl = TextEditingController();
 
+// funtion to set user token after login
+  Future<bool> setUserName(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString("username", value);
+  }
+
+  // Function for login in.
+  Future<void> fetchTokenOnline(String username, String password) async {
+    var url = Uri.https('brainybit.vercel.app', 'api/v1/user/login');
+    print(url);
+
+    final Map<String, String> formData = {
+      'username': username,
+      "password": password
+    };
+
+    try {
+      // final response = await http.post(url, body: formData);
+      var uri = Uri.parse('https://brainybit.vercel.app/api/v1/user/login');
+      var request = http.MultipartRequest('POST', uri);
+      request.fields["username"] = "dama";
+      request.fields["password"] = "dama";
+      // request.fields.addAll({"password": "hello"});
+      http.StreamedResponse response = await request.send();
+      print(response.stream);
+
+      if (response.statusCode == 200) {
+        // Request successful, handle response data
+        debugPrint('Response body: ${response.stream}');
+        // final body = json.decode(response.body);
+      } else {
+        // Request failed
+        debugPrint('Request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      // An error occurred
+      debugPrint('Request failed with');
+      print(e);
+    }
+  }
+
   void login() {
     String username = usernameControl.text;
     String password = passwordControl.text;
-    print("i was called");
+    print("about to call");
+    fetchTokenOnline(username, password);
     print(
       username,
     );
