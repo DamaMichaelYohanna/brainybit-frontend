@@ -24,7 +24,6 @@ class CourseListTile extends StatelessWidget {
   final String dept;
 
   const CourseListTile({super.key, required this.dept});
-  void _back() {}
   @override
   Widget build(BuildContext context) {
     List images = [
