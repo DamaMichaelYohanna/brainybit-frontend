@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
 import 'package:konnet/index.dart';
-import 'package:konnet/quiz.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
