@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
+import 'home_menu.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,49 +24,59 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // Function for login in.
-  Future<void> fetchTokenOnline(String username, String password) async {
+  Future<Map<String, bool>> fetchTokenOnline(
+      String username, String password) async {
     var url = Uri.https('brainybit.vercel.app', 'api/v1/user/login');
-    print(url);
-
+    // prepare the form data
     final Map<String, String> formData = {
       'username': username,
       "password": password
     };
 
     try {
-      // final response = await http.post(url, body: formData);
-      var uri = Uri.parse('https://brainybit.vercel.app/api/v1/user/login');
-      var request = http.MultipartRequest('POST', uri);
-      request.fields["username"] = "dama";
-      request.fields["password"] = "dama";
-      // request.fields.addAll({"password": "hello"});
-      http.StreamedResponse response = await request.send();
-      print(response.stream);
-
+      final response = await http.post(url, body: formData);
       if (response.statusCode == 200) {
-        // Request successful, handle response data
-        debugPrint('Response body: ${response.stream}');
-        // final body = json.decode(response.body);
+        return {"correct": true};
       } else {
         // Request failed
-        debugPrint('Request failed with status: ${response.statusCode}');
+        return {"incorrect": false};
       }
     } catch (e) {
-      // An error occurred
-      debugPrint('Request failed with');
-      print(e);
+      return {"internet": false};
     }
   }
 
-  void login() {
+  void login() async {
     String username = usernameControl.text;
     String password = passwordControl.text;
-    print("about to call");
-    fetchTokenOnline(username, password);
-    print(
-      username,
-    );
-    print(password);
+    await fetchTokenOnline(username, password).then((value) => {
+          if (value.containsKey("correct"))
+            {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => HomePage()))
+            }
+          else if (value.containsKey("incorrect"))
+            {
+              showDialog(
+                  context: context,
+                  builder: (_) => const AlertDialog(
+                        title: Text('Error!'),
+                        // icon:Text("hell"),
+                        content: Text("Incorrect Email or Password"),
+                      ))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (_) => const AlertDialog(
+                        title: Text('Something happened!'),
+                        // icon:Text("hell"),
+                        content: Text(
+                            "Please Check your internet connection and try again."),
+                      ))
+            }
+        });
   }
 
   @override
@@ -111,18 +125,49 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: "Enter Your Password")),
           ),
           Padding(
-            padding: const EdgeInsets.all(15),
-            child: ElevatedButton(
-              onPressed: login,
-              child: const Text("Sign In"),
-            ),
-          )
+              padding: const EdgeInsets.all(15),
+              child: LoginButton(callback: login))
         ],
       ),
     );
   }
 }
 
+class LoginButton extends StatefulWidget {
+  final Function callback;
+  const LoginButton({super.key, required this.callback});
+
+  @override
+  // ignore: no_logic_in_create_state
+  State<LoginButton> createState() => _LoginButtonState(callBack: callback);
+}
+
+class _LoginButtonState extends State<LoginButton> {
+  final Function callBack;
+  bool buttonActive = true;
+  _LoginButtonState({required this.callBack});
+
+  void buttonActivity() {
+    print("Coming for you");
+    setState(() {
+      buttonActive = false;
+    });
+    var a = callBack();
+    setState(() {
+      buttonActive = true;
+    });
+    print("we done guys");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      // ignore: dead_code
+      onPressed: buttonActive ? buttonActivity : null,
+      child: const Text("Sign In"),
+    );
+  }
+}
 // class Home extends StatelessWidget {
 //   const Home({super.key});
 
