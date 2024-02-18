@@ -94,15 +94,17 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Card(
                 elevation: 0,
                 margin: chat[index][0] == "user"
-                    ? EdgeInsets.only(left: 45, right: 10, top: 10, bottom: 10)
-                    : EdgeInsets.only(left: 10, right: 45, top: 10, bottom: 10),
+                    ? const EdgeInsets.only(
+                        left: 45, right: 10, top: 10, bottom: 10)
+                    : const EdgeInsets.only(
+                        left: 10, right: 45, top: 10, bottom: 10),
                 color: chat[index][0] == "user"
-                    ? Color.fromARGB(255, 234, 232, 228)
-                    : Color.fromARGB(255, 235, 230, 216),
+                    ? const Color.fromARGB(255, 234, 232, 228)
+                    : const Color.fromARGB(255, 235, 230, 216),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    "${chat[index][1]}",
+                    chat[index][1],
                     style: const TextStyle(),
                     // textAlign: true == true ? TextAlign.right : TextAlign.left,
                   ),
