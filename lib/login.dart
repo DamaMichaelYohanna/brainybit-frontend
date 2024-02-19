@@ -119,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(15),
             child: TextField(
                 controller: passwordControl,
+                obscureText: true,
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.lock),
                     border: OutlineInputBorder(),
