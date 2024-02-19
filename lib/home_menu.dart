@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
 import 'package:konnet/index.dart';
+import 'package:konnet/profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> tabScreen = [
     const IndexPage(),
     const ChatScreen(),
-    const Text("Third Screen!")
+    const ProfilePage()
   ];
 
   int _selectedIndex = 0;
