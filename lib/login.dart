@@ -18,13 +18,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordControl = TextEditingController();
 
 // funtion to set user token after login
-  Future<bool> setUserName(String value) async {
+  Future<void> setUserInfo(String? fullName, email, verified, token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString("username", value);
+    prefs.setString("fullName", fullName ?? "");
+    prefs.setString("email", email);
+    prefs.setString("verified", verified);
+    prefs.setString("token", token);
   }
 
   // Function for login in.
-  Future<Map<String, bool>> fetchTokenOnline(
+  Future<Map<String, bool>> fetchUserInfoOnline(
       String username, String password) async {
     var url = Uri.https('brainybit.vercel.app', 'api/v1/user/login');
     // prepare the form data
@@ -36,6 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final response = await http.post(url, body: formData);
       if (response.statusCode == 200) {
+        Map<String, String> body = json.decode(response.body);
+        setUserInfo(body["full_name"], body["email"], body["verified"],
+            body["access_token"]);
         return {"correct": true};
       } else {
         // Request failed
@@ -46,37 +52,40 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void afterLoginCall(value) {
+    if (value.containsKey("correct")) {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+    } else if (value.containsKey("incorrect")) {
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                title: Text('Error!'),
+                // icon:Text("hell"),
+                content: Text("Incorrect Email or Password"),
+              ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                title: Text('Something happened!'),
+                // icon:Text("hell"),
+                content: Text(
+                    "Please Check your internet connection and try again."),
+              ));
+    }
+  }
+
+  // Register button callback function
+  void register() {}
+  // Login button call back function
   void login() async {
     String username = usernameControl.text;
     String password = passwordControl.text;
-    await fetchTokenOnline(username, password).then((value) => {
-          if (value.containsKey("correct"))
-            {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => HomePage()))
-            }
-          else if (value.containsKey("incorrect"))
-            {
-              showDialog(
-                  context: context,
-                  builder: (_) => const AlertDialog(
-                        title: Text('Error!'),
-                        // icon:Text("hell"),
-                        content: Text("Incorrect Email or Password"),
-                      ))
-            }
-          else
-            {
-              showDialog(
-                  context: context,
-                  builder: (_) => const AlertDialog(
-                        title: Text('Something happened!'),
-                        // icon:Text("hell"),
-                        content: Text(
-                            "Please Check your internet connection and try again."),
-                      ))
-            }
-        });
+    if (username.isNotEmpty && password.isNotEmpty) {
+      Map<String, bool> value = await fetchUserInfoOnline(username, password);
+      afterLoginCall(value);
+    }
   }
 
   @override
@@ -126,8 +135,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: "Enter Your Password")),
           ),
           Padding(
-              padding: const EdgeInsets.all(15),
-              child: LoginButton(callback: login))
+            padding: const EdgeInsets.all(15),
+            child: LoginButton(callback: login),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                      child: Text("Register",
+                          style: TextStyle(
+                              color: Colors.brown,
+                              fontWeight: FontWeight.bold))),
+                  InkWell(
+                      child: Text("Forgot Password?",
+                          style: TextStyle(
+                              color: Colors.brown,
+                              fontWeight: FontWeight.bold)))
+                ]),
+          )
         ],
       ),
     );
@@ -148,24 +175,32 @@ class _LoginButtonState extends State<LoginButton> {
   bool buttonActive = true;
   _LoginButtonState({required this.callBack});
 
-  void buttonActivity() {
-    print("Coming for you");
+  void buttonActivity() async {
     setState(() {
       buttonActive = false;
     });
-    var a = callBack();
+    await callBack();
     setState(() {
       buttonActive = true;
     });
-    print("we done guys");
   }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       // ignore: dead_code
-      onPressed: buttonActive ? buttonActivity : null,
-      child: const Text("Sign In"),
+      onPressed: buttonActive ? buttonActivity : () {},
+      child: buttonActive
+          ? const Padding(
+              padding: EdgeInsets.all(3.0),
+              child: Text("Sign In",
+                  style: TextStyle(
+                      color: Colors.brown, fontWeight: FontWeight.bold)),
+            )
+          : const Padding(
+              padding: EdgeInsets.all(3.0),
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
