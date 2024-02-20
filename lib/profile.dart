@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required});
+
+  // function to fetch user details from sharedpref
+  Future<Map<String, String>> getUserInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String name = prefs.getString("fullName") ?? "";
+    String email = prefs.getString("email") ?? "";
+    String imageurl = prefs.getString("imageUrl") ?? "";
+
+    return {"name": name, "email": email, "image": imageurl};
+  }
+
+  // function call to logout the user
+  Future clearUserInfo() async {
+    debugPrint("something");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
+  void logOut() {
+    debugPrint("about calling");
+    clearUserInfo();
+    debugPrint("after calling");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +90,7 @@ class ProfilePage extends StatelessWidget {
         ),
         Divider(),
         InkWell(
-          onTap: () {},
+          onTap: logOut,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
