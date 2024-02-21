@@ -46,30 +46,50 @@ class CourseListTile extends StatelessWidget {
             String courseName = department[dept]!.values.elementAt(index);
             Random random = Random();
 
-            return InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const QuizScreen(),
-                  ),
-                );
-              },
-              child: Card(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0)),
-                child: ListTile(
-                  leading: Container(
-                    height: 140,
-                    width: 60,
-                    child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: images[random.nextInt(images.length)]),
-                  ),
-                  title: Text(courseCode),
-                  subtitle: Text(courseName),
+            return Card(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0)),
+              child: ListTile(
+                leading: Container(
+                  // height: 180,
+                  // width: 60,
+                  color: Colors.amber,
+                  child: images[random.nextInt(images.length)],
                 ),
+                title: Text(courseCode),
+                subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(courseName),
+                      const Divider(),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const QuizScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text("Resources |",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const QuizScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text("  Quiz",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      )
+                    ]),
               ),
             );
           },
