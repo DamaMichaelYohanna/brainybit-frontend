@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("fullName", fullName ?? "");
     prefs.setString("email", email);
-    prefs.setString("verified", verified);
+    prefs.setBool("verified", verified);
     prefs.setString("token", token);
   }
 
@@ -39,7 +39,10 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final response = await http.post(url, body: formData);
       if (response.statusCode == 200) {
-        Map<String, String> body = json.decode(response.body);
+        print("we good to go");
+        Map<String, dynamic> body = json.decode(response.body.toString());
+        // print(response.body.toString());
+        print(body);
         setUserInfo(body["full_name"], body["email"], body["verified"],
             body["access_token"]);
         return {"correct": true};
