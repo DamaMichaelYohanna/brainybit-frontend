@@ -3,13 +3,18 @@ import 'package:konnet/colorScheme.dart';
 import 'package:konnet/questions_model.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+  final String courseName;
+  const QuizScreen({key, required this.courseName}) : super(key: key);
 
   @override
-  State<QuizScreen> createState() => _QuizScreenState();
+  // ignore: no_logic_in_create_state
+  State<QuizScreen> createState() => _QuizScreenState(courseName: courseName);
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  late String courseName;
+  _QuizScreenState({required this.courseName});
+
   void reset() {
     setState(() {
       _questionIndex = 0;
@@ -17,8 +22,10 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  late List<Map<String, dynamic>> filteredQuestions = questions[courseName]!;
   bool grade(selectedOption, correctOption) {
-    int position = questions[_questionIndex]["answers"].indexOf(selectedOption);
+    int position =
+        filteredQuestions[_questionIndex]["answers"].indexOf(selectedOption);
     if (position == 0 && correctOption == "A") {
       return true;
     } else if (position == 1 && correctOption == "B") {
@@ -82,7 +89,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       activeColor: Colors.brown,
                       thumbColor: mine.shade100,
                       value: _currentSliderValue,
-                      max: questions.length.toDouble(),
+                      max: filteredQuestions.length.toDouble(),
                       // divisions: 46,
                       onChanged: (double value) {
                         sliderUpdate(value);
@@ -109,7 +116,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.brown)),
                       child: Text(
-                        "${_currentSliderValue.toInt()} / ${questions.length}",
+                        "${_currentSliderValue.toInt()} / ${filteredQuestions.length}",
                         style: const TextStyle(color: Colors.white),
                       )),
                 )
@@ -124,16 +131,16 @@ class _QuizScreenState extends State<QuizScreen> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              '${questions[_questionIndex]["questionText"]}',
+              '${filteredQuestions[_questionIndex]["questionText"]}',
               style: const TextStyle(fontSize: 20),
             ),
           ),
           const Divider(),
-          for (var answer in questions[_questionIndex]["answers"])
+          for (var answer in filteredQuestions[_questionIndex]["answers"])
             Answer(
               callBack: play,
               optionValue: '$answer',
-              correctOption: '${questions[_questionIndex]["correct"]}',
+              correctOption: '${filteredQuestions[_questionIndex]["correct"]}',
             ),
         ],
       ),
