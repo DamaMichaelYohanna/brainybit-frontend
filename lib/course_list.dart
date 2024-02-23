@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:konnet/quiz.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:konnet/video_player.dart';
+import 'package:konnet/quiz.dart';
+import 'package:konnet/questions_model.dart';
 
 /// Flutter code sample for [ListTile].
 Map<String, Map<String, String>> department = {
@@ -17,7 +19,11 @@ Map<String, Map<String, String>> department = {
     "GST 123": "Communication in French or Arabic",
     "GST 221": "Peace Studies And Conflict Resolution",
   },
-  "CMP": {"CMP 111": "Introduction to Computer"}
+  "CMP": {
+    "CMP 111": "Introduction to Computer",
+    "CMP 211": "Introduction to Programming I",
+    "CMP 224": "Introduction to web design II"
+  },
 };
 
 class CourseListTile extends StatelessWidget {
@@ -69,7 +75,9 @@ class CourseListTile extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const QuizScreen(),
+                                  builder: (context) => YoutubePlayerScreen(
+                                    videoId: dept,
+                                  ),
                                 ),
                               );
                             },
@@ -78,11 +86,26 @@ class CourseListTile extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const QuizScreen(),
-                                ),
-                              );
+                              if (questions.containsKey(
+                                  department[dept]!.keys.elementAt(index))) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => QuizScreen(
+                                      courseName: department[dept]!
+                                          .keys
+                                          .elementAt(index),
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => const AlertDialog(
+                                          title: Text('Notice!'),
+                                          // icon:Text("hell"),
+                                          content: Text("No quiz added yet"),
+                                        ));
+                              }
                             },
                             child: const Text("  Quiz",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
