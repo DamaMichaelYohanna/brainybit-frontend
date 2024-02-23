@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlayerScreen extends StatefulWidget {
-  final String courseName;
-  const YoutubePlayerScreen({super.key, required this.courseName});
+  final String videoId;
+  const YoutubePlayerScreen({super.key, required this.videoId});
 
   @override
   State<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
@@ -16,10 +16,10 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
   @override
   void initState() {
     super.initState();
+    late final videoId = widget.videoId;
     // TO load a video by its unique id
-
     _controller = YoutubePlayerController(
-      initialVideoId: "-Q1p2zEbT3c",
+      initialVideoId: videoId,
     );
   }
 
