@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:konnet/video_list.dart';
 import 'package:konnet/video_player.dart';
 import 'package:konnet/quiz.dart';
 import 'package:konnet/questions_model.dart';
+import 'package:konnet/video_model.dart';
 
 /// Flutter code sample for [ListTile].
 Map<String, Map<String, String>> department = {
@@ -72,18 +74,31 @@ class CourseListTile extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => YoutubePlayerScreen(
-                                    videoId: dept,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Text("Resources |",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
+                              child: const Text("Resources |",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              onTap: () {
+                                debugPrint(dept);
+                                if (videoList[dept]!.containsKey(
+                                    department[dept]!.keys.elementAt(index))) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => VideoPlayList(
+                                        dept: dept,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => const AlertDialog(
+                                            title: Text('Notice!'),
+                                            // icon:Text("hell"),
+                                            content: Text(
+                                                "No Resource For this course yet"),
+                                          ));
+                                }
+                              }),
                           InkWell(
                             onTap: () {
                               if (questions.containsKey(
