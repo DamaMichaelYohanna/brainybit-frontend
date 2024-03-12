@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
           title: const Text("BrainyBit"),
           centerTitle: true,
-          leading: const Icon(Icons.computer),
+          leading: const Icon(Icons.menu),
           actions: const [Icon(Icons.notifications)]),
       body: tabScreen.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
