@@ -43,7 +43,7 @@ class CourseListTile extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             '$dept Courses',
-            style: TextStyle(color: Colors.brown),
+            style: const TextStyle(color: Colors.brown),
           ),
           backgroundColor: Colors.white,
         ),
@@ -52,6 +52,7 @@ class CourseListTile extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             String courseCode = department[dept]!.keys.elementAt(index);
             String courseName = department[dept]!.values.elementAt(index);
+            print(courseCode);
             Random random = Random();
 
             return Card(
@@ -84,7 +85,8 @@ class CourseListTile extends StatelessWidget {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) => VideoPlayList(
-                                        dept: dept,
+                                        courseCode: courseCode,
+                                        courseName: courseName,
                                       ),
                                     ),
                                   );
