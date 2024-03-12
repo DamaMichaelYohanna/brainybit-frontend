@@ -7,27 +7,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   // Function to fetch user token to check if the user is logged in.
   WidgetsFlutterBinding.ensureInitialized();
-  Future<String> getUserToken() async {
+  Future<bool> getUserToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("token") ?? "";
+    String name = prefs.getString("fullName") ?? "";
+    String email = prefs.getString("email") ?? "";
+    String token = prefs.getString("token") ?? "";
+    if (token.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  var token = await getUserToken();
+  var userInfo = await getUserToken();
   runApp(MaterialApp(
       title: "BrainyBit",
       theme: ThemeData(
         primarySwatch: mine,
         //<-- SEE HERE
       ),
-      home: token.isNotEmpty ? const HomePage() : const LoginScreen()));
+      home: userInfo ? const HomePage() : const LoginScreen()));
 }
-
-// Future<bool> setUserName(String value) async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   return prefs.setString("username", value);
-// }
-
-// Future<String> getUserName(String value) async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   return prefs.getString("username");
-// }
