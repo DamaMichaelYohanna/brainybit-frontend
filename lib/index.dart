@@ -81,14 +81,14 @@ class IndexPage extends StatelessWidget {
         },
         child: Container(
           color: Colors.white10,
-          height: 150,
+          height: 200,
           padding: const EdgeInsets.all(10),
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
               Container(
                   // height: 80,
-                  width: 150,
+                  width: 200,
                   margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -96,12 +96,13 @@ class IndexPage extends StatelessWidget {
                   child: Column(
                     children: [
                       ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)),
-                          child: Image.asset("assets/images/read.jpg")),
+                          child: Image.asset("assets/images/gst.jpg")),
+                      const Divider(),
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(0.0),
                         child: Text(
                           "General Studies Courses",
                           style: TextStyle(
@@ -119,7 +120,7 @@ class IndexPage extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    width: 150,
+                    width: 200,
                     margin: const EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -127,17 +128,15 @@ class IndexPage extends StatelessWidget {
                     child: Column(
                       children: [
                         ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(5),
                                 topRight: Radius.circular(5)),
-                            child: Image.asset("assets/images/esp.jpg")),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "Entreprenuer Courses",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
+                            child: Image.asset("assets/images/esp.jpeg")),
+                        const Divider(),
+                        const Text(
+                          "Entreprenuer Courses",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         )
                       ],
                     )),
@@ -153,8 +152,7 @@ class IndexPage extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  // height: 80,
-                  width: 150,
+                  width: 200,
                   margin: EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -165,14 +163,12 @@ class IndexPage extends StatelessWidget {
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)),
-                          child: Image.asset("assets/images/cmp.jpg")),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Computer Science Courses",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
+                          child: Image.asset("assets/images/cmp.jpeg")),
+                      const Divider(),
+                      const Text(
+                        "Computer Science Courses",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
