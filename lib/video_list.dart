@@ -49,16 +49,24 @@ class VideoPlayList extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: const Text(
-              "Introduction to Computer Science",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            // child: Center(
+            //   child: Padding(
+            //     padding: EdgeInsets.all(8.0),
+            //     child: Text(
+            //       courseName,
+            //       style: const TextStyle(
+            //           fontSize: 30,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.white),
+            //     ),
+            //   ),
+            // ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
               courseName,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           const Divider(),
