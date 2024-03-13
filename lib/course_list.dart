@@ -28,111 +28,240 @@ Map<String, Map<String, String>> department = {
   },
 };
 
-class CourseListTile extends StatelessWidget {
+class CourseListTile extends StatefulWidget {
   final String dept;
+  const CourseListTile({key, required this.dept}) : super(key: key);
 
-  const CourseListTile({super.key, required this.dept});
+  @override
+  _CourseListTileState createState() => _CourseListTileState(dept: dept);
+}
+
+class _CourseListTileState extends State<CourseListTile>
+    with SingleTickerProviderStateMixin {
+  final String dept;
+  _CourseListTileState({key, required this.dept});
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 4, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List images = [
-      Image.asset("assets/images/detail.png"),
-      Image.asset("assets/images/detail1.jpg"),
-      // Image.asset("assets/images/esp.jpg")
-    ];
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '$dept Courses',
-            style: const TextStyle(color: Colors.brown),
-          ),
-          backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          '$dept Courses',
         ),
-        body: ListView.builder(
-          itemCount: department[dept]?.length,
-          itemBuilder: (BuildContext context, int index) {
-            String courseCode = department[dept]!.keys.elementAt(index);
-            String courseName = department[dept]!.values.elementAt(index);
-            print(courseCode);
-            Random random = Random();
-
-            return Card(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0)),
-              child: ListTile(
-                leading: Container(
-                  // height: 180,
-                  // width: 60,
-                  color: Colors.amber,
-                  child: images[random.nextInt(images.length)],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            // give the tab bar a height [can change hheight to preferred height]
+            Container(
+              height: 45,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(
+                  25.0,
                 ),
-                title: Text(courseCode),
-                subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(courseName),
-                      const Divider(),
-                      Row(
-                        children: [
-                          InkWell(
-                              child: const Text("Resources |",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              onTap: () {
-                                debugPrint(dept);
-                                if (videoList[dept]!.containsKey(
-                                    department[dept]!.keys.elementAt(index))) {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => VideoPlayList(
-                                        courseCode: courseCode,
-                                        courseName: courseName,
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) => const AlertDialog(
-                                            title: Text('Notice!'),
-                                            // icon:Text("hell"),
-                                            content: Text(
-                                                "No Resource For this course yet"),
-                                          ));
-                                }
-                              }),
-                          InkWell(
-                            onTap: () {
-                              if (questions.containsKey(
-                                  department[dept]!.keys.elementAt(index))) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => QuizScreen(
-                                      courseName: department[dept]!
-                                          .keys
-                                          .elementAt(index),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => const AlertDialog(
-                                          title: Text('Notice!'),
-                                          // icon:Text("hell"),
-                                          content: Text("No quiz added yet"),
-                                        ));
-                              }
-                            },
-                            child: const Text("  Quiz",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      )
-                    ]),
               ),
-            );
-          },
-        ));
+              child: TabBar(
+                controller: _tabController,
+                // give the indicator a decoration (color and border radius)
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    25.0,
+                  ),
+                  color: Colors.green,
+                ),
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                tabs: [
+                  // first tab [you can add an icon using the icon property]
+                  Tab(
+                    text: '100',
+                  ),
+
+                  // second tab [you can add an icon using the icon property]
+                  Tab(
+                    text: '200',
+                  ),
+                  Tab(
+                    text: '300',
+                  ),
+
+                  // second tab [you can add an icon using the icon property]
+                  Tab(
+                    text: '400',
+                  ),
+                ],
+              ),
+            ),
+            // tab bar view here
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  // first tab bar view widget
+                  Center(
+                    child: Text(
+                      'Place Bid',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                  // second tab bar view widget
+                  Center(
+                    child: Text(
+                      'Buy Now',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      'Buy Now',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      'Buy Now',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
+
+// class _CourseListTileState extends State<CourseListTile> {
+//   final String dept;
+//   _CourseListTileState({super.key, required this.dept});
+
+//   TabController _tabController;
+
+//   @override
+//   void initState() {
+//     _tabController = TabController(length: 2, vsync: this);
+//     super.initState();
+//   }
+
+//   @override
+//   void dispose() {
+//     super.dispose();
+//     _tabController.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     List images = [
+//       Image.asset("assets/images/detail.png"),
+//       Image.asset("assets/images/detail1.jpg"),
+//       // Image.asset("assets/images/esp.jpg")
+//     ];
+
+//     return  Scaffold(
+//       appBar: AppBar(
+//         title: Text(
+//           'Tab bar',
+//         ),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Column(
+//           children: [
+//             // give the tab bar a height [can change hheight to preferred height]
+//             Container(
+//               height: 45,
+//               decoration: BoxDecoration(
+//                 color: Colors.grey[300],
+//                 borderRadius: BorderRadius.circular(
+//                   25.0,
+//                 ),
+//               ),
+//               child: TabBar(
+//                 controller: _tabController,
+//                 // give the indicator a decoration (color and border radius)
+//                 indicator: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(
+//                     25.0,
+//                   ),
+//                   color: Colors.green,
+//                 ),
+//                 labelColor: Colors.white,
+//                 unselectedLabelColor: Colors.black,
+//                 tabs: [
+//                   // first tab [you can add an icon using the icon property]
+//                   Tab(
+//                     text: 'Place Bid',
+//                   ),
+
+//                   // second tab [you can add an icon using the icon property]
+//                   Tab(
+//                     text: 'Buy Now',
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             // tab bar view here
+//             Expanded(
+//               child: TabBarView(
+//                 controller: _tabController,
+//                 children: [
+//                   // first tab bar view widget
+//                   Center(
+//                     child: Text(
+//                       'Place Bid',
+//                       style: TextStyle(
+//                         fontSize: 25,
+//                         fontWeight: FontWeight.w600,
+//                       ),
+//                     ),
+//                   ),
+
+//                   // second tab bar view widget
+//                   Center(
+//                     child: Text(
+//                       'Buy Now',
+//                       style: TextStyle(
+//                         fontSize: 25,
+//                         fontWeight: FontWeight.w600,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
