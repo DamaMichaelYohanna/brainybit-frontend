@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'package:konnet/video_list.dart';
 import 'package:konnet/quiz.dart';
 import 'package:konnet/questions_model.dart';
@@ -184,11 +185,11 @@ class _CourseListTileState extends State<CourseListTile>
                 // give the indicator a decoration (color and border radius)
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(
-                    20.0,
+                    2.0,
                   ),
-                  color: Color.fromARGB(255, 179, 154, 145),
+                  color: Color.fromARGB(255, 247, 242, 228),
                 ),
-                labelColor: Colors.white,
+                labelColor: Colors.brown,
                 unselectedLabelColor: Colors.black,
                 tabs: department[dept]!.keys.map((String key) {
                   return Tab(text: key);
@@ -202,10 +203,88 @@ class _CourseListTileState extends State<CourseListTile>
                 children: department[dept]!.keys.map((String key) {
                   return ListView(
                     children: department[dept]![key]!.entries.map((entry) {
-                      return ListTile(
-                        title: Text(entry.key),
-                        subtitle: Text(entry.value),
-                      );
+                      return Card(
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0)),
+                          child: ListTile(
+                            leading: Container(
+                              height: 60,
+                              width: 60,
+                              padding: EdgeInsets.all(3),
+                              color: Color.fromARGB(255, 247, 242, 228),
+                              child: Icon(Icons.book),
+                            ),
+                            title: Text(entry.key),
+                            subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(entry.value),
+                                  const Divider(),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        child: const Text("Resources |",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        onTap: () {
+                                          debugPrint(dept);
+                                          if (videoList[dept]!
+                                              .containsKey(entry.key)) {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    VideoPlayList(
+                                                  courseCode: entry.key,
+                                                  courseName: entry.value,
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) =>
+                                                    const AlertDialog(
+                                                      title: Text('Notice!'),
+                                                      // icon:Text("hell"),
+                                                      content: Text(
+                                                          "No Resource For this course yet"),
+                                                    ));
+                                          }
+                                        },
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          if (questions
+                                              .containsKey(entry.key)) {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    QuizScreen(
+                                                  courseName: entry.value,
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) =>
+                                                    const AlertDialog(
+                                                      title: Text('Notice!'),
+                                                      // icon:Text("hell"),
+                                                      content: Text(
+                                                          "No quiz added yet"),
+                                                    ));
+                                          }
+                                        },
+                                        child: const Text("  Quiz",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                    ],
+                                  ),
+                                ]),
+                          ));
                     }).toList(),
                   );
                 }).toList(),
