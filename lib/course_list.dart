@@ -37,69 +37,6 @@ Map<String, Map<String, Map<String, String>>> department = {
     }
   },
 };
-// Row(
-//   children: [
-//     InkWell(
-//       child: const Text("Resources |",
-//           style: TextStyle(
-//               fontWeight: FontWeight.bold)),
-//       onTap: () {
-//         debugPrint(dept);
-//         if (videoList[dept]!
-//             .containsKey(entry.key)) {
-//           Navigator.of(context).push(
-//             MaterialPageRoute(
-//               builder: (context) =>
-//                   VideoPlayList(
-//                 courseCode: entry.key,
-//                 courseName: entry.value,
-//               ),
-//             ),
-//           );
-//         } else {
-//           showDialog(
-//               context: context,
-//               builder: (_) =>
-//                   const AlertDialog(
-//                     title: Text('Notice!'),
-//                     // icon:Text("hell"),
-//                     content: Text(
-//                         "No Resource For this course yet oh"),
-//                   ));
-//         }
-//       },
-//     ),
-//     InkWell(
-//       onTap: () {
-//         print(entry.value);
-//         if (questions
-//             .containsKey(entry.key)) {
-//           Navigator.of(context).push(
-//             MaterialPageRoute(
-//               builder: (context) =>
-//                   QuizScreen(
-//                 courseName: entry.key,
-//               ),
-//             ),
-//           );
-//         } else {
-//           showDialog(
-//               context: context,
-//               builder: (_) =>
-//                   const AlertDialog(
-//                     title: Text('Notice!'),
-//                     // icon:Text("hell"),
-//                     content: Text(
-//                         "No quiz added yet"),
-//                   ));
-//         }
-//       },
-//       child: const Text("  Quiz",
-//           style: TextStyle(
-//               fontWeight: FontWeight.bold)),
-//     ),
-//   ],
-// ),
 
 class CourseListTile extends StatefulWidget {
   final String dept;
