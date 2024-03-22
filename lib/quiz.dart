@@ -49,20 +49,29 @@ class _QuizScreenState extends State<QuizScreen> {
   bool play(String? selectedOption, String? correctOption) {
     if (selectedOption != null && correctOption != null) {
       bool correct = grade(selectedOption, correctOption);
-      setState(
-        () {
-          _questionIndex += 1;
-          _currentSliderValue += 1;
-        },
-      );
+      if (_questionIndex >= filteredQuestions.length - 1) {
+        
+        print("Out of bound");
+      } else {
+        setState(
+          () {
+            _questionIndex += 1;
+            _currentSliderValue += 1;
+            print("here we go");
+            print(_questionIndex);
+            print(_currentSliderValue);
+          },
+        );
+      }
+
       return correct;
     } else {
-      setState(
-        () {
-          _questionIndex += 1;
-          _currentSliderValue += 1;
-        },
-      );
+      // setState(
+      //   () {
+      //     _questionIndex += 1;
+      //     _currentSliderValue += 1;
+      //   },
+      // );
       return false;
     }
   }
@@ -84,17 +93,17 @@ class _QuizScreenState extends State<QuizScreen> {
             padding: const EdgeInsets.all(10),
             child: Row(
               children: [
-                Expanded(
-                  child: Slider(
-                      activeColor: Colors.brown,
-                      thumbColor: mine.shade100,
-                      value: _currentSliderValue,
-                      max: filteredQuestions.length.toDouble(),
-                      // divisions: 46,
-                      onChanged: (double value) {
-                        sliderUpdate(value);
-                      }),
-                ),
+                // Expanded(
+                //   child: Slider(
+                //       activeColor: Colors.brown,
+                //       thumbColor: mine.shade100,
+                //       value: _currentSliderValue,
+                //       max: filteredQuestions.length.toDouble(),
+                //       // divisions: 46,
+                //       onChanged: (double value) {
+                //         sliderUpdate(value);
+                //       }),
+                // ),
                 ElevatedButton(
                   onPressed: () {
                     reset();
