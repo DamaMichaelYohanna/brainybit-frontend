@@ -4,7 +4,9 @@ Map<String, String> courseDetail = {
   "CMP 211":
       "This is an introductory course into programming using Java Programming lanaguage",
   "CMP 224": "INFO COMING SOON",
-  "CMP 213": "This course is about electronic circuitry."
+  "CMP 213": "This course is about electronic circuitry.",
+  "ESP 221":
+      "This course is an introduction into business operation registeration among others things. "
 };
 
 // class SettingsScreen extends StatelessWidget {
