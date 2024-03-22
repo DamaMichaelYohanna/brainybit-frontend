@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/course_list.dart';
+import 'package:konnet/todo/todo_list.dart';
 import 'colorScheme.dart';
 
 class IndexPage extends StatelessWidget {
@@ -21,46 +22,52 @@ class IndexPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Text("We are glad to Have you!"),
       ),
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: mine.shade200, borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          children: [
-            Container(
-                padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                child: SizedBox(
-                  height: 40,
-                  child: Image.asset(
-                    "assets/images/check.png",
+      InkWell(
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => TodoListPage()));
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: mine.shade200, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            children: [
+              Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
                   ),
-                )),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 5.0),
-                    child: Text(
-                      "Task For Today 🔥",
-                      style: TextStyle(fontSize: 20),
+                  child: SizedBox(
+                    height: 40,
+                    child: Image.asset(
+                      "assets/images/check.png",
                     ),
-                  ),
-                  // Divider(),
-                  Text(
-                    "See if you have planned goal for today",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ],
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: Text(
+                        "Task For Today 🔥",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    // Divider(),
+                    Text(
+                      "See if you have planned goal for today",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       const Divider(),
