@@ -13,26 +13,33 @@ class VideoPlayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, Map<String, String>>? filteredDetails =
+        videoList[courseCode.substring(0, 3)];
+    print(filteredDetails);
+
     List<Widget> _buildListItems() {
       List<Widget> listItems = [];
-      int counter = 1;
-      for (var videoDetails
-          in videoList[courseCode.substring(0, 3)]![courseCode]!.entries) {
-        listItems.add(
-          Card(
-            child: ListTile(
-              title: Text("Lession $counter"),
-              subtitle: Text("$videoDetails.value"),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => YoutubePlayerScreen(
-                          videoId: "$videoDetails.key",
-                        )));
-              },
+      if (filteredDetails == null) {
+      } else {
+        int counter = 1;
+        for (var videoDetails
+            in videoList[courseCode.substring(0, 3)]![courseCode]!.entries) {
+          listItems.add(
+            Card(
+              child: ListTile(
+                title: Text("Lession $counter"),
+                subtitle: Text("$videoDetails.value"),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => YoutubePlayerScreen(
+                            videoId: "$videoDetails.key",
+                          )));
+                },
+              ),
             ),
-          ),
-        );
-        counter += 1;
+          );
+          counter += 1;
+        }
       }
       return listItems;
     }
