@@ -248,20 +248,21 @@ class _CourseListTileState extends State<CourseListTile>
                                                       title: Text('Notice!'),
                                                       // icon:Text("hell"),
                                                       content: Text(
-                                                          "No Resource For this course yet"),
+                                                          "No Resource For this course yet oh"),
                                                     ));
                                           }
                                         },
                                       ),
                                       InkWell(
                                         onTap: () {
+                                          print(entry.value);
                                           if (questions
                                               .containsKey(entry.key)) {
                                             Navigator.of(context).push(
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     QuizScreen(
-                                                  courseName: entry.value,
+                                                  courseName: entry.key,
                                                 ),
                                               ),
                                             );
