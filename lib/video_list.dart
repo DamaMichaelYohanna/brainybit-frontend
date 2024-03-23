@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/questions_model.dart';
+import 'package:konnet/quiz.dart';
 import 'package:konnet/video_player.dart';
 import 'package:konnet/video_model.dart';
 import 'package:konnet/course_detail.dart';
@@ -20,11 +22,11 @@ class VideoPlayList extends StatelessWidget {
           Card(
             child: ListTile(
               title: Text("Lession $counter"),
-              subtitle: Text("${videoDetails.value}"),
+              subtitle: Text("$videoDetails.value"),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => YoutubePlayerScreen(
-                          videoId: "${videoDetails.key}",
+                          videoId: "$videoDetails.key",
                         )));
               },
             ),
@@ -49,18 +51,6 @@ class VideoPlayList extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            // child: Center(
-            //   child: Padding(
-            //     padding: EdgeInsets.all(8.0),
-            //     child: Text(
-            //       courseName,
-            //       style: const TextStyle(
-            //           fontSize: 30,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.white),
-            //     ),
-            //   ),
-            // ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -85,11 +75,21 @@ class VideoPlayList extends StatelessWidget {
           Column(
             children: _buildListItems(),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
             child: ElevatedButton(
-              onPressed: null,
-              child: Text("Download Study Materials"),
+              onPressed: questions.containsKey(courseCode)
+                  ? () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => QuizScreen(
+                            courseName: courseCode,
+                          ),
+                        ),
+                      );
+                    }
+                  : null,
+              child: Text("Take Quiz"),
             ),
           ),
           const Padding(
