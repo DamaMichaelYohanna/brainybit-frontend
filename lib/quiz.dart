@@ -19,10 +19,13 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() {
       _questionIndex = 0;
       _currentSliderValue = 1;
+      score = 0;
     });
   }
 
+// filter/narrow down te question map
   late List<Map<String, dynamic>> filteredQuestions = questions[courseName]!;
+// Call back function for grading.
   bool grade(selectedOption, correctOption) {
     int position =
         filteredQuestions[_questionIndex]["answers"].indexOf(selectedOption);
@@ -49,17 +52,31 @@ class _QuizScreenState extends State<QuizScreen> {
   bool play(String? selectedOption, String? correctOption) {
     if (selectedOption != null && correctOption != null) {
       bool correct = grade(selectedOption, correctOption);
+      if (correct == true) {
+        score += 1;
+      }
       if (_questionIndex >= filteredQuestions.length - 1) {
-        
-        print("Out of bound");
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text('Well done!'),
+            // icon:Text("hell"),
+            content: Text(
+                " You have exhausted the question with a total score of $score / ${filteredQuestions.length}"),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(context);
+                  },
+                  child: Text("Close"))
+            ],
+          ),
+        );
       } else {
         setState(
           () {
             _questionIndex += 1;
             _currentSliderValue += 1;
-            print("here we go");
-            print(_questionIndex);
-            print(_currentSliderValue);
           },
         );
       }
@@ -78,13 +95,14 @@ class _QuizScreenState extends State<QuizScreen> {
 
   int _questionIndex = 0;
   double _currentSliderValue = 1;
+  int score = 0;
   Color normalColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Quiz Section"),
+        title: Text("$courseName Quiz"),
         backgroundColor: Colors.white,
       ),
       body: ListView(
