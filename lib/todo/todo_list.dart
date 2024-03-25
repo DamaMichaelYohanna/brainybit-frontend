@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 Map<String, List> tasks = {
-  "yesterday": ["hello", "hi", "come"],
+  "yesterday": [
+    "Hello, Am coming to your house later.",
+    "Hi, dear it was all a prank",
+    "Come let's go for and outing in my fathers farm and check out some stuff there for recreation and study"
+  ],
   "today": ["Go to school", "Goto shop", "Finally go to church"],
   "Tomorrow": ["orientation", "Code a little", "All good"]
 };
@@ -18,6 +22,9 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  bool? isSelected = false;
+  Map<String, bool> checkboxStates =
+      {}; // Map to hold checkbox state for each task
 
   @override
   void initState() {
@@ -73,47 +80,46 @@ class _TodoListPageState extends State<TodoListPage>
               labelColor: Colors.brown,
               unselectedLabelColor: Colors.black,
 
-              tabs: const [
-                Tab(
-                  text: "Yesterday",
-                ),
-                Tab(text: "Today"),
-                Tab(text: "Tomorrow"),
-              ],
+              tabs: tasks.keys.map((title) => Tab(text: title)).toList(),
             ),
           ),
+          //
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.all(10),
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.amber,
+              children: tasks.keys.map((mapKey) {
+                return ListView.builder(
+                  itemCount: tasks[mapKey]!.length,
+                  itemBuilder: (context, index) {
+                    String saga = tasks[mapKey]![index];
+                    return ListTile(
+                      title: Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 223, 220, 212),
+                            borderRadius: BorderRadius.circular(5)),
+                        padding: EdgeInsets.only(top: 6, left: 12, bottom: 6),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(tasks[mapKey]![index]),
+                              Checkbox(
+                                  activeColor: Colors.white,
+                                  checkColor: Colors.brown,
+                                  value: checkboxStates[saga] ?? false,
+                                  onChanged: (value) {
+                                    print(saga);
+                                    setState(() {
+                                      checkboxStates[saga] = value ?? false;
+                                    });
+                                  })
+                            ]),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Hellow from some text",
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          Checkbox(value: true, onChanged: null)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Text("hello 2"),
-                Text("hello 3")
-              ],
+                    );
+                  },
+                );
+              }).toList(),
             ),
-          )
+          ),
           // tab bar view here
           // Expanded(
           //   child: TabBarView(
