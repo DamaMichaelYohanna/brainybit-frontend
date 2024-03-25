@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+Map<String, List> tasks = {
+  "yesterday": ["hello", "hi", "come"],
+  "today": ["Go to school", "Goto shop", "Finally go to church"],
+  "Tomorrow": ["orientation", "Code a little", "All good"]
+};
+
 class TodoListPage extends StatefulWidget {
   const TodoListPage({key});
 
@@ -74,11 +80,40 @@ class _TodoListPageState extends State<TodoListPage>
                 Tab(text: "Today"),
                 Tab(text: "Tomorrow"),
               ],
-              // tabs: department[dept]!.keys.map((String key) {
-              //   return Tab(text: key);
-              // }).toList(),
             ),
           ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.amber,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            "Hellow from some text",
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          Checkbox(value: true, onChanged: null)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Text("hello 2"),
+                Text("hello 3")
+              ],
+            ),
+          )
           // tab bar view here
           // Expanded(
           //   child: TabBarView(
