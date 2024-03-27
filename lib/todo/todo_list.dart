@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'add_task.dart';
+
 Map<String, List> tasks = {
   "yesterday": [
     "Hello, Am coming to your house later.",
@@ -95,13 +97,18 @@ class _TodoListPageState extends State<TodoListPage>
                     return ListTile(
                       title: Container(
                         decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 223, 220, 212),
+                            color: Color.fromARGB(255, 240, 192, 49),
                             borderRadius: BorderRadius.circular(5)),
-                        padding: EdgeInsets.only(top: 6, left: 12, bottom: 6),
+                        padding: EdgeInsets.only(top: 10, left: 12, bottom: 10),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(tasks[mapKey]![index]),
+                              Expanded(
+                                child: Text(
+                                  tasks[mapKey]![index],
+                                  // overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                               Checkbox(
                                   activeColor: Colors.white,
                                   checkColor: Colors.brown,
@@ -120,79 +127,14 @@ class _TodoListPageState extends State<TodoListPage>
               }).toList(),
             ),
           ),
-          // tab bar view here
-          // Expanded(
-          //   child: TabBarView(
-          //     controller: _tabController,
-          //     children: department[dept]!.keys.map((String key) {
-          //       return Lis  tView(
-          //         children: department[dept]![key]!.entries.map((entry) {
-          //           return InkWell(
-          //             onTap: () {
-          //               Navigator.of(context).push(
-          //                 MaterialPageRoute(
-          //                   builder: (context) => VideoPlayList(
-          //                     courseCode: entry.key,
-          //                     courseName: entry.value,
-          //                   ),
-          //                 ),
-          //               );
-          //             },
-          //             child: Card(
-          //                 color: const Color.fromARGB(255, 255, 255, 255),
-          //                 shape: RoundedRectangleBorder(
-          //                     borderRadius: BorderRadius.circular(0)),
-          //                 child: ListTile(
-          //                     leading: Container(
-          //                       height: 60,
-          //                       width: 60,
-          //                       padding: EdgeInsets.all(3),
-          //                       color: Color.fromARGB(255, 247, 242, 228),
-          //                       child: Icon(Icons.book),
-          //                     ),
-          //                     title: Text(entry.key),
-          //                     subtitle: Text(entry.value))),
-          //           );
-          //         }).toList(),
-          //       );
-          //     }).toList(),
-          //   ),
-          // ),
         ],
       ),
-
-      //     // Row(
-      //     //   children: const [
-      //     //     ElevatedButton(
-      //     //       onPressed: null,
-      //     //       child: Text("1"),
-      //     //     ),
-      //     //     ElevatedButton(
-      //     //       onPressed: null,
-      //     //       child: Text("2"),
-      //     //     ),
-      //     //     ElevatedButton(
-      //     //       onPressed: null,
-      //     //       child: Text("3"),
-      //     //     ),
-      //     //     ElevatedButton(
-      //     //       onPressed: null,
-      //     //       child: Text("4"),
-      //     //     ),
-      //     //     ElevatedButton(
-      //     //       onPressed: null,
-      //     //       child: Text("5"),
-      //     //     ),
-      //     //     ElevatedButton(
-      //     //       onPressed: null,
-      //     //       child: Text("6"),
-      //     //     )
-      //     //   ],
-      //     // )
-      //   ],
-      // ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: null, child: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => AddTask()));
+          },
+          child: Icon(Icons.add)),
     );
   }
 }
