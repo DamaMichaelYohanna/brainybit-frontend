@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'add_task.dart';
+import 'package:konnet/utility.dart';
+
+DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 Map<String, List> tasks = {
   "yesterday": [
@@ -48,7 +50,16 @@ class _TodoListPageState extends State<TodoListPage>
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 1,
-        actions: const [Icon(Icons.delete)],
+        actions: [
+          IconButton(
+              onPressed: () {
+                databaseHelper.deleteAll();
+              },
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.brown,
+              ))
+        ],
       ),
       body: Column(
         children: [
