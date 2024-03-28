@@ -37,8 +37,6 @@ class _AddTaskState extends State<AddTask> {
         'title': task,
         'date': date,
       });
-      List<Map<String, dynamic>> value = await databaseHelper.queryAllRows();
-      print(value);
       setState(() {
         taskControl.text = "";
         dateControl.text = "";
