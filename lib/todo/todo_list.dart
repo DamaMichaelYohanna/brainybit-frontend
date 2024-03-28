@@ -48,6 +48,7 @@ class _TodoListPageState extends State<TodoListPage>
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 1,
+        actions: const [Icon(Icons.delete)],
       ),
       body: Column(
         children: [
