@@ -54,6 +54,11 @@ class DatabaseHelper {
     int id = row['id'];
     return await db.update('Task', row, where: 'id = ?', whereArgs: [id]);
   }
+
+  Future<int> deleteAll() async {
+    Database db = await instance.database;
+    return await db.delete('Task');
+  }
 }
 
 void main() async {
