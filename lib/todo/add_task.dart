@@ -31,18 +31,19 @@ class _AddTaskState extends State<AddTask> {
   void submitTask() async {
     String task = taskControl.text;
     String date = dateControl.text;
-    print(task);
-    print(date);
-    await databaseHelper.insert({
-      'title': 'Task 1',
-      'date': '3/28/2024',
-    });
-    List<Map<String, dynamic>> value = await databaseHelper.queryAllRows();
-    print(value);
-    setState(() {
-      taskControl.text = "$value";
-      dateControl.text = "";
-    });
+    // if the input field are not empty, populate the data
+    if (task.isNotEmpty && date.isNotEmpty) {
+      await databaseHelper.insert({
+        'title': task,
+        'date': date,
+      });
+      List<Map<String, dynamic>> value = await databaseHelper.queryAllRows();
+      print(value);
+      setState(() {
+        taskControl.text = "";
+        dateControl.text = "";
+      });
+    }
   }
 
   @override
