@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/utility.dart';
+
+DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class AddTask extends StatefulWidget {
   @override
@@ -25,20 +28,37 @@ class _AddTaskState extends State<AddTask> {
     }
   }
 
+  void submitTask() async {
+    String task = taskControl.text;
+    String date = dateControl.text;
+    print(task);
+    print(date);
+    await databaseHelper.insert({
+      'title': 'Task 1',
+      'date': '3/28/2024',
+    });
+    List<Map<String, dynamic>> value = await databaseHelper.queryAllRows();
+    print(value);
+    setState(() {
+      taskControl.text = "$value";
+      dateControl.text = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Image.asset("assets/images/task.jpg"),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: taskControl,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: "Enter Task Here", border: OutlineInputBorder()),
             ),
           ),
@@ -46,16 +66,16 @@ class _AddTaskState extends State<AddTask> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: dateControl,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: "Select Date", border: OutlineInputBorder()),
               onTap: () => _selectDate(context),
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: ElevatedButton(
-              onPressed: () {},
-              child: Text("Save Task "),
+              onPressed: submitTask,
+              child: const Text("Save Task "),
             ),
           )
         ],
