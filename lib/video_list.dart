@@ -28,11 +28,11 @@ class VideoPlayList extends StatelessWidget {
             Card(
               child: ListTile(
                 title: Text("Lession $counter"),
-                subtitle: Text("$videoDetails.value"),
+                subtitle: Text("${videoDetails.value}"),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => YoutubePlayerScreen(
-                            videoId: "$videoDetails.key",
+                            videoId: "${videoDetails.key}",
                           )));
                 },
               ),
