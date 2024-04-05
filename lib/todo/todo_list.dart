@@ -4,6 +4,74 @@ import 'package:konnet/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
+class SwipeListTile extends StatelessWidget {
+  final Map object;
+  final Function onDelete;
+  final Function onEdit;
+
+  const SwipeListTile({
+    required this.object,
+    required this.onDelete,
+    required this.onEdit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+      key: Key(object["title"]),
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Icon(Icons.delete, color: Colors.white),
+      ),
+      secondaryBackground: Container(
+        color: Colors.blue,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Icon(Icons.edit, color: Colors.white),
+      ),
+      confirmDismiss: (direction) async {
+        if (direction == DismissDirection.startToEnd) {
+          // Delete action
+          databaseHelper.delete(object['id']);
+        } else if (direction == DismissDirection.endToStart) {
+          // Edit action
+          return await onEdit();
+        }
+        return false;
+      },
+      child: Container(
+        color: Color.fromARGB(255, 241, 239, 232),
+        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: ListTile(
+            title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "${object["title"]}",
+                      // overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Checkbox(
+                      activeColor: Colors.white,
+                      checkColor: Colors.brown,
+                      value: object["status"] == 0 ? false : true,
+                      onChanged: (value) {
+                        if (value == true) {
+                          databaseHelper.update({"status": 1}, object["id"]);
+                        } else {
+                          databaseHelper.update({"status": 0}, object["id"]);
+                        }
+                      })
+                ]),
+            subtitle: Text(object['date'])),
+      ),
+    );
+  }
+}
+
 class TodoListPage extends StatefulWidget {
   const TodoListPage({key});
 
@@ -80,39 +148,46 @@ class _TodoListPageState extends State<TodoListPage>
               itemCount: taskList.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> object = taskList[index];
-                return ListTile(
-                  title: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 241, 239, 232),
-                        borderRadius: BorderRadius.circular(5)),
-                    padding: EdgeInsets.only(top: 10, left: 12, bottom: 10),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${object["title"]}",
-                              // overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Checkbox(
-                              activeColor: Colors.white,
-                              checkColor: Colors.brown,
-                              value: object["status"] == 0 ? false : true,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (value == true) {
-                                    databaseHelper
-                                        .update({"status": 1}, object["id"]);
-                                  } else {
-                                    databaseHelper
-                                        .update({"status": 0}, object["id"]);
-                                  }
-                                });
-                              })
-                        ]),
-                  ),
-                );
+                return SwipeListTile(
+                    object: object, onDelete: () {}, onEdit: () {});
+                // return InkWell(
+                //   onLongPress: () {
+                //     databaseHelper.delete(object['id']);
+                //   },
+                //   child: ListTile(
+                //     title: Container(
+                //       decoration: BoxDecoration(
+                //           color: Color.fromARGB(255, 241, 239, 232),
+                //           borderRadius: BorderRadius.circular(5)),
+                //       padding: EdgeInsets.only(top: 10, left: 12, bottom: 10),
+                //       child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Expanded(
+                //               child: Text(
+                //                 "${object["title"]}",
+                //                 // overflow: TextOverflow.ellipsis,
+                //               ),
+                //             ),
+                //             Checkbox(
+                //                 activeColor: Colors.white,
+                //                 checkColor: Colors.brown,
+                //                 value: object["status"] == 0 ? false : true,
+                //                 onChanged: (value) {
+                //                   setState(() {
+                //                     if (value == true) {
+                //                       databaseHelper
+                //                           .update({"status": 1}, object["id"]);
+                //                     } else {
+                //                       databaseHelper
+                //                           .update({"status": 0}, object["id"]);
+                //                     }
+                //                   });
+                //                 })
+                //           ]),
+                //     ),
+                //   ),
+                // );
               },
             ),
           ),
