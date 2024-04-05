@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
-
-void populateDb() {}
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -29,7 +26,8 @@ class DatabaseHelper {
       CREATE TABLE Task (
         id INTEGER PRIMARY KEY,
         title TEXT,
-        date TEXT
+        date TEXT,
+        status INTEGER
       )
     ''');
   }
@@ -49,28 +47,15 @@ class DatabaseHelper {
     return await db.query('Task');
   }
 
-  Future<int> update(Map<String, dynamic> row) async {
+  Future<int> update(Map<String, dynamic> row, int id) async {
     Database db = await instance.database;
-    int id = row['id'];
-    return await db.update('Task', row, where: 'id = ?', whereArgs: [id]);
+    int newStatus = row['status'];
+    return await db
+        .rawUpdate("UPDATE Task SET status = ? WHERE id = ?", [newStatus, id]);
   }
 
   Future<int> deleteAll() async {
     Database db = await instance.database;
     return await db.delete('Task');
   }
-}
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  DatabaseHelper databaseHelper = DatabaseHelper.instance;
-
-  // Example of inserting data
-  await databaseHelper.insert({
-    'name': 'Task 1',
-    'description': 'Description of Task 1',
-  });
-
-  // Example of deleting data
-  await databaseHelper.delete(1);
 }
