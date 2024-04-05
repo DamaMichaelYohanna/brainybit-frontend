@@ -22,16 +22,6 @@ class _TodoListPageState extends State<TodoListPage>
       {}; // Map to hold checkbox state for each task
   List<Map<String, dynamic>> taskList = [];
 
-  void updateStatus(bool? value, Map object) async {
-    if (value == true) {
-      await databaseHelper.update({"status": 0}, object["id"]);
-      print("updated now");
-    } else {
-      await databaseHelper.update({"status": 1}, object["id"]);
-      print("updated now too");
-    }
-  }
-
   void fetch() async {
     // Await the result of the asynchronous database query
 
@@ -110,12 +100,14 @@ class _TodoListPageState extends State<TodoListPage>
                               checkColor: Colors.brown,
                               value: object["status"] == 0 ? false : true,
                               onChanged: (value) {
-                                print(object);
-                                print(value);
-
                                 setState(() {
-                                  updateStatus(value, object);
-                                  // databaseHelper.delete(object['id']);
+                                  if (value == true) {
+                                    databaseHelper
+                                        .update({"status": 1}, object["id"]);
+                                  } else {
+                                    databaseHelper
+                                        .update({"status": 0}, object["id"]);
+                                  }
                                 });
                               })
                         ]),
