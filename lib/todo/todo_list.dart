@@ -4,16 +4,6 @@ import 'package:konnet/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
-Map<String, List> tasks = {
-  "yesterday": [
-    "Hello, Am coming to your house later.",
-    "Hi, dear it was all a prank",
-    "Come let's go for and outing in my fathers farm and check out some stuff there for recreation and study"
-  ],
-  "today": ["Go to school", "Goto shop", "Finally go to church"],
-  "Tomorrow": ["orientation", "Code a little", "All good"],
-};
-
 class TodoListPage extends StatefulWidget {
   const TodoListPage({key});
 
@@ -26,17 +16,28 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
   bool? isSelected = false;
-  Map<String, bool> checkboxStates =
+  Map<int, bool> checkboxStates =
       {}; // Map to hold checkbox state for each task
   List<Map<String, dynamic>> taskList = [];
+
+  void updateStatus(bool? value, Map object) async {
+    if (value == true) {
+      await databaseHelper.update({"status": 0}, object["id"]);
+      print("updated now");
+    } else {
+      await databaseHelper.update({"status": 1}, object["id"]);
+      print("updated now too");
+    }
+  }
 
   void fetch() async {
     // Await the result of the asynchronous database query
 
     await databaseHelper.queryAllRows().then((value) => {
           taskList = value,
-          print(value),
+          // print(value),
           if (mounted)
             {
               setState(() {
@@ -48,6 +49,7 @@ class _TodoListPageState extends State<TodoListPage>
 
   @override
   void initState() {
+    fetch();
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
@@ -61,55 +63,68 @@ class _TodoListPageState extends State<TodoListPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Tasks"),
-        centerTitle: true,
+        leading: const Icon(
+          Icons.abc,
+          color: Colors.white,
+        ),
         backgroundColor: Colors.white,
-        elevation: 1,
-        actions: [
-          IconButton(
-              onPressed: () {
-                databaseHelper.deleteAll();
-              },
-              icon: const Icon(
-                Icons.delete,
-                color: Colors.brown,
-              ))
-        ],
+        elevation: 0,
       ),
-      body: ListView.builder(
-        itemCount: taskList.length,
-        itemBuilder: (context, index) {
-          Map<String, dynamic> saga = taskList[index];
-          return ListTile(
-            title: Container(
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 240, 192, 49),
-                  borderRadius: BorderRadius.circular(5)),
-              padding: EdgeInsets.only(top: 10, left: 12, bottom: 10),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        "${saga["title"]}",
-                        // overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Checkbox(
-                        activeColor: Colors.white,
-                        checkColor: Colors.brown,
-                        value: checkboxStates[saga] ?? false,
-                        onChanged: (value) {
-                          print(saga);
-                          setState(() {
-                            checkboxStates[saga["title"]] = value ?? false;
-                          });
-                        })
-                  ]),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Text(
+              "Task",
+              style: TextStyle(
+                fontSize: 40,
+                color: Colors.brown,
+              ),
             ),
-          );
-        },
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: taskList.length,
+              itemBuilder: (context, index) {
+                Map<String, dynamic> object = taskList[index];
+                return ListTile(
+                  title: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 241, 239, 232),
+                        borderRadius: BorderRadius.circular(5)),
+                    padding: EdgeInsets.only(top: 10, left: 12, bottom: 10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${object["title"]}",
+                              // overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Checkbox(
+                              activeColor: Colors.white,
+                              checkColor: Colors.brown,
+                              value: object["status"] == 0 ? false : true,
+                              onChanged: (value) {
+                                print(object);
+                                print(value);
+
+                                setState(() {
+                                  updateStatus(value, object);
+                                  // databaseHelper.delete(object['id']);
+                                });
+                              })
+                        ]),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
