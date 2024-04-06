@@ -26,7 +26,7 @@ class DatabaseHelper {
       CREATE TABLE Task (
         id INTEGER PRIMARY KEY,
         title TEXT,
-        date TEXT,
+        time TEXT,
         status INTEGER
       )
     ''');
@@ -34,6 +34,7 @@ class DatabaseHelper {
 
   Future<int> insert(Map<String, dynamic> row) async {
     Database db = await instance.database;
+    print(row);
     return await db.insert('Task', row);
   }
 
@@ -44,7 +45,7 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database db = await instance.database;
-    return await db.query('Task');
+    return await db.query('Task', orderBy: 'time');
   }
 
   Future<int> update(Map<String, dynamic> row, int id) async {
