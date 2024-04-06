@@ -9,31 +9,30 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  DateTime? selectedDate;
+  // TimeOfDay? selectedDate;
   final taskControl = TextEditingController();
-  final dateControl = TextEditingController();
+  final timeControl = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    TimeOfDay? picked = await showTimePicker(
+      helpText: "Elapse Time",
+      initialTime: TimeOfDay.now(),
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2024),
-      lastDate: DateTime(2100),
     );
-    if (picked != null && picked != selectedDate) {
+    if (picked != null) {
       setState(() {
-        selectedDate = picked;
-        dateControl.text = "${picked.day}/${picked.month}/${picked.year}";
+        // selectedDate = picked.format(context);
+        timeControl.text = picked.format(context);
       });
     }
   }
 
   void submitTask() async {
     String task = taskControl.text;
-    String date = dateControl.text;
+    String time = timeControl.text;
     // if the input field are not empty, populate the data
-    if (task.isNotEmpty && date.isNotEmpty) {
-      await databaseHelper.insert({'title': task, 'date': date, 'status': 0});
+    if (task.isNotEmpty && time.isNotEmpty) {
+      await databaseHelper.insert({'title': task, 'time': time, 'status': 0});
       showDialog(
           context: context,
           builder: (_) => const AlertDialog(
@@ -43,7 +42,7 @@ class _AddTaskState extends State<AddTask> {
               ));
       setState(() {
         taskControl.text = "";
-        dateControl.text = "";
+        timeControl.text = "";
       });
     }
   }
@@ -75,9 +74,9 @@ class _AddTaskState extends State<AddTask> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
             child: TextField(
-              controller: dateControl,
+              controller: timeControl,
               decoration: const InputDecoration(
-                hintText: "Select Time",
+                hintText: "Elapse Time",
               ),
               onTap: () => _selectDate(context),
             ),
