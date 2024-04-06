@@ -66,7 +66,7 @@ class SwipeListTile extends StatelessWidget {
                         }
                       })
                 ]),
-            subtitle: Text(object['date'])),
+            subtitle: Text("${object['time']}")),
       ),
     );
   }
