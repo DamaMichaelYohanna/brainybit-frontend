@@ -36,7 +36,10 @@ Map<String, Map<String, Map<String, String>>> department = {
       "CMP 211": "Introduction to Programming I",
       "CMP 212": "introduction to Low Level Programming.",
       "CMP 213": "Digital Electronics",
-      "CMP 224": "Introduction to web design II"
+      "CMP 214": "Introduction to Data Structure.",
+      "CMP 215": "System Analysis and design",
+      "CMP 224": "Introduction to web design II",
+      // "CMP "
     }
   },
 };
