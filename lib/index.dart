@@ -78,23 +78,56 @@ class IndexPage extends StatelessWidget {
           style: TextStyle(fontSize: 12),
         ),
       ),
-      InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const CourseListTile(dept: "GST"),
+      Container(
+        color: Colors.white10,
+        height: 200,
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CourseListTile(dept: "GST"),
+                  ),
+                );
+              },
+              child: Container(
+                width: 200,
+                margin: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)),
+                child: Column(
+                  children: [
+                    ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(5),
+                            topRight: Radius.circular(5)),
+                        child: Image.asset("assets/images/gst.jpg")),
+                    const Divider(),
+                    const Padding(
+                      padding: EdgeInsets.all(0.0),
+                      child: Text(
+                        "General Studies Courses",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          );
-        },
-        child: Container(
-          color: Colors.white10,
-          height: 200,
-          padding: const EdgeInsets.all(10),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              Container(
-                  // height: 80,
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CourseListTile(dept: "ESP"),
+                  ),
+                );
+              },
+              child: Container(
                   width: 200,
                   margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
@@ -106,85 +139,147 @@ class IndexPage extends StatelessWidget {
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)),
-                          child: Image.asset("assets/images/gst.jpg")),
-                      const Divider(),
-                      const Padding(
-                        padding: EdgeInsets.all(0.0),
-                        child: Text(
-                          "General Studies Courses",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  )),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const CourseListTile(dept: "ESP"),
-                    ),
-                  );
-                },
-                child: Container(
-                    width: 200,
-                    margin: const EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5)),
-                            child: Image.asset("assets/images/esp.jpeg")),
-                        const Divider(),
-                        const Text(
-                          "Entreprenuer Courses",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    )),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const CourseListTile(
-                        dept: "CMP",
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: 200,
-                  margin: EdgeInsets.only(right: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)),
-                          child: Image.asset("assets/images/cmp.jpeg")),
+                          child: Image.asset("assets/images/esp.jpeg")),
                       const Divider(),
                       const Text(
-                        "Computer Science Courses",
+                        "Entreprenuer Courses",
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       )
                     ],
+                  )),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CourseListTile(
+                      dept: "CMP",
+                    ),
                   ),
+                );
+              },
+              child: Container(
+                width: 200,
+                margin: EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)),
+                child: Column(
+                  children: [
+                    ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(5),
+                            topRight: Radius.circular(5)),
+                        child: Image.asset("assets/images/cmp.jpeg")),
+                    const Divider(),
+                    const Text(
+                      "Computer Science Courses",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      Container(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 130,
+                width: 100,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 231, 231, 230),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Text("📓"),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "Notes",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    // Divider(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text("See your Saved Notes",
+                          style: TextStyle(fontSize: 12)),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 130,
+                width: 100,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 231, 231, 230),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Text("📅"),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "Calender",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text("Programmes and date",
+                          style: TextStyle(fontSize: 12)),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 125,
+                width: 100,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 231, 231, 230),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    CircleAvatar(
+                      child: Text("🌍"),
+                      backgroundColor: Colors.white,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "Map",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: Text("Locate places in school",
+                          style: TextStyle(fontSize: 12)),
+                    )
+                  ],
                 ),
               ),
             ],
-          ),
-        ),
-      ),
+          ))
     ]);
   }
 }
