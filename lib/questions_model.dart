@@ -984,4 +984,273 @@ const Map<String, List<Map<String, dynamic>>> questions = {
       "correct": "A"
     },
   ],
+  // question section for cmp 112
+  // ---------------------------
+  // ---------------------------
+  "CMP 112": [
+    {
+      'questionText': '______ is the storage space in the computer',
+      'answers': [
+        'Memory Card',
+        'Flash',
+        'Computer Memory',
+        'None of the above',
+      ],
+      "correct": "C"
+    },
+    {
+      'questionText': 'The catory of computer memory are?',
+      'answers': [
+        'Primary & Secondary',
+        'New and old',
+        'First and last Generation',
+        'All of the above',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText':
+          '______ executes all the fundamental computation of the computer system',
+      'answers': [
+        'Memory Card',
+        'CPU',
+        'Computer Memory',
+        'Hard Drive',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'Full meaning of ROM is ?',
+      'answers': [
+        'Ride Only Memory',
+        'Read Only Memorial',
+        'Return Only Method',
+        'Read Only Memory',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'RAM stands for?',
+      'answers': [
+        'Internal storage',
+        'Random Access Memory',
+        'Regular Access Mean',
+        'None of the above',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'One of the following is a volatile storage',
+      'answers': [
+        'RAM',
+        'ROM',
+        'Hard Drive',
+        'Flash Drive',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'RAM and ROM are examples of _____',
+      'answers': [
+        'Secondary Storage',
+        'Floppy Disk',
+        'ALU',
+        'Primary Storage',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'EPROM means? ',
+      'answers': [
+        'Erasable and Programmable ReadOnly Memory',
+        'Erasable and Productive Read Memory',
+        'Erase and Program ReadOnly Memory',
+        'None of the above',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': '______ is the full meaning of DRAM',
+      'answers': [
+        'Difficult Rational Act Moment',
+        'Define Read Access Meme',
+        'Dynamic Random Access Memory',
+        'Dynamo Random Access Memory',
+      ],
+      "correct": "C"
+    },
+    {
+      'questionText': 'A type of DRAM with higher processing is called',
+      'answers': [
+        'SDRAM',
+        'EPRAM',
+        'QMRAM',
+        'DDROM',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'One of the following is a feature of secondary storage',
+      'answers': [
+        'Volatility',
+        'Faster Than RAM',
+        'Allow Read And Write',
+        'None of the above',
+      ],
+      "correct": "C"
+    },
+    {
+      'questionText': 'Which is not an example of secondary storage',
+      'answers': [
+        'Hard Disk Drive (HDD)',
+        'Flash Drive',
+        'Solid State Drive(SSD)',
+        'Dynamic State Storage',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText':
+          'Peripheral devices are devices attached to the computer to add',
+      'answers': [
+        'Beauty',
+        'Functionality',
+        'Support',
+        'Power Consumption',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'One of the following is not a peripheral device',
+      'answers': [
+        'Mouse',
+        'printer',
+        'Keyboard',
+        'Extension',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'Another name for monitor is _____.',
+      'answers': [
+        'Ligh emitting diod (LED)',
+        'Visual Display Unit (VDU)',
+        'Computer Aided Device(CAD)',
+        'All of the above',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText':
+          '____ is an output device, which is used to print hard copy information.',
+      'answers': [
+        'Printer',
+        'Speaker',
+        'Monitor',
+        'Joystick',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'There are ______ categories of printers.',
+      'answers': [
+        '2',
+        '5',
+        '3',
+        '10',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'Impact printers are noisy with low consumable costs',
+      'answers': [
+        'False',
+        'True',
+        'Not sure',
+        'Otherwise',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText':
+          '____ printer print the characters without using the ribbon',
+      'answers': [
+        'Quite Printer',
+        'Noisy Printer',
+        'Impact printer',
+        'Non-impact printer',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'Non-impact printers has the following features',
+      'answers': [
+        'Speed',
+        'Less Noisy',
+        'High Quality',
+        'All of the above',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'Mother board is otherwise known as',
+      'answers': [
+        'Printed Circuit Board',
+        'Device Board',
+        'CPU Board',
+        'None of the above',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'The system board is made up of',
+      'answers': [
+        'Fiber optic',
+        'Lan Glass',
+        'Brown Fiberglass',
+        'Red FiberGlass',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'One of the following is not a type o f port',
+      'answers': [
+        'Parallel port',
+        'Serial Port',
+        'Radio Port',
+        'USB Port',
+      ],
+      "correct": "C"
+    },
+    {
+      'questionText': 'The system board’s underlying circuitry is called',
+      'answers': [
+        'Bus',
+        'Car',
+        'Circuit',
+        'Fiber wires',
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'First Step in IC Fabrication process is?',
+      'answers': [
+        'Masking',
+        'Wafer Production',
+        'Etching',
+        'None of the above',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+  ]
 };
