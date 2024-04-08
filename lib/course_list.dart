@@ -30,9 +30,12 @@ Map<String, Map<String, Map<String, String>>> department = {
   "CMP": {
     "100": {
       "CMP 111": "Introduction to Computer",
+      "CMP 112": "Introduction to Computer Hardware"
     },
     "200": {
       "CMP 211": "Introduction to Programming I",
+      "CMP 212": "introduction to Low Level Programming.",
+      "CMP 213": "Digital Electronics",
       "CMP 224": "Introduction to web design II"
     }
   },
