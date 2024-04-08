@@ -13,8 +13,8 @@ class VideoPlayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Map<String, String>>? filteredDetails =
-        videoList[courseCode.substring(0, 3)];
+    Map<String, String>? filteredDetails =
+        videoList[courseCode.substring(0, 3)]?[courseCode];
     print(filteredDetails);
 
     List<Widget> _buildListItems() {
@@ -74,7 +74,10 @@ class VideoPlayList extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text("${courseDetail[courseCode]}",
+            child: Text(
+                courseDetail[courseCode] != null
+                    ? "${courseDetail[courseCode]}"
+                    : "No Course Details available yet.",
                 style: const TextStyle(
                   fontSize: 16,
                 )),
