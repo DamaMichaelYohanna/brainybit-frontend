@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/course_list.dart';
+import 'package:konnet/note/note_list.dart';
 import 'package:konnet/todo/todo_list.dart';
 import 'colorScheme.dart';
 
@@ -190,34 +191,40 @@ class IndexPage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 130,
-                width: 100,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 231, 231, 230),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Text("📓"),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        "Notes",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const NoteListPage()));
+                },
+                child: Container(
+                  height: 130,
+                  width: 100,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 231, 231, 230),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Text("📓"),
                       ),
-                    ),
-                    // Divider(),
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: Text("See your Saved Notes",
-                          style: TextStyle(fontSize: 12)),
-                    )
-                  ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          "Notes",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      // Divider(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: Text("See your Saved Notes",
+                            style: TextStyle(fontSize: 12)),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(
