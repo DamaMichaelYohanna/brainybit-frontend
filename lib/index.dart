@@ -32,7 +32,7 @@ class IndexPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: mine.shade200, borderRadius: BorderRadius.circular(10)),
+              color: mine.shade500, borderRadius: BorderRadius.circular(10)),
           child: Row(
             children: [
               Container(
@@ -56,13 +56,13 @@ class IndexPage extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 5.0),
                       child: Text(
                         "Task For Today 🔥",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                     // Divider(),
                     Text(
                       "See if you have planned goal for today",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ],
                 ),
@@ -193,15 +193,15 @@ class IndexPage extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const NoteListPage()));
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => NoteListPage()));
                 },
                 child: Container(
                   height: 130,
                   width: 100,
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 231, 231, 230),
+                      color: mine.shade900,
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,14 +214,16 @@ class IndexPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
                           "Notes",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                       // Divider(),
                       Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text("See your Saved Notes",
-                            style: TextStyle(fontSize: 12)),
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white)),
                       )
                     ],
                   ),
