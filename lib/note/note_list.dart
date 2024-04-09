@@ -4,68 +4,6 @@ import 'package:konnet/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
-class SwipeListTile extends StatelessWidget {
-  final Map object;
-
-  const SwipeListTile({required this.object, key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key(object["title"]),
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(Icons.delete, color: Colors.white),
-      ),
-      secondaryBackground: Container(
-        color: Colors.blue,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(Icons.edit, color: Colors.white),
-      ),
-      confirmDismiss: (direction) async {
-        if (direction == DismissDirection.startToEnd) {
-          // Delete action
-          databaseHelper.delete(object['id']);
-        } else if (direction == DismissDirection.endToStart) {
-          // Edit action
-          // return await onEdit();
-        }
-        return false;
-      },
-      child: Container(
-        color: const Color.fromARGB(255, 241, 239, 232),
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        child: ListTile(
-            title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "${object["title"]}",
-                      // overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Checkbox(
-                      activeColor: Colors.white,
-                      checkColor: Colors.brown,
-                      value: object["status"] == 0 ? false : true,
-                      onChanged: (value) {
-                        if (value == true) {
-                          databaseHelper.update({"status": 1}, object["id"]);
-                        } else {
-                          databaseHelper.update({"status": 0}, object["id"]);
-                        }
-                      })
-                ]),
-            subtitle: Text("${object['time']}")),
-      ),
-    );
-  }
-}
-
 class NoteListPage extends StatefulWidget {
   const NoteListPage({key});
 
@@ -157,8 +95,31 @@ class _NoteListPageState extends State<NoteListPage>
               itemCount: taskList.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> object = taskList[index];
-                return SwipeListTile(
-                  object: object,
+                return Container(
+                  color: const Color.fromARGB(255, 241, 239, 232),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${object["title"]}",
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Text(
+                            "Details goes here",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                          )
+                        ],
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text("${object['time']}"),
+                      )),
                 );
               },
             ),
