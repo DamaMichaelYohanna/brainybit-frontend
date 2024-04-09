@@ -28,7 +28,7 @@ class SwipeListTile extends StatelessWidget {
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
           // Delete action
-          databaseHelper.delete(object['id']);
+          databaseHelper.delete("Task", object['id']);
         } else if (direction == DismissDirection.endToStart) {
           // Edit action
           // return await onEdit();
@@ -54,9 +54,11 @@ class SwipeListTile extends StatelessWidget {
                       value: object["status"] == 0 ? false : true,
                       onChanged: (value) {
                         if (value == true) {
-                          databaseHelper.update({"status": 1}, object["id"]);
+                          databaseHelper.update(
+                              "Task", {"status": 1}, object["id"]);
                         } else {
-                          databaseHelper.update({"status": 0}, object["id"]);
+                          databaseHelper.update(
+                              "Task", {"status": 0}, object["id"]);
                         }
                       })
                 ]),
@@ -87,7 +89,7 @@ class _TodoListPageState extends State<TodoListPage>
   void fetch() async {
     // Await the result of the asynchronous database query
 
-    await databaseHelper.queryAllRows().then((value) => {
+    await databaseHelper.queryAllRows("Task").then((value) => {
           taskList = value,
           // print(value),
           if (mounted)
