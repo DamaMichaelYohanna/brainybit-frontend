@@ -32,7 +32,8 @@ class _AddTaskState extends State<AddTask> {
     String time = timeControl.text;
     // if the input field are not empty, populate the data
     if (task.isNotEmpty && time.isNotEmpty) {
-      await databaseHelper.insert({'title': task, 'time': time, 'status': 0});
+      await databaseHelper
+          .insert("Task", {'title': task, 'time': time, 'status': 0});
       showDialog(
           context: context,
           builder: (_) => const AlertDialog(
