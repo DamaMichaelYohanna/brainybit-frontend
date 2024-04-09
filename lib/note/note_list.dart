@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'add_note.dart';
 import 'package:konnet/utility.dart';
 
@@ -25,7 +26,7 @@ class _NoteListPageState extends State<NoteListPage>
   void fetch() async {
     // Await the result of the asynchronous database query
 
-    await databaseHelper.queryAllRows().then((value) => {
+    await databaseHelper.queryAllRows("Note").then((value) => {
           taskList = value,
           // print(value),
           if (mounted)
@@ -71,7 +72,7 @@ class _NoteListPageState extends State<NoteListPage>
               "Notes",
               style: TextStyle(
                 fontSize: 40,
-                color: Colors.brown,
+                color: mine,
               ),
             ),
           ),
@@ -96,9 +97,13 @@ class _NoteListPageState extends State<NoteListPage>
               itemBuilder: (context, index) {
                 Map<String, dynamic> object = taskList[index];
                 return Container(
-                  color: const Color.fromARGB(255, 241, 239, 232),
+                  padding: EdgeInsets.all(5),
                   margin:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: mine.shade100,
+                  ),
                   child: ListTile(
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,9 +114,10 @@ class _NoteListPageState extends State<NoteListPage>
                                 fontSize: 18, fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const Text(
-                            "Details goes here",
-                            style: TextStyle(
+                          Text(
+                            "${object["note"]}",
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w300),
                           )
                         ],
@@ -129,7 +135,7 @@ class _NoteListPageState extends State<NoteListPage>
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => AddNote()));
+                .push(MaterialPageRoute(builder: (context) => const AddNote()));
           },
           child: const Icon(Icons.add)),
     );
