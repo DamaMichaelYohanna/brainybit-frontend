@@ -15,23 +15,15 @@ class _AddNoteState extends State<AddNote> {
   final titleControl = TextEditingController();
   final noteControl = TextEditingController();
 
-  void submitNote() async {
-    String task = titleControl.text;
-    String time = noteControl.text;
+  void submitNote() {
+    String title = titleControl.text;
+    String note = noteControl.text;
+    DateTime time = DateTime.now();
     // if the input field are not empty, populate the data
-    if (task.isNotEmpty && time.isNotEmpty) {
-      await databaseHelper.insert({'title': task, 'time': time, 'status': 0});
-      showDialog(
-          context: context,
-          builder: (_) => const AlertDialog(
-                title: Text('Success!'),
-                // icon:Text("hell"),
-                content: Text("Task has been added successfully"),
-              ));
-      setState(() {
-        titleControl.text = "";
-        noteControl.text = "";
-      });
+    if (title.isNotEmpty && note.isNotEmpty) {
+      databaseHelper.insert(
+          "Note", {'title': title, 'note': note, 'time': time.toString()});
+      Navigator.of(context).pop();
     }
   }
 
@@ -40,26 +32,24 @@ class _AddNoteState extends State<AddNote> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         title: const Text("New Note"),
         elevation: 1,
         actions: [
           noteControl.text.isNotEmpty
               ? IconButton(
                   icon: const Icon(Icons.check),
-                  onPressed: () {},
+                  onPressed: () {
+                    submitNote();
+                  },
                 )
-              : Text(""),
+              : const Text(""),
         ],
       ),
       body: ListView(
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(8),
-          //   child: Image.asset("assets/images/task.jpg"),
-          // ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
             child: TextField(
               controller: titleControl,
               decoration: const InputDecoration(
@@ -70,7 +60,7 @@ class _AddNoteState extends State<AddNote> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
             child: TextField(
               controller: noteControl,
               maxLines: null,
