@@ -22,6 +22,7 @@ Future<void> main() async {
   var userInfo = await getUserToken();
   runApp(MaterialApp(
       title: "BrainyBit",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: mine,
         //<-- SEE HERE
