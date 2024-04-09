@@ -1,10 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
 import 'package:konnet/video_list.dart';
-import 'package:konnet/quiz.dart';
-import 'package:konnet/questions_model.dart';
-import 'package:konnet/video_model.dart';
 
 /// Flutter code sample for [ListTile].
 Map<String, Map<String, Map<String, String>>> department = {
@@ -55,7 +50,7 @@ class CourseListTile extends StatefulWidget {
 class _CourseListTileState extends State<CourseListTile>
     with SingleTickerProviderStateMixin {
   final String dept;
-  _CourseListTileState({key, required this.dept});
+  _CourseListTileState({required this.dept});
   late TabController _tabController;
 
   @override
@@ -87,7 +82,7 @@ class _CourseListTileState extends State<CourseListTile>
           children: [
             Container(
               height: 55,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 // color: Colors.white,
                 borderRadius: BorderRadius.circular(
@@ -101,7 +96,7 @@ class _CourseListTileState extends State<CourseListTile>
                   borderRadius: BorderRadius.circular(
                     2.0,
                   ),
-                  color: Color.fromARGB(255, 247, 242, 228),
+                  color: const Color.fromARGB(255, 247, 242, 228),
                 ),
                 labelColor: Colors.brown,
                 unselectedLabelColor: Colors.black,
@@ -136,9 +131,9 @@ class _CourseListTileState extends State<CourseListTile>
                                 leading: Container(
                                   height: 60,
                                   width: 60,
-                                  padding: EdgeInsets.all(3),
-                                  color: Color.fromARGB(255, 247, 242, 228),
-                                  child: Icon(Icons.book),
+                                  padding: const EdgeInsets.all(3),
+                                  color: const Color.fromARGB(255, 247, 242, 228),
+                                  child: const Icon(Icons.book),
                                 ),
                                 title: Text(entry.key),
                                 subtitle: Text(entry.value))),

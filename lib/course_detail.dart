@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 Map<String, String> courseDetail = {
   "CMP 211":
       "This is an introductory course into programming using Java Programming lanaguage",

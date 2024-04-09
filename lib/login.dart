@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(15.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   InkWell(
                       child: Text("Register",
                           style: TextStyle(

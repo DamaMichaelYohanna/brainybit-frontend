@@ -26,7 +26,7 @@ class IndexPage extends StatelessWidget {
       InkWell(
         onTap: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => TodoListPage()));
+              .push(MaterialPageRoute(builder: (context) => const TodoListPage()));
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -162,7 +162,7 @@ class IndexPage extends StatelessWidget {
               },
               child: Container(
                 width: 200,
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8)),
@@ -263,14 +263,14 @@ class IndexPage extends StatelessWidget {
                 width: 100,
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 231, 231, 230),
+                    color: const Color.fromARGB(255, 231, 231, 230),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     CircleAvatar(
-                      child: Text("🌍"),
                       backgroundColor: Colors.white,
+                      child: Text("🌍"),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.0),
