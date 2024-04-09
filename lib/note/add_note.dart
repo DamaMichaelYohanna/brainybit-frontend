@@ -4,32 +4,20 @@ import 'package:konnet/utility.dart';
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class AddNote extends StatefulWidget {
+  const AddNote({Key? key}) : super(key: key);
+
   @override
   _AddNoteState createState() => _AddNoteState();
 }
 
 class _AddNoteState extends State<AddNote> {
   // TimeOfDay? selectedDate;
-  final taskControl = TextEditingController();
-  final timeControl = TextEditingController();
+  final titleControl = TextEditingController();
+  final noteControl = TextEditingController();
 
-  Future<void> _selectDate(BuildContext context) async {
-    TimeOfDay? picked = await showTimePicker(
-      helpText: "Elapse Time",
-      initialTime: TimeOfDay.now(),
-      context: context,
-    );
-    if (picked != null) {
-      setState(() {
-        // selectedDate = picked.format(context);
-        timeControl.text = picked.format(context);
-      });
-    }
-  }
-
-  void submitTask() async {
-    String task = taskControl.text;
-    String time = timeControl.text;
+  void submitNote() async {
+    String task = titleControl.text;
+    String time = noteControl.text;
     // if the input field are not empty, populate the data
     if (task.isNotEmpty && time.isNotEmpty) {
       await databaseHelper.insert({'title': task, 'time': time, 'status': 0});
@@ -41,8 +29,8 @@ class _AddNoteState extends State<AddNote> {
                 content: Text("Task has been added successfully"),
               ));
       setState(() {
-        taskControl.text = "";
-        timeControl.text = "";
+        titleControl.text = "";
+        noteControl.text = "";
       });
     }
   }
@@ -53,8 +41,16 @@ class _AddNoteState extends State<AddNote> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("New Task"),
+        title: const Text("New Note"),
         elevation: 1,
+        actions: [
+          noteControl.text.isNotEmpty
+              ? IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () {},
+                )
+              : Text(""),
+        ],
       ),
       body: ListView(
         children: [
@@ -65,29 +61,29 @@ class _AddNoteState extends State<AddNote> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
             child: TextField(
-              controller: taskControl,
+              controller: titleControl,
               decoration: const InputDecoration(
-                hintText: "Enter Task",
+                border: InputBorder.none,
+                hintText: "Title",
               ),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
             child: TextField(
-              controller: timeControl,
+              controller: noteControl,
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
               decoration: const InputDecoration(
-                hintText: "Elapse Time",
+                border: InputBorder.none,
+                hintText: "Note Something down",
               ),
-              onTap: () => _selectDate(context),
+              onChanged: (value) {
+                setState(() {});
+              },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              onPressed: submitTask,
-              child: const Text("Save Task "),
-            ),
-          )
         ],
       ),
     );
