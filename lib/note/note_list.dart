@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:konnet/note/note_detail.dart';
 import 'add_note.dart';
 import 'package:konnet/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class NoteListPage extends StatefulWidget {
-  const NoteListPage({key});
-
   @override
   State<NoteListPage> createState() {
     return _NoteListPageState();
@@ -96,36 +95,44 @@ class _NoteListPageState extends State<NoteListPage>
               itemCount: taskList.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> object = taskList[index];
-                return Container(
-                  padding: EdgeInsets.all(5),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: mine.shade100,
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => NoteDetail(
+                              id: object["id"],
+                            )));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 219, 229, 238),
+                    ),
+                    child: ListTile(
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${object["title"]}",
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.normal),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              "${object["note"]}",
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w200),
+                            )
+                          ],
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text("${object['time']}"),
+                        )),
                   ),
-                  child: ListTile(
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${object["title"]}",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            "${object["note"]}",
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w300),
-                          )
-                        ],
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text("${object['time']}"),
-                      )),
                 );
               },
             ),
