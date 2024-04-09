@@ -23,6 +23,15 @@ class DatabaseHelper {
 
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
+      CREATE TABLE Note (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        note TEXT,
+        time TEXT
+      )
+    ''');
+    print("I;ve been called");
+    await db.execute('''
       CREATE TABLE Task (
         id INTEGER PRIMARY KEY,
         title TEXT,
@@ -32,31 +41,30 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<int> insert(Map<String, dynamic> row) async {
+  Future<int> insert(String table, Map<String, dynamic> row) async {
     Database db = await instance.database;
-    print(row);
-    return await db.insert('Task', row);
+    return await db.insert(table, row);
   }
 
-  Future<int> delete(int id) async {
+  Future<int> delete(String table, int id) async {
     Database db = await instance.database;
-    return await db.delete('Task', where: 'id = ?', whereArgs: [id]);
+    return await db.delete(table, where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
+  Future<List<Map<String, dynamic>>> queryAllRows(String table) async {
     Database db = await instance.database;
-    return await db.query('Task', orderBy: 'time');
+    return await db.query(table, orderBy: 'time');
   }
 
-  Future<int> update(Map<String, dynamic> row, int id) async {
+  Future<int> update(String table, Map<String, dynamic> row, int id) async {
     Database db = await instance.database;
     int newStatus = row['status'];
-    return await db
-        .rawUpdate("UPDATE Task SET status = ? WHERE id = ?", [newStatus, id]);
+    return await db.rawUpdate(
+        "UPDATE $table SET status = ? WHERE id = ?", [newStatus, id]);
   }
 
-  Future<int> deleteAll() async {
+  Future<int> deleteAll(String table) async {
     Database db = await instance.database;
-    return await db.delete('Task');
+    return await db.delete(table);
   }
 }
