@@ -56,6 +56,12 @@ class DatabaseHelper {
     return await db.query(table, orderBy: 'time');
   }
 
+  Future<List<Map<String, dynamic>>> queryOneRow(String table, int id) async {
+    Database db = await instance.database;
+    return await db.query(table,
+        where: "id = ?", whereArgs: [id], orderBy: 'time', limit: 1);
+  }
+
   Future<int> update(String table, Map<String, dynamic> row, int id) async {
     Database db = await instance.database;
     int newStatus = row['status'];

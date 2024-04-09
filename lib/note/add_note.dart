@@ -18,11 +18,16 @@ class _AddNoteState extends State<AddNote> {
   void submitNote() {
     String title = titleControl.text;
     String note = noteControl.text;
-    DateTime time = DateTime.now();
+
+    String time = TimeOfDay.now().format(context);
+    DateTime now = DateTime.now();
+    DateTime currentDate = DateTime(now.year, now.month, now.day);
+    String formatedDate = "${currentDate.toString().substring(0, 10)} $time";
     // if the input field are not empty, populate the data
+
     if (title.isNotEmpty && note.isNotEmpty) {
-      databaseHelper.insert(
-          "Note", {'title': title, 'note': note, 'time': time.toString()});
+      databaseHelper
+          .insert("Note", {'title': title, 'note': note, 'time': formatedDate});
       Navigator.of(context).pop();
     }
   }
