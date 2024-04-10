@@ -15,7 +15,6 @@ class VideoPlayList extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, String>? filteredDetails =
         videoList[courseCode.substring(0, 3)]?[courseCode];
-    print(filteredDetails);
 
     List<Widget> _buildListItems() {
       List<Widget> listItems = [];
