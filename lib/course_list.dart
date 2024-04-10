@@ -42,16 +42,16 @@ Map<String, Map<String, Map<String, String>>> department = {
 
 class CourseListTile extends StatefulWidget {
   final String dept;
-  const CourseListTile({key, required this.dept}) : super(key: key);
+  const CourseListTile({super.key, required this.dept});
 
   @override
-  _CourseListTileState createState() => _CourseListTileState(dept: dept);
+  CourseListTileState createState() => CourseListTileState(dept: dept);
 }
 
-class _CourseListTileState extends State<CourseListTile>
+class CourseListTileState extends State<CourseListTile>
     with SingleTickerProviderStateMixin {
   final String dept;
-  _CourseListTileState({required this.dept});
+  CourseListTileState({required this.dept});
   late TabController _tabController;
 
   @override
