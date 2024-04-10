@@ -38,6 +38,7 @@ dependencies:
   youtube_player_flutter: ^9.0.0
   sqflite: ^2.0.0+3
   share_plus: ^8.0.3
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:
