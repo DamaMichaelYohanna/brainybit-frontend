@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:konnet/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class NoteDetail extends StatefulWidget {
   final int id;
-  const NoteDetail({Key? key, required this.id}) : super(key: key);
+  const NoteDetail({super.key, required this.id});
 
   @override
   _NoteDetailState createState() => _NoteDetailState();
@@ -14,6 +14,11 @@ class NoteDetail extends StatefulWidget {
 
 class _NoteDetailState extends State<NoteDetail> {
   List<Map<String, dynamic>> noteDetail = [{}];
+
+  void shareFunction() async {
+    await Share.share("${noteDetail[0]['note']}",
+        subject: "${noteDetail[0]['title']}");
+  }
 
   @override
   void initState() {
@@ -37,7 +42,7 @@ class _NoteDetailState extends State<NoteDetail> {
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
-              // Share.share('check out my website https://example.com', subject: 'Look what I made!');
+              shareFunction();
             },
           ),
           IconButton(
