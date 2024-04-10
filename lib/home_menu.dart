@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
 import 'package:konnet/index.dart';
 import 'package:konnet/profile.dart';
+import 'package:konnet/colorScheme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
           title: const Text("BrainyBit"),
+          backgroundColor: mine,
           centerTitle: true,
           leading: const Icon(Icons.menu),
           actions: const [Icon(Icons.notifications)]),
