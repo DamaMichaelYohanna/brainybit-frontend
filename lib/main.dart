@@ -24,7 +24,8 @@ Future<void> main() async {
       title: "BrainyBit",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: mine,
+        colorScheme: ColorScheme.fromSeed(seedColor: mine.shade900),
+        useMaterial3: true,
         //<-- SEE HERE
       ),
       home: userInfo ? const HomePage() : const LoginScreen()));
