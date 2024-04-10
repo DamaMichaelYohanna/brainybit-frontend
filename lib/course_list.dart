@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'package:konnet/video_list.dart';
 
 /// Flutter code sample for [ListTile].
@@ -70,8 +71,8 @@ class _CourseListTileState extends State<CourseListTile>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.brown,
+        // backgroundColor: Colors.white,
+        // foregroundColor: Colors.brown,
         title: Text(
           '$dept Courses',
         ),
@@ -132,8 +133,11 @@ class _CourseListTileState extends State<CourseListTile>
                                   height: 60,
                                   width: 60,
                                   padding: const EdgeInsets.all(3),
-                                  color: const Color.fromARGB(255, 247, 242, 228),
-                                  child: const Icon(Icons.book),
+                                  color: mine.shade900,
+                                  child: const Icon(
+                                    Icons.blur_on,
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 title: Text(entry.key),
                                 subtitle: Text(entry.value))),

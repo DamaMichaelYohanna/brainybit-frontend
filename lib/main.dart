@@ -9,8 +9,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Future<bool> getUserToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String name = prefs.getString("fullName") ?? "";
-    String email = prefs.getString("email") ?? "";
+    // String name = prefs.getString("fullName") ?? "";
+    // String email = prefs.getString("email") ?? "";
     String token = prefs.getString("token") ?? "";
     if (token.isNotEmpty) {
       return true;
