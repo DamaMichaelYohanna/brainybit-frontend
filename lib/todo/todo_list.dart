@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'add_task.dart';
 import 'package:konnet/utility.dart';
 
@@ -7,7 +8,7 @@ DatabaseHelper databaseHelper = DatabaseHelper.instance;
 class SwipeListTile extends StatelessWidget {
   final Map object;
 
-  const SwipeListTile({required this.object, key});
+  const SwipeListTile({required this.object, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class SwipeListTile extends StatelessWidget {
         return false;
       },
       child: Container(
-        color: const Color.fromARGB(255, 241, 239, 232),
+        color: mine.shade100,
         margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: ListTile(
             title: Row(
@@ -50,7 +51,7 @@ class SwipeListTile extends StatelessWidget {
                   ),
                   Checkbox(
                       activeColor: Colors.white,
-                      checkColor: Colors.brown,
+                      checkColor: mine,
                       value: object["status"] == 0 ? false : true,
                       onChanged: (value) {
                         if (value == true) {
@@ -69,7 +70,7 @@ class SwipeListTile extends StatelessWidget {
 }
 
 class TodoListPage extends StatefulWidget {
-  const TodoListPage({key});
+  const TodoListPage({super.key});
 
   @override
   State<TodoListPage> createState() {
@@ -135,7 +136,7 @@ class _TodoListPageState extends State<TodoListPage>
               "Task",
               style: TextStyle(
                 fontSize: 40,
-                color: Colors.brown,
+                color: mine,
               ),
             ),
           ),

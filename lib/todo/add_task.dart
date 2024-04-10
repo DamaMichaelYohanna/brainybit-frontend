@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'package:konnet/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class AddTask extends StatefulWidget {
+  const AddTask({super.key});
+
   @override
-  _AddTaskState createState() => _AddTaskState();
+  AddTaskState createState() => AddTaskState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class AddTaskState extends State<AddTask> {
   // TimeOfDay? selectedDate;
   final taskControl = TextEditingController();
   final timeControl = TextEditingController();
@@ -53,8 +56,9 @@ class _AddTaskState extends State<AddTask> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         title: const Text("New Task"),
+        foregroundColor: mine,
         elevation: 1,
       ),
       body: ListView(
