@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
+import 'package:konnet/drawer_pages/hot_line.dart';
 import 'package:konnet/index.dart';
 import 'package:konnet/profile.dart';
 import 'package:konnet/colorScheme.dart';
@@ -56,33 +57,11 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: const Text("NSUK Hot Lines"),
                 leading: const Icon(Icons.call),
-                onTap: (() {}),
-              ),
-              const Divider(
-                color: Colors.white,
-              ),
-              ListTile(
-                title: const Text("Hire A tutor"),
-                leading: const Icon(Icons.work),
-                onTap: () {},
-              ),
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  "Special",
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const Divider(
-                color: Colors.white,
-              ),
-              ListTile(
-                title: const Text("Make Donation"),
-                leading: const Icon(Icons.attach_money),
-                onTap: () {},
-              ),
-              const Divider(
-                color: Colors.white,
+                onTap: (() {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const HotLine(),
+                  ));
+                }),
               ),
               ListTile(
                   title: const Text("About BrainyBit"),
@@ -91,6 +70,23 @@ class _HomePageState extends State<HomePage> {
                   onTap: (() {})),
               const Divider(
                 color: Colors.white,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  "Special",
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+              ListTile(
+                title: const Text("Hire A tutor"),
+                leading: const Icon(Icons.work),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text("Make Donation"),
+                leading: const Icon(Icons.attach_money),
+                onTap: () {},
               ),
               ListTile(
                   title: const Text("Be A Contributor"),
