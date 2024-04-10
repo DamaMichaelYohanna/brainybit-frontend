@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
             title: const Text("BrainyBit"),
             backgroundColor: mine,
+            foregroundColor: Colors.white,
             centerTitle: true,
             // leading: const Icon(Icons.menu),
             actions: const [Icon(Icons.notifications)]),
