@@ -25,8 +25,8 @@ class IndexPage extends StatelessWidget {
       ),
       InkWell(
         onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const TodoListPage()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const TodoListPage()));
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -203,9 +203,9 @@ class IndexPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: mine.shade900,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       CircleAvatar(
                         backgroundColor: Colors.white,
                         child: Text("📓"),
@@ -220,7 +220,7 @@ class IndexPage extends StatelessWidget {
                       ),
                       // Divider(),
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0),
+                        padding: EdgeInsets.only(top: 4.0),
                         child: Text("See your Saved Notes",
                             style:
                                 TextStyle(fontSize: 12, color: Colors.white)),
@@ -251,7 +251,7 @@ class IndexPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.only(top: 4.0),
                       child: Text("Programmes and date",
                           style: TextStyle(fontSize: 12)),
                     )
@@ -265,22 +265,22 @@ class IndexPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 231, 231, 230),
                     borderRadius: BorderRadius.circular(10)),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Text("🌍"),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      padding: EdgeInsets.symmetric(vertical: 4.0),
                       child: Text(
                         "Map",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 5.0),
+                      padding: EdgeInsets.only(top: 4.0),
                       child: Text("Locate places in school",
                           style: TextStyle(fontSize: 12)),
                     )
