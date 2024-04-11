@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:konnet/colorScheme.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -85,8 +86,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     : const EdgeInsets.only(
                         left: 10, right: 45, top: 10, bottom: 10),
                 color: chat[index][0] == "user"
-                    ? const Color.fromARGB(255, 234, 232, 228)
-                    : const Color.fromARGB(255, 235, 230, 216),
+                    ? Color.fromARGB(255, 221, 229, 237)
+                    : mine.shade100,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
@@ -101,10 +102,11 @@ class _ChatScreenState extends State<ChatScreen> {
       bottomNavigationBar: BottomAppBar(
           elevation: 0,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             child: TextField(
               controller: chatController,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10),
                 hintText: "Enter Your Prompt",
                 suffixIcon: IconButton(
                   icon: const Icon(
