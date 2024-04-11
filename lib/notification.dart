@@ -38,6 +38,9 @@ class _NotifcationListState extends State<NotifcationList> {
           title: const Text("Notification"),
           backgroundColor: mine,
           foregroundColor: Colors.white,
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.refresh))
+          ],
         ),
         body: notificationList.isNotEmpty
             ? ListView.builder(
@@ -50,7 +53,7 @@ class _NotifcationListState extends State<NotifcationList> {
             : Center(
                 child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Image.asset("assets/images/notification.png"),
+                child: Image.asset("assets/images/notif.gif"),
               )));
   }
 }
