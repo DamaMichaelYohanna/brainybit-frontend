@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
 import 'package:konnet/drawer_pages/hot_line.dart';
 import 'package:konnet/index.dart';
+import 'package:konnet/notification.dart';
 import 'package:konnet/profile.dart';
 import 'package:konnet/colorScheme.dart';
 
@@ -35,9 +36,18 @@ class _HomePageState extends State<HomePage> {
             foregroundColor: Colors.white,
             centerTitle: true,
             // leading: const Icon(Icons.menu),
-            actions: const [Icon(Icons.notifications)]),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => NotifcationList()));
+                  },
+                  icon: const Icon(Icons.notifications))
+            ]),
         body: tabScreen.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: mine,
+          selectedItemColor: Colors.white,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
