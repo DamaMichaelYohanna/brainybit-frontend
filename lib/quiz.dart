@@ -50,6 +50,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   bool play(String? selectedOption, String? correctOption) {
+    labelcounter = 0;
     if (selectedOption != null && correctOption != null) {
       bool correct = grade(selectedOption, correctOption);
       if (correct == true) {
@@ -97,13 +98,13 @@ class _QuizScreenState extends State<QuizScreen> {
   double _currentSliderValue = 1;
   int score = 0;
   Color normalColor = Colors.white;
+  int labelcounter = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("$courseName Quiz"),
-        backgroundColor: Colors.white,
       ),
       body: ListView(
         children: [
@@ -113,7 +114,7 @@ class _QuizScreenState extends State<QuizScreen> {
               children: [
                 // Expanded(
                 //   child: Slider(
-                //       activeColor: Colors.brown,
+                //       activeColor: mine,
                 //       thumbColor: mine.shade100,
                 //       value: _currentSliderValue,
                 //       max: filteredQuestions.length.toDouble(),
@@ -127,7 +128,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     reset();
                   },
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.brown)),
+                      backgroundColor: MaterialStateProperty.all(mine)),
                   child: const Icon(
                     Icons.restart_alt_outlined,
                     color: Colors.white,
@@ -140,8 +141,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         reset();
                       },
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.brown)),
+                          backgroundColor: MaterialStateProperty.all(mine)),
                       child: Text(
                         "${_currentSliderValue.toInt()} / ${filteredQuestions.length}",
                         style: const TextStyle(color: Colors.white),
@@ -154,21 +154,40 @@ class _QuizScreenState extends State<QuizScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 244, 242, 238),
+              // color: const Color.fromARGB(255, 244, 242, 238),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
               '${filteredQuestions[_questionIndex]["questionText"]}',
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: mine.shade900),
             ),
           ),
-          const Divider(),
-          for (var answer in filteredQuestions[_questionIndex]["answers"])
-            Answer(
-              callBack: play,
-              optionValue: '$answer',
-              correctOption: '${filteredQuestions[_questionIndex]["correct"]}',
-            ),
+          Column(
+            children: filteredQuestions[_questionIndex]["answers"]
+                .map<Widget>((answer) {
+              String label; //place holder for option label
+              if (labelcounter == 0) {
+                label = "A";
+              } else if (labelcounter == 1) {
+                label = "B";
+              } else if (labelcounter == 2) {
+                label = "C";
+              } else {
+                label = 'D';
+              }
+              // increase the counter to change label
+              labelcounter++;
+              return Answer(
+                callBack: play,
+                optionValue: '$answer',
+                optionLable: label,
+                correctOption:
+                    '${filteredQuestions[_questionIndex]["correct"]}',
+              );
+            }).toList(),
+          ),
+
+          // Use map to transform each answer into an Answer widget
         ],
       ),
     );
@@ -178,45 +197,38 @@ class _QuizScreenState extends State<QuizScreen> {
 class Answer extends StatelessWidget {
   final Function callBack;
   final String optionValue;
+  final String optionLable;
   final String correctOption;
 
   const Answer({
     super.key,
     required this.callBack,
     required this.optionValue,
+    required this.optionLable,
     required this.correctOption,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: TextButton(
-        style: ButtonStyle(
-          alignment: Alignment.centerLeft,
-          padding: MaterialStateProperty.all(
-            const EdgeInsets.all(15),
-          ),
-          backgroundColor: MaterialStateProperty.all(mine.shade100),
-        ),
-        onPressed: () {
-          bool returnValue = callBack(optionValue, correctOption);
-          final snackBar = SnackBar(
-            content: Text(returnValue ? 'Correct!' : "wrong!"),
-            backgroundColor: returnValue ? Colors.green : Colors.red,
-            action: SnackBarAction(
-              label: '',
-              onPressed: () {},
-            ),
-          );
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-        child: Text(
-          optionValue,
-          style: const TextStyle(color: Colors.brown),
-        ),
+    return ListTile(
+      leading: CircleAvatar(child: Text("$optionLable")),
+      title: Text(
+        optionValue,
+        style: const TextStyle(color: mine),
       ),
+      onTap: () {
+        bool returnValue = callBack(optionValue, correctOption);
+        final snackBar = SnackBar(
+          content: Text(returnValue ? 'Correct!' : "wrong!"),
+          backgroundColor: returnValue ? Colors.green : Colors.red,
+          action: SnackBarAction(
+            label: '',
+            onPressed: () {},
+          ),
+        );
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
     );
   }
 }
