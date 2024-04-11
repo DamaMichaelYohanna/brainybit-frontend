@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
+import 'package:konnet/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -22,89 +24,83 @@ class ProfilePage extends StatelessWidget {
   }
 
   void logOut() {
-    debugPrint("about calling");
     clearUserInfo();
-    debugPrint("after calling");
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: CircleAvatar(
-            minRadius: 50,
-            maxRadius: 60,
-            child: Image.asset('assets/images/bg.png'),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 3),
-          child: Text("Name"),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 3),
-          child: Text(
-            "Dama Michael Yohanna",
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Divider(),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: const Text("Email"),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.0),
-          child: const Text(
-            "Get2dama11@gmail.com",
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Divider(),
-        ),
-        Expanded(child: Text("")),
-        InkWell(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: Image.asset("assets/images/synchronize.png")),
-                const Text(
-                  "Change Password",
-                  style: TextStyle(fontSize: 15),
-                )
-              ],
+    return Container(
+      color: mine.shade100,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: CircleAvatar(
+              minRadius: 50,
+              maxRadius: 60,
+              child: Image.asset('assets/images/bg.png'),
             ),
           ),
-        ),
-        Divider(),
-        InkWell(
-          onTap: logOut,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: Image.asset("assets/images/logout.png")),
-                const Text("Log out", style: TextStyle(fontSize: 15))
-              ],
+          const Card(
+            elevation: 1.5,
+            shadowColor: Colors.white,
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: ListTile(
+              title: Text(
+                "Dama Michael Yohanna",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              leading: Icon(Icons.person_off_outlined),
             ),
           ),
-        )
-      ],
+          const Card(
+            elevation: 1.5,
+            shadowColor: Colors.white,
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: ListTile(
+              title: Text(
+                "Get2dama11@gmail.com",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              leading: Icon(Icons.email),
+            ),
+          ),
+          const Card(
+            shadowColor: Colors.white,
+            elevation: 1.5,
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: ListTile(
+              title: Text(
+                "***********",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              leading: Icon(Icons.lock),
+              trailing: Icon(Icons.update),
+            ),
+          ),
+          const Expanded(child: Text('')),
+          Card(
+            shadowColor: Colors.white,
+            elevation: 1.5,
+            color: const Color.fromARGB(255, 251, 248, 248),
+            margin: const EdgeInsets.all(12),
+            child: ListTile(
+              onTap: () {
+                logOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              },
+              title: const Text(
+                "Log out",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              leading: const Icon(Icons.logout_sharp),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
