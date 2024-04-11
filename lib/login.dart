@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,10 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final response = await http.post(url, body: formData);
       if (response.statusCode == 200) {
-        print("we good to go");
         Map<String, dynamic> body = json.decode(response.body.toString());
         // print(response.body.toString());
-        print(body);
         setUserInfo(body["full_name"], body["email"], body["verified"],
             body["access_token"]);
         return {"correct": true};
@@ -91,6 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  // variable to obscure and show password
+  bool show = false;
+  bool errorError = false;
   @override
   void dispose() {
     usernameControl.dispose();
@@ -106,56 +108,74 @@ class _LoginScreenState extends State<LoginScreen> {
       // ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
-            child: Image.asset("assets/images/bg.png"),
-          ),
-          const Divider(),
-          const Divider(),
-          const Center(
-            child: Text(
-              "Welcome To BrainyBits",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          Image.asset("assets/images/bg2.png"),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: Text(
+                "Welcome To BrainyBits",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: mine.shade900),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
-                controller: usernameControl,
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.verified_user),
-                    border: OutlineInputBorder(),
-                    hintText: "Enter Your Email")),
+              controller: usernameControl,
+              decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.verified_user),
+                  prefixIconColor: mine,
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Your Email"),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
                 controller: passwordControl,
-                obscureText: true,
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
-                    border: OutlineInputBorder(),
+                obscureText: show ? false : true,
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock),
+                    prefixIconColor: mine,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (show == true) {
+                              show = false;
+                            } else {
+                              show = true;
+                            }
+                          });
+                        },
+                        icon: show
+                            ? const Icon(Icons.remove_red_eye_outlined)
+                            : const Icon(
+                                Icons.remove_red_eye,
+                                color: mine,
+                              )),
+                    border: const OutlineInputBorder(),
                     hintText: "Enter Your Password")),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
             child: LoginButton(callback: login),
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
+          const Padding(
+            padding: EdgeInsets.all(15.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   InkWell(
                       child: Text("Register",
                           style: TextStyle(
-                              color: Colors.brown,
-                              fontWeight: FontWeight.bold))),
+                              color: mine, fontWeight: FontWeight.bold))),
                   InkWell(
                       child: Text("Forgot Password?",
                           style: TextStyle(
-                              color: Colors.brown,
-                              fontWeight: FontWeight.bold)))
+                              color: mine, fontWeight: FontWeight.bold)))
                 ]),
           )
         ],
@@ -191,18 +211,23 @@ class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      // ignore: dead_code
+      style: ElevatedButton.styleFrom(
+          backgroundColor: mine,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
       onPressed: buttonActive ? buttonActivity : () {},
       child: buttonActive
           ? const Padding(
-              padding: EdgeInsets.all(3.0),
+              padding: EdgeInsets.all(5.0),
               child: Text("Sign In",
                   style: TextStyle(
-                      color: Colors.brown, fontWeight: FontWeight.bold)),
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             )
           : const Padding(
-              padding: EdgeInsets.all(3.0),
-              child: CircularProgressIndicator(),
+              padding: EdgeInsets.all(5.0),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
             ),
     );
   }
