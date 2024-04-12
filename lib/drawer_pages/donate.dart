@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:konnet/colorScheme.dart';
 
-class DonationPage extends StatelessWidget {
+class DonationPage extends StatefulWidget {
   const DonationPage({super.key});
 
+  @override
+  State<DonationPage> createState() => _DonationPageState();
+}
+
+class _DonationPageState extends State<DonationPage> {
   // function to copy account number to clipboard
-  void copyAccountNumber(String acc) async {
+  void copyAccountNumber(String acc) {
     Clipboard.setData(ClipboardData(text: "$acc"));
   }
 
@@ -46,7 +51,19 @@ class DonationPage extends StatelessWidget {
               title: const Text("0097164640"),
               subtitle: const Text("Account Number"),
               trailing: IconButton(
-                  onPressed: () => copyAccountNumber("0097164640"),
+                  onPressed: () {
+                    copyAccountNumber("0097164640");
+                    final snackBar = SnackBar(
+                      content: const Text("Account Copied"),
+                      backgroundColor: mine,
+                      action: SnackBarAction(
+                        label: '',
+                        onPressed: () {},
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                   icon: const Icon(
                     Icons.copy,
                     color: mine,
