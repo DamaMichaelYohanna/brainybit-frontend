@@ -93,14 +93,7 @@ class CourseListTileState extends State<CourseListTile>
               child: TabBar(
                 controller: _tabController,
                 // give the indicator a decoration (color and border radius)
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    2.0,
-                  ),
-                  color: const Color.fromARGB(255, 247, 242, 228),
-                ),
-                labelColor: Colors.brown,
-                unselectedLabelColor: Colors.black,
+                // generate tabs from keys of the departmental list.
                 tabs: department[dept]!.keys.map((String key) {
                   return Tab(text: key);
                 }).toList(),
@@ -133,7 +126,9 @@ class CourseListTileState extends State<CourseListTile>
                                   height: 60,
                                   width: 60,
                                   padding: const EdgeInsets.all(3),
-                                  color: mine.shade900,
+                                  decoration: BoxDecoration(
+                                      color: mine.shade900,
+                                      borderRadius: BorderRadius.circular(10)),
                                   child: const Icon(
                                     Icons.blur_on,
                                     color: Colors.white,
