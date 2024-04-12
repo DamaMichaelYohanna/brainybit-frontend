@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
+import 'package:konnet/drawer_pages/donate.dart';
 import 'package:konnet/drawer_pages/hot_line.dart';
 import 'package:konnet/index.dart';
 import 'package:konnet/notification.dart';
@@ -112,7 +113,11 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: const Text("Make Donation"),
                 leading: const Icon(Icons.attach_money),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const DonationPage(),
+                  ));
+                },
               ),
               ListTile(
                   title: const Text("Be A Contributor"),
