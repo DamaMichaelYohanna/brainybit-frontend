@@ -86,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     : const EdgeInsets.only(
                         left: 10, right: 45, top: 10, bottom: 10),
                 color: chat[index][0] == "user"
-                    ? Color.fromARGB(255, 221, 229, 237)
+                    ? const Color.fromARGB(255, 221, 229, 237)
                     : mine.shade100,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
