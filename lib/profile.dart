@@ -3,17 +3,22 @@ import 'package:konnet/colorScheme.dart';
 import 'package:konnet/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required});
 
-  // function to fetch user details from sharedpref
-  Future<Map<String, String>> getUserInfo() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String name = prefs.getString("fullName") ?? "";
-    String email = prefs.getString("email") ?? "";
-    String imageurl = prefs.getString("imageUrl") ?? "";
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
 
-    return {"name": name, "email": email, "image": imageurl};
+class _ProfilePageState extends State<ProfilePage> {
+  // function to fetch user details from sharedpref
+  void getUserInfo() async {
+    await SharedPreferences.getInstance().then((value) => {
+          name = value.getString("fullName") ?? "",
+          email = value.getString("email") ?? "",
+          imageUrl = value.getString("imageUrl") ?? "",
+          setState(() {})
+        });
   }
 
   // function call to logout the user
@@ -27,6 +32,16 @@ class ProfilePage extends StatelessWidget {
     clearUserInfo();
   }
 
+  String name = '';
+  String email = '';
+  String imageUrl = '';
+
+  @override
+  void initState() {
+    getUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,31 +53,35 @@ class ProfilePage extends StatelessWidget {
             child: CircleAvatar(
               minRadius: 50,
               maxRadius: 60,
-              child: Image.asset('assets/images/bg.png'),
+              child: imageUrl.isEmpty
+                  ? Image.asset('assets/images/logo.png')
+                  : Image.network(imageUrl),
             ),
           ),
-          const Card(
+          Card(
             elevation: 1.5,
             shadowColor: Colors.white,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             child: ListTile(
               title: Text(
-                "Dama Michael Yohanna",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                name,
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              leading: Icon(Icons.person_off_outlined),
+              leading: const Icon(Icons.person_off_outlined),
             ),
           ),
-          const Card(
+          Card(
             elevation: 1.5,
             shadowColor: Colors.white,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             child: ListTile(
               title: Text(
-                "Get2dama11@gmail.com",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                email,
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              leading: Icon(Icons.email),
+              leading: const Icon(Icons.email),
             ),
           ),
           const Card(
