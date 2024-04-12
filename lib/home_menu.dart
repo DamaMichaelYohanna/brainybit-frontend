@@ -5,6 +5,7 @@ import 'package:konnet/index.dart';
 import 'package:konnet/notification.dart';
 import 'package:konnet/profile.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,15 +21,29 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  List<Widget> tabScreen = [
-    const IndexPage(),
-    const ChatScreen(),
-    const ProfilePage()
-  ];
+  void getUsername() async {
+    await SharedPreferences.getInstance().then((value) => {
+          username = value.getString("fullName") ?? "",
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUsername();
+  }
 
   int _selectedIndex = 0;
+  String username = '';
   @override
   Widget build(BuildContext context) {
+    List<Widget> tabScreen = [
+      IndexPage(
+        name: username,
+      ),
+      const ChatScreen(),
+      const ProfilePage()
+    ];
     return Scaffold(
         appBar: AppBar(
             title: const Text("BrainyBit"),
@@ -40,7 +55,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => NotifcationList()));
+                        builder: (context) => const NotifcationList()));
                   },
                   icon: const Icon(Icons.notifications))
             ]),
