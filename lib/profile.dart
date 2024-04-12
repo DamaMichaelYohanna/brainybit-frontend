@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Container(
       color: mine.shade100,
-      child: Column(
+      child: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -97,7 +97,6 @@ class _ProfilePageState extends State<ProfilePage> {
               trailing: Icon(Icons.update),
             ),
           ),
-          const Expanded(child: Text('')),
           Card(
             shadowColor: Colors.white,
             elevation: 1.5,
