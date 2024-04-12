@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/colorScheme.dart';
 import 'package:konnet/questions_model.dart';
 import 'package:konnet/quiz.dart';
 import 'package:konnet/video_player.dart';
@@ -25,6 +26,8 @@ class VideoPlayList extends StatelessWidget {
             in videoList[courseCode.substring(0, 3)]![courseCode]!.entries) {
           listItems.add(
             Card(
+              margin: EdgeInsets.all(10),
+              elevation: .6,
               child: ListTile(
                 title: Text("Lession $counter"),
                 subtitle: Text("${videoDetails.value}"),
@@ -87,6 +90,11 @@ class VideoPlayList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: mine,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
               onPressed: questions.containsKey(courseCode)
                   ? () {
                       Navigator.of(context).push(
@@ -98,14 +106,19 @@ class VideoPlayList extends StatelessWidget {
                       );
                     }
                   : null,
-              child: Text("Take Quiz"),
+              child: const Text("Take Quiz"),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: mine,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
               onPressed: null,
-              child: Text("Join Study group"),
+              child: const Text("Join Study group"),
             ),
           ),
         ],
