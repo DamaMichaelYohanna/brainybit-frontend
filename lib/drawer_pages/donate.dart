@@ -82,7 +82,7 @@ class _DonationPageState extends State<DonationPage> {
               margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Padding(
                 padding: EdgeInsets.all(15.0),
-                child: Text("Michael Dama Yohanna"),
+                child: Text("Mic************anna"),
               ))
         ],
       ),
