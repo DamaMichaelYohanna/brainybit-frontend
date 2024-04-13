@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/calender.dart';
 import 'package:konnet/course_list.dart';
 import 'package:konnet/note/note_list.dart';
 import 'package:konnet/todo/todo_list.dart';
@@ -16,10 +17,10 @@ class IndexPage extends StatelessWidget {
       color: const Color.fromARGB(255, 228, 235, 241),
       child: ListView(children: [
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Text(
             "Hi $name 👋🏿",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
         const Padding(
@@ -238,31 +239,37 @@ class IndexPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: 130,
-                  width: 100,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 228, 235, 241),
-                        child: Text("📅"),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          "Calender",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: mine),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const CalenderPage()));
+                  },
+                  child: Container(
+                    height: 130,
+                    width: 100,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: const Column(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Color.fromARGB(255, 228, 235, 241),
+                          child: Text("📅"),
                         ),
-                      ),
-                      Text("Programmes and date",
-                          style: TextStyle(fontSize: 12, color: mine))
-                    ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            "Calender",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: mine),
+                          ),
+                        ),
+                        Text("Programmes and date",
+                            style: TextStyle(fontSize: 12, color: mine))
+                      ],
+                    ),
                   ),
                 ),
                 Container(
