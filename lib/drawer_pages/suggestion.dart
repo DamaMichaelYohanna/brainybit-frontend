@@ -9,7 +9,8 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  String selectedOption = '';
+  String expOption = '';
+  String sugOption = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,40 +68,46 @@ class _SuggestionPageState extends State<SuggestionPage> {
                   children: [
                     Radio(
                         value: "good",
-                        groupValue: selectedOption,
+                        groupValue: expOption,
                         onChanged: (value) {
                           setState(() {
-                            selectedOption = value.toString();
+                            expOption = value.toString();
                           });
                         }),
-                    Text("Good")
+                    const Text("Good 😊")
                   ],
                 ),
-                Column(
-                  children: [
-                    Radio(
-                        value: "fair",
-                        groupValue: selectedOption,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedOption = value.toString();
-                          });
-                        }),
-                    Text("Fair")
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Column(
+                    children: [
+                      Radio(
+                          value: "fair",
+                          groupValue: expOption,
+                          onChanged: (value) {
+                            setState(() {
+                              expOption = value.toString();
+                            });
+                          }),
+                      const Text("Fair 😌")
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    Radio(
-                        value: "bad",
-                        groupValue: selectedOption,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedOption = value.toString();
-                          });
-                        }),
-                    const Text("Bad")
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Column(
+                    children: [
+                      Radio(
+                          value: "bad",
+                          groupValue: expOption,
+                          onChanged: (value) {
+                            setState(() {
+                              expOption = value.toString();
+                            });
+                          }),
+                      const Text("Bad 😒")
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -111,9 +118,55 @@ class _SuggestionPageState extends State<SuggestionPage> {
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Color.fromARGB(255, 236, 240, 244),
-                  hintText: "Let's have your experience or suggestions here",
+                  hintText: "Tell us your experience or suggestions",
                   border: InputBorder.none),
               maxLines: 7,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(),
+            child: Row(
+              children: [
+                Radio(
+                    value: "bug",
+                    groupValue: sugOption,
+                    onChanged: (value) {
+                      setState(() {
+                        sugOption = value.toString();
+                      });
+                    }),
+                const Text("Bug"),
+                Radio(
+                    value: "suggestion",
+                    groupValue: sugOption,
+                    onChanged: (value) {
+                      setState(() {
+                        sugOption = value.toString();
+                      });
+                    }),
+                const Text("Suggestion"),
+                Radio(
+                    value: "others",
+                    groupValue: sugOption,
+                    onChanged: (value) {
+                      setState(() {
+                        sugOption = value.toString();
+                      });
+                    }),
+                const Text("Others")
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: mine,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
+              child: const Text("Send Feedback"),
             ),
           )
         ],
