@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
 import 'package:konnet/drawer_pages/donate.dart';
 import 'package:konnet/drawer_pages/hot_line.dart';
+import 'package:konnet/drawer_pages/suggestion.dart';
 import 'package:konnet/index.dart';
 import 'package:konnet/notification.dart';
 import 'package:konnet/profile.dart';
@@ -106,11 +107,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               ListTile(
-                title: const Text("Hire A tutor"),
-                leading: const Icon(Icons.work),
-                onTap: () {},
-              ),
-              ListTile(
                 title: const Text("Make Donation"),
                 leading: const Icon(Icons.attach_money),
                 onTap: () {
@@ -124,6 +120,9 @@ class _HomePageState extends State<HomePage> {
                   leading: const Icon(Icons.bubble_chart),
                   // tileColor: Colors.white,
                   onTap: (() {})),
+              const Divider(
+                color: Colors.white,
+              ),
               const Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Text(
@@ -131,17 +130,45 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
-              const Divider(
-                color: Colors.white,
-              ),
+
               ListTile(
                 title: const Text("Drop Suggestion"),
                 leading: const Icon(Icons.local_offer_rounded),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SuggestionPage(),
+                  ));
+                },
+              ),
+              // const ListTile(
+              //   title: Text("Share application"),
+              //   leading: Icon(Icons.share),
+              //   // onTap: () {},
+              // ),
+              const Divider(
+                color: Colors.white,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  "Coming Soon",
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+
+              ListTile(
+                title: const Text("Hire A tutor"),
+                leading: const Icon(Icons.work),
                 onTap: () {},
               ),
               ListTile(
-                title: const Text("Share application"),
-                leading: const Icon(Icons.share),
+                title: const Text("Become A tutor"),
+                leading: const Icon(Icons.group),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text("Campus Transport"),
+                leading: const Icon(Icons.bus_alert),
                 onTap: () {},
               ),
             ],
