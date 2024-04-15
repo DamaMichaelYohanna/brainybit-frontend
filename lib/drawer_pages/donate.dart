@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DonationPage extends StatefulWidget {
   const DonationPage({super.key});
@@ -13,6 +14,16 @@ class _DonationPageState extends State<DonationPage> {
   // function to copy account number to clipboard
   void copyAccountNumber(String acc) {
     Clipboard.setData(ClipboardData(text: "$acc"));
+  }
+
+  //  function to send mail
+  _sendingMails() async {
+    var url = Uri.parse("mailto:codewithdama@gmail.com");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -79,11 +90,37 @@ class _DonationPageState extends State<DonationPage> {
             ),
           ),
           const Card(
-              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text("Mic************anna"),
-              ))
+            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text("Mic************anna"),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: mine,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
+                child: const Text("See List of Donors"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _sendingMails();
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: mine,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
+                child: const Text("Email Us Reciept"),
+              ),
+            ],
+          ),
         ],
       ),
     );
