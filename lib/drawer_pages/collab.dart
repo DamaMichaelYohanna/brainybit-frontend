@@ -50,33 +50,35 @@ class CollabState extends State<Collab> {
             padding: EdgeInsets.only(left: 10.0, top: 10),
             child: Text("Name"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
-            child: TextField(),
+            child: TextField(
+              decoration: InputDecoration(
+                  hintText: 'Name',
+                  prefixIcon: Icon(Icons.verified_user_sharp)),
+            ),
           ),
           const Padding(
             padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
-            child: Text("Phone"),
+            child: TextField(
+              decoration: InputDecoration(
+                  hintText: 'Phone', prefixIcon: Icon(Icons.phone)),
+            ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
-            child: TextField(),
+            child: TextField(
+              decoration: InputDecoration(
+                  hintText: 'Email', prefixIcon: Icon(Icons.mail)),
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
-            child: Text("Email"),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
-            child: TextField(),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10, top: 0),
             child: TextField(
               maxLines: 5,
               decoration: InputDecoration(
-                hintText: "Any other thing to let us know?",
-              ),
+                  hintText: "Any other thing to let us know?",
+                  prefixIcon: Icon(Icons.other_houses)),
             ),
           ),
           Padding(
