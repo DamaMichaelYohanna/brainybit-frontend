@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/chat.dart';
+import 'package:konnet/drawer_pages/collab.dart';
 import 'package:konnet/drawer_pages/donate.dart';
 import 'package:konnet/drawer_pages/hot_line.dart';
 import 'package:konnet/drawer_pages/suggestion.dart';
@@ -119,7 +120,11 @@ class _HomePageState extends State<HomePage> {
                   title: const Text("Be A Contributor"),
                   leading: const Icon(Icons.bubble_chart),
                   // tileColor: Colors.white,
-                  onTap: (() {})),
+                  onTap: (() {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Collab(),
+                    ));
+                  })),
               const Divider(
                 color: Colors.white,
               ),
