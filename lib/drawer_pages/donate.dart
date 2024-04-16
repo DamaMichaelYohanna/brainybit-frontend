@@ -11,14 +11,28 @@ class DonationPage extends StatefulWidget {
 }
 
 class _DonationPageState extends State<DonationPage> {
+  final Uri _url = Uri.parse('https://flutter.dev');
   // function to copy account number to clipboard
   void copyAccountNumber(String acc) {
     Clipboard.setData(ClipboardData(text: "$acc"));
   }
 
+  // function to open a url
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   //  function to send mail
   _sendingMails() async {
-    var url = Uri.parse("mailto:codewithdama@gmail.com");
+    final Uri url = Uri(
+      scheme: 'mailto',
+      path: 'smith@example.com',
+      // query: encodeQueryParameters(<String, String>{
+      //   'subject': 'Example Subject & Symbols are allowed!',
+      // }),
+    );
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {
@@ -100,7 +114,9 @@ class _DonationPageState extends State<DonationPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _launchUrl();
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: mine,
                     foregroundColor: Colors.white,
