@@ -39,7 +39,6 @@ dependencies:
   sqflite: ^2.0.0+3
   share_plus: ^8.0.3
   url_launcher: ^6.2.5
-  sticky_grouped_list: ^3.1.0
   syncfusion_flutter_pdfviewer: ^24.2.8
 
 dev_dependencies:
