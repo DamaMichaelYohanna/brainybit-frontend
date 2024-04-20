@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // Function for login in.
   Future<Map<String, bool>> fetchUserInfoOnline(
       String username, String password) async {
-    var url = Uri.https('brainybit.vercel.app', 'api/v1/user/login');
+    var url = Uri.https('locator-xi.vercel.app', 'api/v1/user/login');
     // prepare the form data
     final Map<String, String> formData = {
       'username': username,
@@ -39,6 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final response = await http.post(url, body: formData);
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         Map<String, dynamic> body = json.decode(response.body.toString());
         // print(response.body.toString());
@@ -78,8 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // Register button callback function
-  void register() {}
+  Future<void> register() async {
+    final Uri _url =
+        Uri.parse('https://locator-xi.vercel.app/api/v1/user/register');
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   // Login button call back function
   void login() async {
     String username = usernameControl.text;
@@ -163,17 +171,22 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(15),
             child: LoginButton(callback: login),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(15.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                      child: Text("Register",
-                          style: TextStyle(
-                              color: mine, fontWeight: FontWeight.bold))),
+                      child: InkWell(
+                          onTap: () {
+                            register();
+                          },
+                          child: const Text("Register",
+                              style: TextStyle(
+                                  color: mine, fontWeight: FontWeight.bold)))),
                   InkWell(
-                      child: Text("Forgot Password?",
+                      onTap: () {},
+                      child: const Text("Forgot Password?",
                           style: TextStyle(
                               color: mine, fontWeight: FontWeight.bold)))
                 ]),
