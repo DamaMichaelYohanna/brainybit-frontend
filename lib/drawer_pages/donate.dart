@@ -11,7 +11,7 @@ class DonationPage extends StatefulWidget {
 }
 
 class _DonationPageState extends State<DonationPage> {
-  final Uri _url = Uri.parse('https://flutter.dev');
+  final Uri _url = Uri.parse('https://locator-xi.vercel.app/register');
   // function to copy account number to clipboard
   void copyAccountNumber(String acc) {
     Clipboard.setData(ClipboardData(text: "$acc"));
