@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:konnet/register.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
@@ -179,7 +180,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   InkWell(
                       child: InkWell(
                           onTap: () {
-                            register();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const RegisterScreen(),
+                              ),
+                            );
                           },
                           child: const Text("Register",
                               style: TextStyle(
