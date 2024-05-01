@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,15 +18,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailControl = TextEditingController();
   final passwordControl = TextEditingController();
 
-// funtion to set user token after login
-  Future<void> setUserInfo(String? fullName, email, verified, token) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("fullName", fullName ?? "");
-    prefs.setString("email", email);
-    prefs.setBool("verified", verified);
-    prefs.setString("token", token);
-  }
-
   // Function for login in.
   Future<Map<String, bool>> registerOnline(
       String name, String email, String password) async {
@@ -41,34 +31,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       final response = await http.post(url, body: formData);
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         Map<String, dynamic> body = json.decode(response.body.toString());
-        // print(response.body.toString());
-        setUserInfo(body["full_name"], body["email"], body["verified"],
-            body["access_token"]);
-        return {"correct": true};
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("fullName", body["full_name"] ?? "");
+        prefs.setString("email", body["email"]);
+        prefs.setBool("verified", body["verified"]);
+        return {"success": true};
       } else {
         // Request failed
-        return {"incorrect": false};
+        return {"failed_used_email": false};
       }
     } catch (e) {
-      return {"internet": false};
+      return {"failed_internet": false};
     }
   }
 
   void afterLoginCall(value) {
-    if (value.containsKey("correct")) {
+    if (value.containsKey("success")) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-    } else if (value.containsKey("incorrect")) {
+    } else if (value.containsKey("failed_used_email")) {
       showDialog(
           context: context,
           builder: (_) => const AlertDialog(
                 title: Text('Error!'),
                 // icon:Text("hell"),
-                content: Text("Incorrect Email or Password"),
+                content: Text("Email address is already in use."),
               ));
     } else {
       showDialog(
@@ -82,16 +71,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  Future<void> register() async {
-    final Uri _url =
-        Uri.parse('https://locator-xi.vercel.app/api/v1/user/register');
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
-  }
-
-  // Login button call back function
-  void login() async {
+  // Register button call back function
+  void registerCallback() async {
     String name = nameControl.text;
     String email = emailControl.text;
     String password = passwordControl.text;
@@ -123,80 +104,91 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 48, 101, 151),
       // appBar: AppBar(
       //   title: const Text("BrainyBits"),
       // ),
       body: ListView(
         children: [
+          Image.asset("assets/images/bg2.png"),
           Container(
-            child: Image.asset("assets/images/bg2.png"),
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                "Join BrainyBits",
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: mine.shade900),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50.0), // Radius for bottom left corner
+                topRight:
+                    Radius.circular(50.0), // Radius for bottom right corner
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: TextField(
-              controller: emailControl,
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.verified_user),
-                  prefixIconColor: mine,
-                  border: OutlineInputBorder(),
-                  hintText: "Email Address"),
+            child: Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: Text(
+                      "Join BrainyBits",
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: mine.shade900),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: TextField(
+                    controller: emailControl,
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.verified_user),
+                        prefixIconColor: mine,
+                        border: OutlineInputBorder(),
+                        hintText: "Email Address"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: TextField(
+                    controller: nameControl,
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.verified_user),
+                        prefixIconColor: mine,
+                        border: OutlineInputBorder(),
+                        hintText: "Full Name"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: TextField(
+                      controller: passwordControl,
+                      obscureText: show ? false : true,
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock),
+                          prefixIconColor: mine,
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (show == true) {
+                                    show = false;
+                                  } else {
+                                    show = true;
+                                  }
+                                });
+                              },
+                              icon: show
+                                  ? const Icon(Icons.remove_red_eye_outlined)
+                                  : const Icon(
+                                      Icons.remove_red_eye,
+                                      color: mine,
+                                    )),
+                          border: const OutlineInputBorder(),
+                          hintText: "Password")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: LoginButton(callback: registerCallback),
+                ),
+              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: TextField(
-              controller: nameControl,
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.verified_user),
-                  prefixIconColor: mine,
-                  border: OutlineInputBorder(),
-                  hintText: "Full Name"),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: TextField(
-                controller: passwordControl,
-                obscureText: show ? false : true,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock),
-                    prefixIconColor: mine,
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            if (show == true) {
-                              show = false;
-                            } else {
-                              show = true;
-                            }
-                          });
-                        },
-                        icon: show
-                            ? const Icon(Icons.remove_red_eye_outlined)
-                            : const Icon(
-                                Icons.remove_red_eye,
-                                color: mine,
-                              )),
-                    border: const OutlineInputBorder(),
-                    hintText: "Password")),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: LoginButton(callback: login),
           ),
         ],
       ),
