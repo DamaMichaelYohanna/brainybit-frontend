@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: TextField(
               controller: usernameControl,
               decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.verified_user),
+                  prefixIcon: Icon(Icons.email),
                   prefixIconColor: mine,
                   border: OutlineInputBorder(),
                   hintText: "Enter Your Email"),
