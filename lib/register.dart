@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void afterLoginCall(value) {
+  void afterRegisterCall(value) {
     if (value.containsKey("success")) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
@@ -78,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String password = passwordControl.text;
     if (name.isNotEmpty && password.isNotEmpty) {
       Map<String, bool> value = await registerOnline(name, email, password);
-      afterLoginCall(value);
+      afterRegisterCall(value);
     } else {
       showDialog(
           context: context,
