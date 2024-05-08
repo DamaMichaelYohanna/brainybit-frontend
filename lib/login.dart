@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:konnet/register.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,14 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 content: Text(
                     "Please Check your internet connection and try again."),
               ));
-    }
-  }
-
-  Future<void> register() async {
-    final Uri _url =
-        Uri.parse('https://locator-xi.vercel.app/api/v1/user/register');
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
     }
   }
 
