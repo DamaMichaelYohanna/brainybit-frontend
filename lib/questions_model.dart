@@ -1252,5 +1252,49 @@ const Map<String, List<Map<String, dynamic>>> questions = {
       ],
       "correct": "B"
     },
+  ],
+  "ESP 311": [
+    {
+      'questionText':
+          'Which of this government agency regulate the capital market?',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'When a business buys it competitor it is known as?',
+      'answers': [
+        'Product review',
+        'Horizontal expansion',
+        'Vertical expansion',
+        'Product developement',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'What is the full meaning of NAFDAC',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText':
+          'Which of this government agency regulate the capital market?',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
   ]
 };
