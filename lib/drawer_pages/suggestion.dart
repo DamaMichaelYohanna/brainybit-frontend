@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:http/http.dart' as http;
 
 class SuggestionPage extends StatefulWidget {
   const SuggestionPage({super.key});
@@ -9,8 +10,66 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
+  // Declare some variable to use in our fields
   String expOption = '';
   String sugOption = '';
+  final TextEditingController submissionControl = TextEditingController();
+
+  Future<String> submitFeedback(
+      String experience, String submission, String category) async {
+    var url = Uri.https('locator-xi.vercel.app', 'feeback/upload');
+    // prepare the form data
+    final Map<String, String> formData = {
+      'experience': experience,
+      "submission": submission,
+      "category": category
+    };
+
+    try {
+      final response = await http.post(url, body: formData);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        return "done";
+      } else {
+        // Request failed
+        return "error";
+      }
+    } catch (e) {
+      return "internet";
+    }
+  }
+
+  void afterSubmission(value) {
+    if (value.containsKey("done")) {
+      showDialog(
+        context: context,
+        builder: (_) => const AlertDialog(
+          title: Text('Sucess!'),
+          // icon:Text("hell"),
+          content: Text("Your feedback have been submitted succesfully."),
+        ),
+      );
+    } else if (value.containsKey("error")) {
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                title: Text('Error!'),
+                // icon:Text("hell"),
+                content: Text("Some thing happened. Feedback not submitted"),
+              ));
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                title: Text('Something happened!'),
+                // icon:Text("hell"),
+                content: Text(
+                    "Please Check your internet connection and try again."),
+              ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +85,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
             width: double.infinity,
             height: 150,
             color: mine,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -112,10 +171,11 @@ class _SuggestionPageState extends State<SuggestionPage> {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(15.0),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
             child: TextField(
-              decoration: InputDecoration(
+              controller: submissionControl,
+              decoration: const InputDecoration(
                   filled: true,
                   fillColor: Color.fromARGB(255, 236, 240, 244),
                   hintText: "Tell us your experience or suggestions",
@@ -124,7 +184,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(),
+            padding: const EdgeInsets.symmetric(),
             child: Row(
               children: [
                 Radio(
