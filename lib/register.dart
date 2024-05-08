@@ -139,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: TextField(
                     controller: emailControl,
                     decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.verified_user),
+                        prefixIcon: Icon(Icons.email),
                         prefixIconColor: mine,
                         border: OutlineInputBorder(),
                         hintText: "Email Address"),
