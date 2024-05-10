@@ -17,7 +17,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
 
   Future<String> submitFeedback(
       String experience, String submission, String category) async {
-    var url = Uri.https('locator-xi.vercel.app', 'feeback/upload');
+    var url = Uri.https('locator-xi.vercel.app', 'feedback/upload');
     // prepare the form data
     final Map<String, String> formData = {
       'experience': experience,
@@ -27,8 +27,6 @@ class _SuggestionPageState extends State<SuggestionPage> {
 
     try {
       final response = await http.post(url, body: formData);
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         return "done";
       } else {
@@ -41,7 +39,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
   }
 
   void afterSubmission(value) {
-    if (value.containsKey("done")) {
+    if (value == "done") {
       showDialog(
         context: context,
         builder: (_) => const AlertDialog(
@@ -50,7 +48,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
           content: Text("Your feedback have been submitted succesfully."),
         ),
       );
-    } else if (value.containsKey("error")) {
+    } else if (value == "error") {
       showDialog(
           context: context,
           builder: (_) => const AlertDialog(
@@ -62,7 +60,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
       showDialog(
           context: context,
           builder: (_) => const AlertDialog(
-                title: Text('Something happened!'),
+                title: Text('Error!'),
                 // icon:Text("hell"),
                 content: Text(
                     "Please Check your internet connection and try again."),
@@ -220,7 +218,11 @@ class _SuggestionPageState extends State<SuggestionPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                String value = await submitFeedback(
+                    expOption, submissionControl.text, sugOption);
+                afterSubmission(value);
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: mine,
                   foregroundColor: Colors.white,
