@@ -39,8 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final response = await http.post(url, body: formData);
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         Map<String, dynamic> body = json.decode(response.body.toString());
         // print(response.body.toString());
