@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:http/http.dart' as http;
 
 class Collab extends StatefulWidget {
   const Collab({super.key});
@@ -9,6 +10,43 @@ class Collab extends StatefulWidget {
 }
 
 class CollabState extends State<Collab> {
+  final nameControl = TextEditingController();
+  final phoneControl = TextEditingController();
+  final emailControl = TextEditingController();
+  final noteControl = TextEditingController();
+
+  void sendRequest() async {
+    String name = nameControl.text;
+    String phone = phoneControl.text;
+    String email = emailControl.text;
+    String note = noteControl.text;
+    var url = Uri.https('locator-xi.vercel.app', 'collab');
+    // prepare the form data
+    final Map<String, String> formData = {
+      'name': name,
+      "phone": phone,
+      "email": email,
+      "note": note
+    };
+
+    try {
+      final response = await http.post(url, body: formData);
+      if (response.statusCode == 200) {
+      } else {
+        // Request failed
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) => const AlertDialog(
+          title: Text('Error!'),
+          // icon:Text("hell"),
+          content: Text("Check your internet connection"),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,37 +84,38 @@ class CollabState extends State<Collab> {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, top: 10),
-            child: Text("Name"),
-          ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: nameControl,
+              decoration: const InputDecoration(
                   hintText: 'Name',
                   prefixIcon: Icon(Icons.verified_user_sharp)),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: phoneControl,
+              decoration: const InputDecoration(
                   hintText: 'Phone', prefixIcon: Icon(Icons.phone)),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: emailControl,
+              decoration: const InputDecoration(
                   hintText: 'Email', prefixIcon: Icon(Icons.mail)),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10, top: 0),
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 10.0, bottom: 10, right: 10, top: 0),
             child: TextField(
+              controller: noteControl,
               maxLines: 5,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: "Any other thing to let us know?",
                   prefixIcon: Icon(Icons.other_houses)),
             ),
@@ -84,7 +123,9 @@ class CollabState extends State<Collab> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                sendRequest();
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: mine,
                   foregroundColor: Colors.white,
