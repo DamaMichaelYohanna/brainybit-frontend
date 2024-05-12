@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:konnet/drawer_pages/donors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DonationPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _DonationPageState extends State<DonationPage> {
   _sendingMails() async {
     final Uri url = Uri(
       scheme: 'mailto',
-      path: 'smith@example.com',
+      path: 'get2dama11@gmail.com',
       // query: encodeQueryParameters(<String, String>{
       //   'subject': 'Example Subject & Symbols are allowed!',
       // }),
@@ -115,7 +116,9 @@ class _DonationPageState extends State<DonationPage> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  _launchUrl();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const Donors(),
+                  ));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: mine,

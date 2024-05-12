@@ -24,16 +24,21 @@ class _DonorsState extends State<Donors> {
     var url = Uri.https('locator-xi.vercel.app', 'donation');
     try {
       final response = await http.get(url);
-      print(response.body);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
           notificationList =
               json.decode(response.body).cast<Map<String, dynamic>>();
+          status = true;
         });
       }
     } catch (e) {
-      print(e);
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                title: Text('Error!'),
+                // icon:Text("hell"),
+                content: Text("Check your internet connection"),
+              ));
     }
   }
 
@@ -50,19 +55,23 @@ class _DonorsState extends State<Donors> {
     const Color.fromARGB(255, 53, 172, 199),
     Colors.orange
   ];
+  bool status = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Notification"),
+          title: const Text("List of donation"),
           backgroundColor: mine,
           foregroundColor: Colors.white,
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.refresh))
-          ],
         ),
-        body: notificationList.isNotEmpty
-            ? ListView.builder(
+        body: notificationList.isEmpty && status == false
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: mine,
+                ),
+              )
+            : ListView.builder(
                 itemCount: notificationList.length,
                 itemBuilder: (context, index) {
                   // Create an instance of Random
@@ -76,11 +85,12 @@ class _DonorsState extends State<Donors> {
                       color: colors[randomIndex]);
                 },
               )
-            : Center(
-                child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Image.asset("assets/images/notif.gif"),
-              )));
+        // : Center(
+        //     child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        //     child: Image.asset("assets/images/notif.gif"),
+        //   ),),
+        );
   }
 }
 
