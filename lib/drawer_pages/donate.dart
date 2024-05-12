@@ -30,15 +30,14 @@ class _DonationPageState extends State<DonationPage> {
     final Uri url = Uri(
       scheme: 'mailto',
       path: 'get2dama11@gmail.com',
-      // query: encodeQueryParameters(<String, String>{
-      //   'subject': 'Example Subject & Symbols are allowed!',
-      // }),
     );
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+
+    await launchUrl(url);
+    // if (await canLaunchUrl(url)) {
+    //   await launchUrl(url);
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
   }
 
   @override
