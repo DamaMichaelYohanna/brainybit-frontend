@@ -15,7 +15,7 @@ class CollabState extends State<Collab> {
   final emailControl = TextEditingController();
   final noteControl = TextEditingController();
 
-  void sendRequest() async {
+  Future<void> sendRequest() async {
     String name = nameControl.text;
     String phone = phoneControl.text;
     String email = emailControl.text;
@@ -32,8 +32,23 @@ class CollabState extends State<Collab> {
     try {
       final response = await http.post(url, body: formData);
       if (response.statusCode == 200) {
+        showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+            title: Text('Success!'),
+            // icon:Text("hell"),
+            content: Text("Your request have been submitted."),
+          ),
+        );
       } else {
-        // Request failed
+        showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+            title: Text('Error!'),
+            // icon:Text("hell"),
+            content: Text("Something happened!"),
+          ),
+        );
       }
     } catch (e) {
       showDialog(
@@ -45,7 +60,13 @@ class CollabState extends State<Collab> {
         ),
       );
     }
+    nameControl.text = "";
+    phoneControl.text = "";
+    emailControl.text = "";
+    noteControl.text = "";
   }
+
+  bool buttonActive = true;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +81,7 @@ class CollabState extends State<Collab> {
             width: double.infinity,
             height: 170,
             color: mine,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -85,7 +106,7 @@ class CollabState extends State<Collab> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10.0, bottom: 10, right: 10),
             child: TextField(
               controller: nameControl,
               decoration: const InputDecoration(
@@ -116,22 +137,41 @@ class CollabState extends State<Collab> {
               controller: noteControl,
               maxLines: 5,
               decoration: const InputDecoration(
-                  hintText: "Any other thing to let us know?",
-                  prefixIcon: Icon(Icons.other_houses)),
+                hintText: "Any other thing to let us know?",
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {
-                sendRequest();
+              onPressed: () async {
+                setState(() {
+                  buttonActive = false;
+                });
+                await sendRequest();
+                setState(() {
+                  buttonActive = true;
+                });
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: mine,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
-              child: const Text("Send Request"),
+              child: buttonActive
+                  ? const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text("Sign In",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    )
+                  : const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    ),
             ),
           )
         ],
