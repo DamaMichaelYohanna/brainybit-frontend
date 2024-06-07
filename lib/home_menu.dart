@@ -8,6 +8,7 @@ import 'package:konnet/index.dart';
 import 'package:konnet/notification.dart';
 import 'package:konnet/profile.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:konnet/subscribe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -55,6 +56,13 @@ class _HomePageState extends State<HomePage> {
             centerTitle: true,
             // leading: const Icon(Icons.menu),
             actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SubscribePage()));
+                },
+                icon: const Icon(Icons.monetization_on),
+              ),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
