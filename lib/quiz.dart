@@ -24,7 +24,9 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
 // filter/narrow down te question map
-  late List<Map<String, dynamic>> filteredQuestions = questions[courseName]!;
+  bool s = false;
+  late List<Map<String, dynamic>> filteredQuestions =
+      s ? questions[courseName]! : questions[courseName]!.sublist(0, 15);
 // Call back function for grading.
   bool grade(selectedOption, correctOption) {
     int position =
@@ -69,7 +71,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   onPressed: () {
                     Navigator.of(context).pop(context);
                   },
-                  child: Text("Close"))
+                  child: const Text("Close"))
             ],
           ),
         );
