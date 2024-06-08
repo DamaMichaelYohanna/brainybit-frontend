@@ -59,22 +59,7 @@ class _QuizScreenState extends State<QuizScreen> {
         score += 1;
       }
       if (_questionIndex >= filteredQuestions.length - 1) {
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text('Well done!'),
-            // icon:Text("hell"),
-            content: Text(
-                " You have exhausted the question with a total score of $score / ${filteredQuestions.length}"),
-            actions: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(context);
-                  },
-                  child: const Text("Close"))
-            ],
-          ),
-        );
+        Navigator.of(context).pop(context);
       } else {
         setState(
           () {
