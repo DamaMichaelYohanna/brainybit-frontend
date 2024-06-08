@@ -44,20 +44,20 @@ class _SubscribeManualPageState extends State<SubscribeManualPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Donation"),
+        title: const Text("Manuel Purchase"),
         centerTitle: true,
       ),
       body: ListView(
         children: [
           Container(
               margin: const EdgeInsets.only(top: 12),
-              height: 150,
-              width: 100,
+              height: 80,
+              width: 30,
               child: Image.asset("assets/images/dollar.png")),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
             child: Text(
-              "For manual funding, you can transfer the sum of 500 naira only to the below account and send us the evidence of payment via whatsapp. We will provide you with token ASAP after confirmation",
+              "For manual purchase of token, transfer the sum of 500 naira only to the below account and send us the evidence of payment via whatsapp. We will provide you with token ASAP after confirmation",
               style: TextStyle(fontSize: 16, color: mine.shade900),
             ),
           ),
@@ -112,11 +112,7 @@ class _SubscribeManualPageState extends State<SubscribeManualPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const Donors(),
-                ));
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                   backgroundColor: mine,
                   foregroundColor: Colors.white,
