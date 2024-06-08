@@ -108,38 +108,38 @@ class _HomePageState extends State<HomePage> {
               const Divider(
                 color: Colors.white,
               ),
+              // const Padding(
+              //   padding: EdgeInsets.all(10.0),
+              //   child: Text(
+              //     "Special",
+              //     style: TextStyle(fontStyle: FontStyle.italic),
+              //   ),
+              // ),
+              // ListTile(
+              //   title: const Text("Make Donation"),
+              //   leading: const Icon(Icons.attach_money),
+              //   onTap: () {
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //       builder: (context) => const DonationPage(),
+              //     ));
+              //   },
+              // ),
+              // ListTile(
+              //     title: const Text("Be A Contributor"),
+              //     leading: const Icon(Icons.bubble_chart),
+              //     // tileColor: Colors.white,
+              //     onTap: (() {
+              //       Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (context) => const Collab(),
+              //       ));
+              //     })),
+              // const Divider(
+              //   color: Colors.white,
+              // ),
               const Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Text(
-                  "Special",
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              ListTile(
-                title: const Text("Make Donation"),
-                leading: const Icon(Icons.attach_money),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const DonationPage(),
-                  ));
-                },
-              ),
-              ListTile(
-                  title: const Text("Be A Contributor"),
-                  leading: const Icon(Icons.bubble_chart),
-                  // tileColor: Colors.white,
-                  onTap: (() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Collab(),
-                    ));
-                  })),
-              const Divider(
-                color: Colors.white,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  "More",
+                  "More..",
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
