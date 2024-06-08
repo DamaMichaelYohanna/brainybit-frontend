@@ -81,54 +81,7 @@ class _SubscribePageState extends State<SubscribePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  // padding: EdgeInsets.all(8),
-                  margin: const EdgeInsets.all(8),
-                  height: 160,
-                  width: 130,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 8.0, left: 6),
-                        child: Text(
-                          "Free access",
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: Text(
-                          "15 Questions each",
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: Text(
-                          "Ads available",
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white),
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(12),
-                          child: const Text(
-                            "Free Plan",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                    ],
-                  ),
-                ),
-                Container(
-                  // padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.only(top: 8, bottom: 10),
                   margin: EdgeInsets.all(8),
                   height: 160,
                   width: 130,
@@ -140,36 +93,77 @@ class _SubscribePageState extends State<SubscribePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0, left: 6),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4.0, horizontal: 20),
+                        child: Text("Free Plan",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 4.0, left: 20),
                         child: Text(
-                          "Free access",
+                          "Limited access",
                           textAlign: TextAlign.left,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.only(top: 4.0, left: 20),
                         child: Text(
-                          "Unlimited Questions",
+                          "Limited Questions",
                           textAlign: TextAlign.left,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.only(top: 4.0, left: 20),
                         child: Text(
-                          "No Ads",
+                          "Ads Available",
                           textAlign: TextAlign.left,
                         ),
                       ),
-                      Divider(
-                        height: 1,
+                    ],
+                  ),
+                ),
+                Container(
+                  // padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(8),
+                  padding: EdgeInsets.only(top: 8, bottom: 10),
+                  height: 160,
+                  width: 130,
+                  decoration: BoxDecoration(
+                      color: mine, borderRadius: BorderRadius.circular(10)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4.0, horizontal: 20),
+                        child: Text("Paid Plan",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Paid Plan",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                        padding: EdgeInsets.only(top: 4.0, left: 20),
+                        child: Text("Free access",
+                            style: TextStyle(
+                              color: Colors.white,
+                            )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, left: 20),
+                        child: Text("Unlimited Questions",
+                            style: TextStyle(
+                              color: Colors.white,
+                            )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, left: 20),
+                        child: Text("No Ads",
+                            style: TextStyle(
+                              color: Colors.white,
+                            )),
                       ),
                     ],
                   ),
