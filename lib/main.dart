@@ -4,6 +4,7 @@ import 'package:konnet/home_menu.dart';
 import 'package:konnet/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+bool isPremium = false;
 Future<void> main() async {
   // Function to fetch user token to check if the user is logged in.
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,7 @@ Future<void> main() async {
     // String name = prefs.getString("fullName") ?? "";
     // String email = prefs.getString("email") ?? "";
     String token = prefs.getString("token") ?? "";
+    isPremium = prefs.getBool("premium") ?? false;
     if (token.isNotEmpty) {
       return true;
     } else {
