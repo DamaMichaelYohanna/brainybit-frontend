@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
 import 'package:konnet/questions_model.dart';
+import 'package:konnet/quiz_finish.dart';
 
 class QuizScreen extends StatefulWidget {
   final String courseName;
@@ -59,7 +60,11 @@ class _QuizScreenState extends State<QuizScreen> {
         score += 1;
       }
       if (_questionIndex >= filteredQuestions.length - 1) {
-        Navigator.of(context).pop(context);
+        Navigator.of(context).pop();
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => QuizFinish(
+              score: score, questionLength: filteredQuestions.length),
+        ));
       } else {
         setState(
           () {
