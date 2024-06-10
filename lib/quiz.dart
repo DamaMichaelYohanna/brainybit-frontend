@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:konnet/main.dart';
 import 'package:konnet/questions_model.dart';
 import 'package:konnet/quiz_finish.dart';
 
@@ -25,9 +26,9 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
 // filter/narrow down te question map
-  bool s = false;
+  // check if user is premium or not to decide number of questions
   late List<Map<String, dynamic>> filteredQuestions =
-      s ? questions[courseName]! : questions[courseName]!.sublist(0, 15);
+      isPremium ? questions[courseName]! : questions[courseName]!.sublist(0, 5);
 // Call back function for grading.
   bool grade(selectedOption, correctOption) {
     int position =
