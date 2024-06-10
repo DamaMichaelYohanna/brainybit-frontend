@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:konnet/colorScheme.dart';
-import 'package:konnet/drawer_pages/donors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SubscribeManualPage extends StatefulWidget {
@@ -12,32 +11,17 @@ class SubscribeManualPage extends StatefulWidget {
 }
 
 class _SubscribeManualPageState extends State<SubscribeManualPage> {
-  final Uri _url = Uri.parse('https://locator-xi.vercel.app/register');
   // function to copy account number to clipboard
   void copyAccountNumber(String acc) {
-    Clipboard.setData(ClipboardData(text: "$acc"));
-  }
-
-  // function to open a url
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
+    Clipboard.setData(ClipboardData(text: acc));
   }
 
   //  function to send mail
-  _sendingMails() async {
-    final Uri url = Uri(
-      scheme: 'mailto',
-      path: 'get2dama11@gmail.com',
-    );
-
-    await launchUrl(url);
-    // if (await canLaunchUrl(url)) {
-    //   await launchUrl(url);
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
+  openWhatsapp() async {
+    String contact = "+2348160535033";
+    String text = 'Hello here is my evidence of payment';
+    String androidUrl = "whatsapp://send?phone=$contact&text=$text";
+    await launchUrl(Uri.parse(androidUrl));
   }
 
   @override
@@ -112,13 +96,15 @@ class _SubscribeManualPageState extends State<SubscribeManualPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                openWhatsapp();
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: mine,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
-              child: const Text("Send via Whatsapp"),
+              child: const Text("Send Payment Evidence(Whatsapp)"),
             ),
           ),
           // ElevatedButton(
