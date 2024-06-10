@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
+import 'package:konnet/main.dart';
+import 'package:konnet/subscribe.dart';
 
 class QuizFinish extends StatelessWidget {
   final int score;
@@ -15,30 +17,36 @@ class QuizFinish extends StatelessWidget {
         backgroundColor: mine,
         body: ListView(children: [
           Image.asset('assets/images/quizfinish.png'),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text(
               overflow: TextOverflow.ellipsis,
-              "Dama Michael Yohanna!",
+              "Dama Michael Yohanna",
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
           ),
-          Text("Well Done "),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Text("Well Done! ",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, color: Colors.white)),
+          ),
           Container(
-            height: 200,
-            decoration: BoxDecoration(
+            // height: 200,
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
                     image: AssetImage("assets/images/ture.png"),
                     fit: BoxFit.cover)),
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Your Score",
                     textAlign: TextAlign.center,
@@ -46,15 +54,33 @@ class QuizFinish extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("${score}/${questionLength} Points",
+                  child: Text("$score/$questionLength Points",
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                      style: const TextStyle(
+                          fontSize: 25, fontWeight: FontWeight.bold)),
                 ),
-                questionLength <= 15
-                    ? Text(
-                        "Subscribe to premium to Have access to more questions.",
-                        style: TextStyle(fontSize: 16),
+                // display message base on user status
+                !isPremium
+                    ? Column(
+                        children: [
+                          const Divider(),
+                          const Text(
+                              "You are on free plan with only 10 free questions. Get more with premium subscription",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.red)),
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SubscribePage(),
+                                ));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: mine,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5))),
+                              child: const Text("Subscribe To Premuim")),
+                        ],
                       )
                     : ElevatedButton(
                         onPressed: () {
@@ -65,7 +91,7 @@ class QuizFinish extends StatelessWidget {
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5))),
-                        child: Text("Close")),
+                        child: const Text("Close")),
               ],
             ),
           ),
