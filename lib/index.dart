@@ -7,7 +7,8 @@ import 'colorScheme.dart';
 
 class IndexPage extends StatelessWidget {
   final String name;
-  const IndexPage({super.key, required this.name});
+  final bool premium;
+  const IndexPage({super.key, required this.name, required this.premium});
 
   final me = 10;
 

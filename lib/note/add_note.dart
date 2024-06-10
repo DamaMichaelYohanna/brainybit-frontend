@@ -4,7 +4,7 @@ import 'package:konnet/utility.dart';
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class AddNote extends StatefulWidget {
-  const AddNote({Key? key}) : super(key: key);
+  const AddNote({super.key});
 
   @override
   _AddNoteState createState() => _AddNoteState();

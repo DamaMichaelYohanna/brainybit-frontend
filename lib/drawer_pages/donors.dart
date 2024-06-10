@@ -120,7 +120,7 @@ class NotificationTile extends StatelessWidget {
           name,
           maxLines: null,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(),
+          style: const TextStyle(),
         ),
         leading: CircleAvatar(
           backgroundColor: color,

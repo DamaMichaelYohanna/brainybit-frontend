@@ -106,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: TextField(
               controller: chatController,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 hintText: "Enter Your Prompt",
                 suffixIcon: IconButton(
                   icon: const Icon(

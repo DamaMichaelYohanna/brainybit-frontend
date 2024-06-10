@@ -7,6 +7,8 @@ import 'package:konnet/utility.dart';
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
 class NoteListPage extends StatefulWidget {
+  const NoteListPage({super.key});
+
   @override
   State<NoteListPage> createState() {
     return _NoteListPageState();
@@ -76,7 +78,7 @@ class _NoteListPageState extends State<NoteListPage>
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () {
                 print("Have been pressed");

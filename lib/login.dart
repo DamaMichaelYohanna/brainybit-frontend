@@ -56,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void afterLoginCall(value) {
     if (value.containsKey("correct")) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomePage()));
     } else if (value.containsKey("incorrect")) {
       showDialog(
           context: context,
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: LoginButton(callback: login),
           ),
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
