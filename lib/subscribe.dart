@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
-import 'package:konnet/login.dart';
 import 'package:konnet/subscribeManual.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
