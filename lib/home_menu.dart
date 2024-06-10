@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:konnet/about.dart';
 import 'package:konnet/chat.dart';
-import 'package:konnet/drawer_pages/collab.dart';
-import 'package:konnet/drawer_pages/donate.dart';
 import 'package:konnet/drawer_pages/hot_line.dart';
 import 'package:konnet/drawer_pages/suggestion.dart';
 import 'package:konnet/index.dart';
+import 'package:konnet/main.dart';
 import 'package:konnet/notification.dart';
 import 'package:konnet/profile.dart';
 import 'package:konnet/colorScheme.dart';
@@ -27,7 +27,12 @@ class _HomePageState extends State<HomePage> {
 
   void getUsername() async {
     await SharedPreferences.getInstance().then((value) => {
-          username = value.getString("fullName") ?? "",
+          setState(
+            () {
+              username = value.getString("fullName") ?? "";
+              premium = value.getBool("premium") ?? false;
+            },
+          )
         });
   }
 
@@ -39,12 +44,11 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
   String username = '';
+  bool premium = false;
   @override
   Widget build(BuildContext context) {
     List<Widget> tabScreen = [
-      IndexPage(
-        name: username,
-      ),
+      IndexPage(name: username, premium: premium),
       const ChatScreen(),
       const ProfilePage()
     ];
@@ -56,13 +60,15 @@ class _HomePageState extends State<HomePage> {
             centerTitle: true,
             // leading: const Icon(Icons.menu),
             actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SubscribePage()));
-                },
-                icon: const Icon(Icons.monetization_on),
-              ),
+              !isPremium
+                  ? IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SubscribePage()));
+                      },
+                      icon: const Icon(Icons.monetization_on),
+                    )
+                  : Text(""),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -104,7 +110,11 @@ class _HomePageState extends State<HomePage> {
                   title: const Text("About BrainyBit"),
                   leading: const Icon(Icons.apps_outage),
                   // tileColor: Colors.white,
-                  onTap: (() {})),
+                  onTap: (() {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AboutUsPage(),
+                    ));
+                  })),
               const Divider(
                 color: Colors.white,
               ),
