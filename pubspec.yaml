@@ -40,6 +40,7 @@ dependencies:
   share_plus: ^8.0.3
   url_launcher: ^6.2.5
   syncfusion_flutter_pdfviewer: ^24.2.8
+  font_awesome_flutter: ^9.0.0
 
 dev_dependencies:
   flutter_test:
