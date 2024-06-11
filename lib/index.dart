@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:konnet/calender.dart';
 import 'package:konnet/course_list.dart';
+import 'package:konnet/map.dart';
 import 'package:konnet/note/note_list.dart';
 import 'package:konnet/todo/todo_list.dart';
 import 'colorScheme.dart';
@@ -273,31 +274,37 @@ class IndexPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: 125,
-                  width: 100,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 228, 235, 241),
-                        child: Text("🌍"),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 4.0),
-                        child: Text(
-                          "Map",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: mine),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MapPage()));
+                  },
+                  child: Container(
+                    height: 125,
+                    width: 100,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: const Column(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Color.fromARGB(255, 228, 235, 241),
+                          child: Text("🌍"),
                         ),
-                      ),
-                      Text("Locate places in school",
-                          style: TextStyle(fontSize: 12, color: mine))
-                    ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 4.0),
+                          child: Text(
+                            "Map",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: mine),
+                          ),
+                        ),
+                        Text("Locate places in school",
+                            style: TextStyle(fontSize: 12, color: mine))
+                      ],
+                    ),
                   ),
                 ),
               ],
