@@ -1,9 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:konnet/colorScheme.dart';
-// import 'package:konnet/colorScheme.dart';
-import 'package:konnet/utility.dart';
-
-DatabaseHelper databaseHelper = DatabaseHelper.instance;
+import 'package:http/http.dart' as http;
 
 class NotifcationList extends StatefulWidget {
   const NotifcationList({super.key});
@@ -13,16 +12,21 @@ class NotifcationList extends StatefulWidget {
 }
 
 class _NotifcationListState extends State<NotifcationList> {
-  List<Map<String, dynamic>> notificationList = [];
+  List<dynamic> notificationList = [];
 
   void fetch() async {
-    // Await the result of the asynchronous database query
-
-    await databaseHelper.queryAllRows("Note").then((value) => {
-          setState(() {
-            notificationList = value;
-          }),
+    // Await the result of the asynchronous online query
+    var url = Uri.https('locator-xi.vercel.app', 'news');
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        setState(() {
+          notificationList = json.decode(response.body);
         });
+      }
+    } catch (e) {
+      // don nothing
+    }
   }
 
   @override
@@ -35,7 +39,7 @@ class _NotifcationListState extends State<NotifcationList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Notification"),
+          title: const Text("Notifications"),
           backgroundColor: mine,
           foregroundColor: Colors.white,
           actions: [
@@ -46,14 +50,27 @@ class _NotifcationListState extends State<NotifcationList> {
             ? ListView.builder(
                 itemCount: notificationList.length,
                 itemBuilder: (context, index) {
-                  return const NotificationTile(
-                      title: "title", content: "content", color: Colors.red);
+                  return NotificationTile(
+                      title: notificationList[index]['title'],
+                      content: notificationList[index]['content'],
+                      color: Colors.red);
                 },
               )
             : Center(
                 child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Image.asset("assets/images/notif.gif"),
+                child: Column(
+                  children: [
+                    Image.asset("assets/images/notif.gif"),
+                    Text(
+                      "No New Notification Available!",
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: mine,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               )));
   }
 }
@@ -71,20 +88,20 @@ class NotificationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       elevation: 0,
-      color: Color.fromARGB(255, 228, 235, 241),
+      color: const Color.fromARGB(255, 228, 235, 241),
       child: ListTile(
         onLongPress: () {},
-        title: const Text(
-          "Closure of School",
-          style: TextStyle(fontWeight: FontWeight.w500),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         ),
-        subtitle: const Text(
+        subtitle: Text(
           maxLines: null,
-          "You are applying Flutter's main Gradle plugin imperatively using the apply script method, which is deprecated and will be removed in a future release. Migrate to applying Gradle plugins with the declarative plugins block: https://flutter.dev/go/flutter-gradle-plugin-apply",
+          content,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(),
+          style: const TextStyle(),
         ),
         leading: CircleAvatar(
           backgroundColor: color,
