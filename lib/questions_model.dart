@@ -983,6 +983,26 @@ const Map<String, List<Map<String, dynamic>>> questions = {
       ],
       "correct": "A"
     },
+    {
+      'questionText': '____ is an input device',
+      'answers': [
+        'monitor',
+        'printer',
+        'flash',
+        'mouse',
+      ],
+      "correct": "D"
+    },
+    {
+      'questionText': 'The computer take ____ as input',
+      'answers': [
+        'Data',
+        'Network',
+        'Information',
+        'Memory',
+      ],
+      "correct": "A"
+    },
   ],
   // question section for cmp 112
   // ---------------------------
@@ -1277,6 +1297,17 @@ const Map<String, List<Map<String, dynamic>>> questions = {
     },
     {
       'questionText': 'What is the full meaning of NAFDAC',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText':
+          'Which of this government agency regulate the capital market?',
       'answers': [
         'CBN',
         'SEC',
