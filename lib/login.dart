@@ -167,17 +167,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                      child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                              ),
-                            );
-                          },
-                          child: const Text("Register",
-                              style: TextStyle(
-                                  color: mine, fontWeight: FontWeight.bold)))),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text("Register",
+                          style: TextStyle(
+                              color: mine, fontWeight: FontWeight.bold))),
                   InkWell(
                       onTap: () {},
                       child: const Text("Forgot Password?",
