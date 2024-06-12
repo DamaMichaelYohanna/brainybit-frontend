@@ -46,7 +46,7 @@ class _SubscribePageState extends State<SubscribePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color.fromARGB(255, 233, 238, 243),
+        color: const Color.fromARGB(255, 233, 238, 243),
         child: ListView(
           children: [
             Padding(
@@ -80,10 +80,9 @@ class _SubscribePageState extends State<SubscribePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 8, bottom: 10),
-                  margin: EdgeInsets.all(8),
-                  height: 160,
-                  width: 130,
+                  padding: const EdgeInsets.only(top: 8, bottom: 10, right: 9),
+                  margin: const EdgeInsets.all(8),
+                  // width: 150,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
@@ -106,14 +105,14 @@ class _SubscribePageState extends State<SubscribePage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 4.0, left: 20),
+                        padding: EdgeInsets.only(top: 8.0, left: 20),
                         child: Text(
                           "Limited Questions",
                           textAlign: TextAlign.left,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 4.0, left: 20),
+                        padding: EdgeInsets.only(top: 8.0, left: 20),
                         child: Text(
                           "Ads Available",
                           textAlign: TextAlign.left,
@@ -124,10 +123,9 @@ class _SubscribePageState extends State<SubscribePage> {
                 ),
                 Container(
                   // padding: EdgeInsets.all(8),
-                  margin: EdgeInsets.all(8),
-                  padding: EdgeInsets.only(top: 8, bottom: 10),
-                  height: 160,
-                  width: 130,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.only(top: 8, bottom: 10, right: 9),
+                  // width: 150,
                   decoration: BoxDecoration(
                       color: mine, borderRadius: BorderRadius.circular(10)),
                   child: const Column(
@@ -169,7 +167,7 @@ class _SubscribePageState extends State<SubscribePage> {
                 )
               ],
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               child: Text(
                   "You can keep enjoying the free plan though with only limited questions (15 per course), or purchase the paid plan token to enjoy premuim services."),
@@ -178,12 +176,12 @@ class _SubscribePageState extends State<SubscribePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text("Automated Token"),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: mine,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5))),
+                child: const Text("Automated Token"),
               ),
             ),
             Padding(
@@ -194,12 +192,12 @@ class _SubscribePageState extends State<SubscribePage> {
                     builder: (context) => const SubscribeManualPage(),
                   ));
                 },
-                child: Text("Manual Purchase"),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: mine,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5))),
+                child: const Text("Manual Purchase"),
               ),
             ),
           ],
