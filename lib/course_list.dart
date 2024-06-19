@@ -13,11 +13,11 @@ Map<String, Map<String, Map<String, String>>> department = {
   "GST": {
     "100": {
       "GST 111": "Use of English I",
-      "GST 112": "Logic, Philosophy and Human Existance",
-      "GST 113": "Nigerian Peoples and Culture",
+      // "GST 112": "Logic, Philosophy and Human Existance",
+      // "GST 113": "Nigerian Peoples and Culture",
       "GST 121": "Use of Library Skill, Study Skills and ICT",
       "GST 122": "Communication in English II",
-      "GST 123": "Communication in French or Arabic",
+      // "GST 123": "Communication in French or Arabic",
     },
     "200": {
       "GST 221": "Peace Studies And Conflict Resolution",
@@ -25,8 +25,8 @@ Map<String, Map<String, Map<String, String>>> department = {
   },
   "CMP": {
     "100": {
-      "CMP 111": "Introduction to Computer",
-      "CMP 112": "Introduction to Computer Hardware"
+      "CSC 101": "Introduction to Computer",
+      "CSC 112": "Introduction to Computer Hardware"
     },
     "200": {
       "CMP 211": "Introduction to Programming I",
@@ -34,7 +34,24 @@ Map<String, Map<String, Map<String, String>>> department = {
       "CMP 213": "Digital Electronics",
       "CMP 214": "Introduction to Data Structure.",
       "CMP 215": "System Analysis and design",
-      "CMP 224": "Introduction to web design II",
+      "CMP 221": "Computer Programming II",
+      "CMP 222": "Introduction To Database Management System",
+      "CMP 223": "Logic Design",
+      "CMP 224": "Introduction To Web Programming II",
+      "CMP 225": "Discrete Structure",
+
+      // "CMP "
+    },
+    "300": {
+      "CMP 311": "Object Oriented programming",
+      "CMP 312": "Operating Systems",
+      "CMP 313": "Data Structures And Algorithms",
+      "CMP 314": "Compiler Construction",
+      "CMP 315": "Web Programming and Database Management",
+      "CMP 316": "Data Communication/Network",
+      "CMP 317": "Data Management",
+      "CMP 319": "Research Methodology/Seminar",
+      "MTH 317": "Numerical Analysis I",
       // "CMP "
     }
   },
