@@ -941,7 +941,66 @@ const Map<String, List<Map<String, dynamic>>> questions = {
       "correct": "C"
     }
   ],
+  // QUESTIONS FOR ESP 311
+  // --------------------------------------------------
+  "ESP 311": [
+    {
+      'questionText':
+          'Which of this government agency regulate the capital market?',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'When a business buys it competitor it is known as?',
+      'answers': [
+        'Product review',
+        'Horizontal expansion',
+        'Vertical expansion',
+        'Product developement',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'What is the full meaning of NAFDAC',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText':
+          'Which of this government agency regulate the capital market?',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText':
+          'Which of this government agency regulate the capital market?',
+      'answers': [
+        'CBN',
+        'SEC',
+        'CAC',
+        'NAFDAC',
+      ],
+      "correct": "B"
+    },
+  ],
+  // THIS GOES FOR ALL LEVELS OF COMPUTER SCIENCE
   // Computer science questions goes here
+  // QUESTIONS FOR CMP 111
   "CMP 111": [
     {
       'questionText': 'Binary has ____ values',
@@ -1273,59 +1332,159 @@ const Map<String, List<Map<String, dynamic>>> questions = {
       "correct": "B"
     },
   ],
-  "ESP 311": [
+  // QUESTIONS FOR CMP 222
+  "CMP 222": [],
+  // QUESTION FOR CMP 223
+  "CMP 223": [],
+  // QUESTION FOR CMP 224
+  // -------------------------------------------
+  "CMP 224": [
     {
-      'questionText':
-          'Which of this government agency regulate the capital market?',
+      'questionText': 'What does CSS stand for?',
       'answers': [
-        'CBN',
-        'SEC',
-        'CAC',
-        'NAFDAC',
+        'Computer Style Sheets',
+        'Creative Style Sheets',
+        'Cascading Style Sheets',
+        'Content Style sheets',
       ],
-      "correct": "B"
+      "correct": "C"
     },
     {
-      'questionText': 'When a business buys it competitor it is known as?',
+      'questionText': 'Which of the following is not a valid CSS selector?',
       'answers': [
-        'Product review',
-        'Horizontal expansion',
-        'Vertical expansion',
-        'Product developement',
-      ],
-      "correct": "B"
-    },
-    {
-      'questionText': 'What is the full meaning of NAFDAC',
-      'answers': [
-        'CBN',
-        'SEC',
-        'CAC',
-        'NAFDAC',
+        '#id',
+        '.class',
+        '\$element',
+        'element',
       ],
       "correct": "B"
     },
     {
       'questionText':
-          'Which of this government agency regulate the capital market?',
+          'Which property is used to change the text color of an element?',
       'answers': [
-        'CBN',
-        'SEC',
-        'CAC',
-        'NAFDAC',
+        'text-color',
+        'color',
+        'font-color',
+        'text-style',
       ],
       "correct": "B"
     },
     {
-      'questionText':
-          'Which of this government agency regulate the capital market?',
+      "questionText": "What is the correct way to create a comment in HTML?",
+      "answers": [
+        "<!-- this is a comment -->",
+        "// This is a comment",
+        "; This is a comment",
+        "<comment> This is a comment </comment>"
+      ],
+      "correct": "A"
+    },
+    {
+      "questionText":
+          "Which element defines a header for a document or section?",
+      "answers": ["<header>", "<title>", "<h1>", "<div>"],
+      "correct": "A"
+    },
+    {
+      "questionText": "How do you create a hyperlink in HTML?",
+      "answers": [
+        "<a href='url'>Link Text</a>",
+        "<link href='url'>",
+        "<url>Link Text</url>",
+        "<anchor href='url'>Link Text</anchor>"
+      ],
+      "correct": "A"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
       'answers': [
-        'CBN',
-        'SEC',
-        'CAC',
-        'NAFDAC',
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
       ],
       "correct": "B"
     },
-  ]
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+    {
+      'questionText': 'The second step in IC Fabrication process is?',
+      'answers': [
+        'Etching',
+        'Masking',
+        'Wafer production',
+        'Doping',
+      ],
+      "correct": "B"
+    },
+  ],
 };
