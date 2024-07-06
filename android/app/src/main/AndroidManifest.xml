@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.konnet">
+    package="com.example.brainybit">
    <application
         android:label="BrainyBit"
         android:name="${applicationName}"

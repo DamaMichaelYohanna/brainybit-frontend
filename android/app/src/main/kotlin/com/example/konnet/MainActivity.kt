@@ -1,4 +1,4 @@
-package com.example.konnet
+package com.example.brainybit
 
 import io.flutter.embedding.android.FlutterActivity
 
