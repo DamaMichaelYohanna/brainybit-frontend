@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:http/http.dart' as http;
 
 class Collab extends StatefulWidget {
@@ -20,7 +20,7 @@ class CollabState extends State<Collab> {
     String phone = phoneControl.text;
     String email = emailControl.text;
     String note = noteControl.text;
-    var url = Uri.https('locator-xi.vercel.app', 'collab');
+    var url = Uri.https('brainybit.vercel.app', 'collab');
     // prepare the form data
     final Map<String, String> formData = {
       'name': name,

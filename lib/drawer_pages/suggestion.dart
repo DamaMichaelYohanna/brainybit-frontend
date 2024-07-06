@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:http/http.dart' as http;
 
 class SuggestionPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
 
   Future<String> submitFeedback(
       String experience, String submission, String category) async {
-    var url = Uri.https('locator-xi.vercel.app', 'feedback/upload');
+    var url = Uri.https('brainybit.vercel.app', 'feedback/upload');
     // prepare the form data
     final Map<String, String> formData = {
       'experience': experience,

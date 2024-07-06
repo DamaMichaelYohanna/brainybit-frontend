@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // Function for login in.
   Future<Map<String, bool>> registerOnline(
       String name, String email, String password) async {
-    var url = Uri.https('locator-xi.vercel.app', 'api/v1/user/register');
+    var url = Uri.https('brainybit.vercel.app', 'api/v1/user/register');
     // prepare the form data
     final Map<String, String> formData = {
       'name': name,

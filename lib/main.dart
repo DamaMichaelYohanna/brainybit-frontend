@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/home_menu.dart';
-import 'package:konnet/login.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/home_menu.dart';
+import 'package:brainybit/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool isPremium = false;
+String name = '';
 Future<void> main() async {
   // Function to fetch user token to check if the user is logged in.
   WidgetsFlutterBinding.ensureInitialized();
   Future<bool> getUserToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String name = prefs.getString("fullName") ?? "";
+    name = prefs.getString("fullName") ?? "";
     // String email = prefs.getString("email") ?? "";
     String token = prefs.getString("token") ?? "";
     isPremium = prefs.getBool("premium") ?? false;

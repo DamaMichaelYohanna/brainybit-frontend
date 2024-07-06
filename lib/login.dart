@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:konnet/register.dart';
+import 'package:brainybit/register.dart';
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // Function for login in.
   Future<Map<String, bool>> fetchUserInfoOnline(
       String username, String password) async {
-    var url = Uri.https('locator-xi.vercel.app', 'api/v1/user/login');
+    var url = Uri.https('brainybit.vercel.app', 'api/v1/user/login');
     // prepare the form data
     final Map<String, String> formData = {
       'username': username,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/main.dart';
-import 'package:konnet/subscribe.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/main.dart';
+import 'package:brainybit/subscribe.dart';
 
 class QuizFinish extends StatelessWidget {
   final int score;
@@ -17,13 +17,13 @@ class QuizFinish extends StatelessWidget {
         backgroundColor: mine,
         body: ListView(children: [
           Image.asset('assets/images/quizfinish.png'),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
               overflow: TextOverflow.ellipsis,
-              "Dama Michael Yohanna",
+              name,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),

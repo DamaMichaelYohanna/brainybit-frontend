@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class CalenderPage extends StatefulWidget {

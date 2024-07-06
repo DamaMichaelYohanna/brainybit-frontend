@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -17,7 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
 
   Future<void> fetchResponse(String prompt) async {
-    const String baseUrl = 'https://locator-xi.vercel.app/chat';
+    const String baseUrl = 'https://brainybit.vercel.app/chat';
 
     final Map<String, String> queryParams = {
       'prompt': prompt,

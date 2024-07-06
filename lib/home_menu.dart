@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:konnet/about.dart';
-import 'package:konnet/chat.dart';
-import 'package:konnet/drawer_pages/hot_line.dart';
-import 'package:konnet/drawer_pages/suggestion.dart';
-import 'package:konnet/index.dart';
-import 'package:konnet/main.dart';
-import 'package:konnet/notification.dart';
-import 'package:konnet/profile.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/subscribe.dart';
+import 'package:brainybit/about.dart';
+import 'package:brainybit/chat.dart';
+import 'package:brainybit/drawer_pages/hot_line.dart';
+import 'package:brainybit/drawer_pages/suggestion.dart';
+import 'package:brainybit/index.dart';
+import 'package:brainybit/main.dart';
+import 'package:brainybit/notification.dart';
+import 'package:brainybit/profile.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/subscribe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/note/note_detail.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/note/note_detail.dart';
 import 'add_note.dart';
-import 'package:konnet/utility.dart';
+import 'package:brainybit/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 

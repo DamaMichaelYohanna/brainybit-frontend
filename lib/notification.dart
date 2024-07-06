@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:http/http.dart' as http;
 
 class NotifcationList extends StatefulWidget {
@@ -16,7 +16,7 @@ class _NotifcationListState extends State<NotifcationList> {
 
   void fetch() async {
     // Await the result of the asynchronous online query
-    var url = Uri.https('locator-xi.vercel.app', 'news');
+    var url = Uri.https('brainybit.vercel.app', 'news');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/drawer_pages/donors.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/drawer_pages/donors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DonationPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class DonationPage extends StatefulWidget {
 }
 
 class _DonationPageState extends State<DonationPage> {
-  final Uri _url = Uri.parse('https://locator-xi.vercel.app/register');
+  final Uri _url = Uri.parse('https://brainybit.vercel.app/register');
   // function to copy account number to clipboard
   void copyAccountNumber(String acc) {
     Clipboard.setData(ClipboardData(text: acc));

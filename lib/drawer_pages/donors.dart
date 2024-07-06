@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
+import 'package:brainybit/colorScheme.dart';
 import 'package:http/http.dart' as http;
-import 'package:konnet/utility.dart';
+import 'package:brainybit/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
@@ -21,7 +21,7 @@ class _DonorsState extends State<Donors> {
 
   void fetch() async {
     // Await the result of the asynchronous database query
-    var url = Uri.https('locator-xi.vercel.app', 'donation');
+    var url = Uri.https('brainybit.vercel.app', 'donation');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {

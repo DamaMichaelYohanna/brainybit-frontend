@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:konnet/utility.dart';
+import 'package:brainybit/utility.dart';
 
 DatabaseHelper databaseHelper = DatabaseHelper.instance;
 

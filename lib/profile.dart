@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/login.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {

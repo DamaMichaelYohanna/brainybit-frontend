@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/main.dart';
-import 'package:konnet/questions_model.dart';
-import 'package:konnet/quiz_finish.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/main.dart';
+import 'package:brainybit/questions_model.dart';
+import 'package:brainybit/quiz_finish.dart';
 
 class QuizScreen extends StatefulWidget {
   final String courseName;

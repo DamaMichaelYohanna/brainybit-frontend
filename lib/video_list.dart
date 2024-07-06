@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/questions_model.dart';
-import 'package:konnet/quiz.dart';
-import 'package:konnet/video_player.dart';
-import 'package:konnet/video_model.dart';
-import 'package:konnet/course_detail.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/questions_model.dart';
+import 'package:brainybit/quiz.dart';
+import 'package:brainybit/resources.dart';
+import 'package:brainybit/video_player.dart';
+import 'package:brainybit/video_model.dart';
+import 'package:brainybit/course_detail.dart';
 
 class VideoPlayList extends StatelessWidget {
   final String courseCode;
@@ -84,8 +85,29 @@ class VideoPlayList extends StatelessWidget {
                   fontSize: 16,
                 )),
           ),
-          Column(
-            children: _buildListItems(),
+          // Column(
+          //   children: _buildListItems(),
+          // ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: mine,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LearningResource(
+                      courseName: courseName,
+                      courseCode: courseCode,
+                    ),
+                  ),
+                );
+              },
+              child: const Text("Learning Resources"),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),

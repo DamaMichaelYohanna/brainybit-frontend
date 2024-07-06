@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/calender.dart';
-import 'package:konnet/course_list.dart';
-import 'package:konnet/map.dart';
-import 'package:konnet/note/note_list.dart';
-import 'package:konnet/todo/todo_list.dart';
+import 'package:brainybit/calender.dart';
+import 'package:brainybit/course_list.dart';
+import 'package:brainybit/map.dart';
+import 'package:brainybit/note/note_list.dart';
+import 'package:brainybit/todo/todo_list.dart';
 import 'colorScheme.dart';
 
 class IndexPage extends StatelessWidget {
@@ -111,7 +111,7 @@ class IndexPage extends StatelessWidget {
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)),
-                          child: Image.asset("assets/images/gst.jpg")),
+                          child: Image.asset("assets/images/gst.webp")),
                       const Divider(
                         color: Colors.white,
                       ),

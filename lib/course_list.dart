@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:konnet/colorScheme.dart';
-import 'package:konnet/video_list.dart';
+import 'package:brainybit/colorScheme.dart';
+import 'package:brainybit/video_list.dart';
 
 /// Flutter code sample for [ListTile].
 Map<String, Map<String, Map<String, String>>> department = {
