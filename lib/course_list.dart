@@ -14,19 +14,20 @@ Map<String, Map<String, Map<String, String>>> department = {
     "100": {
       "GST 111": "Use of English I",
       // "GST 112": "Logic, Philosophy and Human Existance",
-      // "GST 113": "Nigerian Peoples and Culture",
-      "GST 121": "Use of Library Skill, Study Skills and ICT",
-      "GST 122": "Communication in English II",
-      // "GST 123": "Communication in French or Arabic",
+      "GST 121": "Nigerian Peoples and Culture",
     },
     "200": {
+      "GST 211": "History and Philosopy of science",
       "GST 221": "Peace Studies And Conflict Resolution",
     }
   },
   "CMP": {
     "100": {
-      "CSC 101": "Introduction to Computer",
-      "CSC 112": "Introduction to Computer Hardware"
+      "CSC 101": "Introduction to Computing Sciences",
+      "CSC 112": "Computer Hardware",
+      "COS 121": "Introduction to Problem solving",
+      "CSC 122": "Introductio to Web Design",
+      "CSC 123": "Introduction to Database Management System",
     },
     "200": {
       "CMP 211": "Introduction to Programming I",
