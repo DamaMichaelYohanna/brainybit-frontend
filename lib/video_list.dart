@@ -117,30 +117,16 @@ class VideoPlayList extends StatelessWidget {
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
-              onPressed: questions.containsKey(courseCode)
-                  ? () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => QuizScreen(
-                            courseName: courseCode,
-                          ),
-                        ),
-                      );
-                    }
-                  : null,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => QuizScreen(
+                      courseName: courseCode,
+                    ),
+                  ),
+                );
+              },
               child: const Text("Take Quiz"),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: mine,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5))),
-              onPressed: null,
-              child: const Text("Join Study group"),
             ),
           ),
         ],
