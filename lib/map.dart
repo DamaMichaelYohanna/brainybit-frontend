@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -13,7 +11,7 @@ class MapPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         body: ListView(children: [
-          Container(
+          SizedBox(
               height: 200.0,
               width: 200.0,
               child: Image.asset('assets/images/about.jpg')),

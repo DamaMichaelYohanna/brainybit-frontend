@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
-import 'package:brainybit/questions_model.dart';
 import 'package:brainybit/quiz.dart';
 import 'package:brainybit/resources.dart';
-import 'package:brainybit/video_player.dart';
 import 'package:brainybit/video_model.dart';
 import 'package:brainybit/course_detail.dart';
 
@@ -15,38 +13,6 @@ class VideoPlayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String>? filteredDetails =
-        videoList[courseCode.substring(0, 3)]?[courseCode];
-
-    List<Widget> _buildListItems() {
-      List<Widget> listItems = [];
-      if (filteredDetails == null) {
-      } else {
-        int counter = 1;
-        for (var videoDetails
-            in videoList[courseCode.substring(0, 3)]![courseCode]!.entries) {
-          listItems.add(
-            Card(
-              margin: EdgeInsets.all(10),
-              elevation: .6,
-              child: ListTile(
-                title: Text("Lession $counter"),
-                subtitle: Text("${videoDetails.value}"),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => YoutubePlayerScreen(
-                            videoId: "${videoDetails.key}",
-                          )));
-                },
-              ),
-            ),
-          );
-          counter += 1;
-        }
-      }
-      return listItems;
-    }
-
     return Scaffold(
       appBar: AppBar(title: Text("$courseCode Resources")),
       body: ListView(
@@ -121,7 +87,7 @@ class VideoPlayList extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => QuizScreen(
-                      courseName: courseCode,
+                      courseCode: courseCode,
                     ),
                   ),
                 );

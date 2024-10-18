@@ -6,12 +6,6 @@ import 'package:brainybit/colorScheme.dart';
 class HotLine extends StatelessWidget {
   const HotLine({super.key});
 
-  Future<void> _launchUrl(_url) async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
