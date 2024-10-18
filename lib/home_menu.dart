@@ -166,37 +166,46 @@ class _HomePageState extends State<HomePage> {
                 ));
               },
             ),
+            ListTile(
+              title: const Text("Privacy Policy"),
+              leading: const Icon(Icons.privacy_tip),
+              onTap: () {
+                final Uri _url =
+                    Uri.parse('https://brainybit.vercel.app/general/privacy/');
+                launchUrl(_url);
+              },
+            ),
             // const ListTile(
             //   title: Text("Share application"),
             //   leading: Icon(Icons.share),
             //   // onTap: () {},
             // ),
-            const Divider(
-              color: Colors.white,
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                "Coming Soon",
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
+            // const Divider(
+            //   color: Colors.white,
+            // ),
+            // const Padding(
+            //   padding: EdgeInsets.all(10.0),
+            //   child: Text(
+            //     "Coming Soon",
+            //     style: TextStyle(fontStyle: FontStyle.italic),
+            //   ),
+            // ),
 
-            ListTile(
-              title: const Text("Hire A tutor"),
-              leading: const Icon(Icons.work),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text("Become A tutor"),
-              leading: const Icon(Icons.group),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text("Campus Transport"),
-              leading: const Icon(Icons.bus_alert),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   title: const Text("Hire A tutor"),
+            //   leading: const Icon(Icons.work),
+            //   onTap: () {},
+            // ),
+            // ListTile(
+            //   title: const Text("Become A tutor"),
+            //   leading: const Icon(Icons.group),
+            //   onTap: () {},
+            // ),
+            // ListTile(
+            //   title: const Text("Campus Transport"),
+            //   leading: const Icon(Icons.bus_alert),
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),
