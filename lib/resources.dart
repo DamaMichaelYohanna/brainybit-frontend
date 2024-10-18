@@ -41,9 +41,8 @@ class _LearningResourceState extends State<LearningResource> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _buildListItems() {
+    List<Widget> buildListItems() {
       List<Widget> listItems = [];
-      int counter = 1;
       for (var videoDetail in videoDetails.entries) {
         listItems.add(InkWell(
           onTap: () {
@@ -82,7 +81,6 @@ class _LearningResourceState extends State<LearningResource> {
             ),
           ),
         ));
-        counter += 1;
       }
       return listItems;
     }
@@ -111,7 +109,7 @@ class _LearningResourceState extends State<LearningResource> {
                   textAlign: TextAlign.center,
                 );
               } else {
-                return Column(children: _buildListItems());
+                return Column(children: buildListItems());
               }
             },
           ),

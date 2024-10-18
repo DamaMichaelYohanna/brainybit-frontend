@@ -13,7 +13,7 @@ class AboutUsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         body: ListView(children: [
-          Container(
+          SizedBox(
               height: 200.0,
               width: 200.0,
               child: Image.asset('assets/images/about.jpg')),
@@ -44,12 +44,12 @@ class AboutUsPage extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 5),
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 5),
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 236, 241, 245),
+                color: const Color.fromARGB(255, 236, 241, 245),
                 borderRadius: BorderRadius.circular(10)),
-            child: Text(
+            child: const Text(
                 "My vission is to empower every student with accessible and comprehensive educational resources, fostering a dynamic learning environment that transcends traditional boundaries.",
                 style: TextStyle(
                     fontSize: 16, color: Color.fromARGB(255, 2, 8, 14))),
@@ -63,12 +63,12 @@ class AboutUsPage extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 5),
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 5),
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 236, 241, 245),
+                color: const Color.fromARGB(255, 236, 241, 245),
                 borderRadius: BorderRadius.circular(10)),
-            child: Text(
+            child: const Text(
                 "My mission is to provide a centralized platform for students, offering past questions, learning materials, and essential school information, thereby enhancing academic excellence, promoting student success, and cultivating a vibrant community of lifelong learners"),
           ),
           // const Divider(),
@@ -138,20 +138,20 @@ class AboutUsPage extends StatelessWidget {
                       String androidUrl = "https://x.com/dama_michael";
                       await launchUrl(Uri.parse(androidUrl));
                     },
-                    icon: Icon(FontAwesomeIcons.twitter)),
+                    icon: const Icon(FontAwesomeIcons.twitter)),
                 IconButton(
                     onPressed: () async {
                       String androidUrl = "mailto:get2dama11@gmail.com";
                       await launchUrl(Uri.parse(androidUrl));
                     },
-                    icon: Icon(Icons.mail)),
+                    icon: const Icon(Icons.mail)),
                 IconButton(
                     onPressed: () async {
                       String androidUrl =
                           "https://github.com/DamaMichaelYohanna";
                       await launchUrl(Uri.parse(androidUrl));
                     },
-                    icon: Icon(FontAwesomeIcons.github)),
+                    icon: const Icon(FontAwesomeIcons.github)),
               ],
             ),
           )

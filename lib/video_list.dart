@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:brainybit/quiz.dart';
 import 'package:brainybit/resources.dart';
-import 'package:brainybit/video_model.dart';
 import 'package:brainybit/course_detail.dart';
 
 class VideoPlayList extends StatelessWidget {
