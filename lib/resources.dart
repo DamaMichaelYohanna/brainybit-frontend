@@ -21,7 +21,7 @@ class _LearningResourceState extends State<LearningResource> {
   Future<String> getData() {
     return Future.delayed(const Duration(seconds: 0), () async {
       var url = Uri.https(
-          'brainybit.vercel.app', 'general/course/${widget.courseCode}');
+          'brainybit.vercel.app', 'api/v1/general/course/${widget.courseCode}');
       try {
         final response = await http.get(url);
         if (response.statusCode == 200) {
@@ -105,6 +105,11 @@ class _LearningResourceState extends State<LearningResource> {
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Text(
+                  'No Videos for this course yet. Check Back',
+                  textAlign: TextAlign.center,
+                );
               } else {
                 return Column(children: _buildListItems());
               }
