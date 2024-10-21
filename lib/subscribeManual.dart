@@ -41,18 +41,10 @@ class _SubscribeManualPageState extends State<SubscribeManualPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
             child: Text(
-              "For manual purchase of token, transfer the sum of 500 naira only to the below account and send us the evidence of payment via whatsapp. We will provide you with token ASAP after confirmation",
+              "For manual purchase of token, transfer the sum of 1000 naira only to the below account and send us the evidence of payment via whatsapp. We will provide you with token ASAP after confirmation",
               style: TextStyle(fontSize: 16, color: mine.shade900),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          //   child: Text(
-          //     "This also means that you will"
-          //     " continue to enjoy ads free services.",
-          //     style: TextStyle(fontSize: 16, color: mine.shade900),
-          //   ),
-          // ),
           Card(
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: ListTile(
@@ -107,17 +99,6 @@ class _SubscribeManualPageState extends State<SubscribeManualPage> {
               child: const Text("Send Payment Evidence(Whatsapp)"),
             ),
           ),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     _sendingMails();
-          //   },
-          //   style: ElevatedButton.styleFrom(
-          //       backgroundColor: mine,
-          //       foregroundColor: Colors.white,
-          //       shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(5))),
-          //   child: const Text("Email Us Reciept"),
-          // ),
         ],
       ),
     );
