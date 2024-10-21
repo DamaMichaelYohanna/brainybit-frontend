@@ -3,17 +3,88 @@ import 'package:brainybit/colorScheme.dart';
 import 'package:brainybit/quiz.dart';
 import 'package:brainybit/resources.dart';
 import 'package:brainybit/course_detail.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class VideoPlayList extends StatelessWidget {
+class VideoPlayList extends StatefulWidget {
   final String courseCode;
   final String courseName;
   const VideoPlayList(
       {super.key, required this.courseCode, required this.courseName});
 
   @override
+  State<VideoPlayList> createState() => _VideoPlayListState();
+}
+
+class _VideoPlayListState extends State<VideoPlayList> {
+  static const AdRequest request = AdRequest(
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    nonPersonalizedAds: true,
+  );
+
+  final String testDevice = 'bbdfd586-6bc3-465f-875c-10ca1ad1abe1';
+  final int maxFailedLoadAttempts = 3;
+
+  InterstitialAd? _interstitialAd;
+  int _numInterstitialLoadAttempts = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    MobileAds.instance.updateRequestConfiguration(
+        RequestConfiguration(testDeviceIds: [testDevice]));
+    _createInterstitialAd();
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+        adUnitId: 'ca-app-pub-5231324721259764/4061624466',
+        request: request,
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (InterstitialAd ad) {
+            print('$ad loaded');
+            _interstitialAd = ad;
+            _numInterstitialLoadAttempts = 0;
+            _interstitialAd!.setImmersiveMode(true);
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            print('InterstitialAd failed to load: $error.');
+            _numInterstitialLoadAttempts += 1;
+            _interstitialAd = null;
+            if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+              _createInterstitialAd();
+            }
+          },
+        ));
+  }
+
+  void _showInterstitialAd() {
+    if (_interstitialAd == null) {
+      print('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          print('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+    );
+    _interstitialAd!.show();
+    _interstitialAd = null;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("$courseCode Resources")),
+      appBar: AppBar(title: Text("${widget.courseCode} Resources")),
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -30,7 +101,7 @@ class VideoPlayList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              courseName,
+              widget.courseName,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
@@ -43,8 +114,8 @@ class VideoPlayList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-                courseDetail[courseCode] != null
-                    ? "${courseDetail[courseCode]}"
+                courseDetail[widget.courseCode] != null
+                    ? "${courseDetail[widget.courseCode]}"
                     : "No Course Details available yet.",
                 style: const TextStyle(
                   fontSize: 16,
@@ -65,8 +136,8 @@ class VideoPlayList extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => LearningResource(
-                      courseName: courseName,
-                      courseCode: courseCode,
+                      courseName: widget.courseName,
+                      courseCode: widget.courseCode,
                     ),
                   ),
                 );
@@ -83,10 +154,11 @@ class VideoPlayList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {
+                _showInterstitialAd();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => QuizScreen(
-                      courseCode: courseCode,
+                      courseCode: widget.courseCode,
                     ),
                   ),
                 );
