@@ -1,3 +1,4 @@
+import 'package:brainybit/subscrbe_activate.dart';
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:brainybit/subscribeManual.dart';
@@ -170,19 +171,7 @@ class _SubscribePageState extends State<SubscribePage> {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               child: Text(
-                  "You can keep enjoying the free plan though with only limited questions (15 per course), or purchase the paid plan token to enjoy premuim services."),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: mine,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5))),
-                child: const Text("Automated Token"),
-              ),
+                  "You can keep enjoying the free plan though with only limited questions (30 per course), or purchase the paid plan token to enjoy premuim services."),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -198,6 +187,22 @@ class _SubscribePageState extends State<SubscribePage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5))),
                 child: const Text("Manual Purchase"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const TokenActivateScreen(),
+                  ));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: mine,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
+                child: const Text("Activate Token"),
               ),
             ),
           ],
