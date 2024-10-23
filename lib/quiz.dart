@@ -28,7 +28,6 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Future<String> getData() {
-    print(isPremium);
     return Future.delayed(const Duration(seconds: 0), () async {
       if (questions.containsKey(widget.courseCode)) {
         // no need to run the function since questions already exist.
