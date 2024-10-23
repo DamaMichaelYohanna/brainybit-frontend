@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               title: const Text("Rate BrainyBit"),
-              leading: const Icon(Icons.rate_review),
+              leading: const Icon(Icons.star),
               onTap: () {
                 final Uri _url = Uri.parse(
                     'https://play.google.com/store/apps/details?id=codewithdama.brainybit');
