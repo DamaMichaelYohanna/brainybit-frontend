@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart'; // To format the date/time
 
 import 'home_menu.dart';
 
@@ -19,11 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordControl = TextEditingController();
 
 // funtion to set user token after login
-  Future<void> setUserInfo(String? fullName, email, verified, token) async {
+  Future<void> setUserInfo(
+      String? fullName, email, verified, token, premium) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("fullName", fullName ?? "");
     prefs.setString("email", email);
     prefs.setBool("verified", verified);
+    prefs.setBool("premium", premium);
     prefs.setString("token", token);
   }
 
@@ -43,7 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
         Map<String, dynamic> body = json.decode(response.body.toString());
         // print(response.body.toString());
         setUserInfo(body["full_name"], body["email"], body["verified"],
-            body["access_token"]);
+            body["access_token"], body['isPremium']);
+        _saveCurrentTime();
         return {"correct": true};
       } else {
         // Request failed
@@ -88,15 +92,31 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // variable to obscure and show password
-  bool show = false;
-  bool errorError = false;
+  // Function to get the current time and format it
+  String _getCurrentTime() {
+    DateTime now = DateTime.now();
+    return DateFormat('yyyy-MM-dd HH:mm:ss')
+        .format(now); // Format: YYYY-MM-DD HH:mm:ss
+  }
+
+// Save the current time in Shared Preferences
+  Future<void> _saveCurrentTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String currentTime = _getCurrentTime();
+    await prefs.setString('lastLogin', currentTime); // Save time as String
+  }
+
   @override
   void dispose() {
     usernameControl.dispose();
     passwordControl.dispose();
     super.dispose();
   }
+
+  // variable to obscure and show password
+  bool show = false;
+  bool errorError = false;
+  String? _currentTime;
 
   @override
   Widget build(BuildContext context) {
