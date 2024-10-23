@@ -1,3 +1,4 @@
+import 'package:brainybit/login.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:brainybit/about.dart';
@@ -29,14 +30,52 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getUsername() async {
-    await SharedPreferences.getInstance().then((value) => {
-          setState(
-            () {
-              username = value.getString("fullName") ?? "";
-              premium = value.getBool("premium") ?? false;
-            },
-          )
-        });
+    String lastLogin;
+    DateTime lastLoginDateTime;
+    DateTime timeNow;
+    Duration difference;
+    await SharedPreferences.getInstance().then(
+      (value) => {
+        lastLogin = value.getString('lastLogin') ?? '',
+        if (lastLogin.isNotEmpty)
+          {
+            lastLoginDateTime = DateTime.parse(lastLogin),
+            timeNow = _getCurrentTime(),
+            difference = timeNow.difference(lastLoginDateTime),
+            if (difference.inDays > 10)
+              {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                )
+              }
+            else
+              {
+                setState(
+                  () {
+                    username = value.getString("fullName") ?? "";
+                    premium = value.getBool("premium") ?? false;
+                  },
+                ),
+              }
+          }
+        else
+          {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ),
+            )
+          },
+      },
+    );
+  }
+
+// Function to get the current time and format it
+  DateTime _getCurrentTime() {
+    DateTime now = DateTime.now();
+    return now; // Format: YYYY-MM-DD HH:mm:ss
   }
 
   @override
@@ -172,6 +211,15 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 final Uri _url =
                     Uri.parse('https://brainybit.vercel.app/general/privacy/');
+                launchUrl(_url);
+              },
+            ),
+            ListTile(
+              title: const Text("Rate BrainyBit"),
+              leading: const Icon(Icons.rate_review),
+              onTap: () {
+                final Uri _url = Uri.parse(
+                    'https://play.google.com/store/apps/details?id=codewithdama.brainybit');
                 launchUrl(_url);
               },
             ),
