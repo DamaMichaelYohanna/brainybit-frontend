@@ -3,6 +3,7 @@ import 'package:brainybit/register.dart';
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:brainybit/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart'; // To format the date/time
 
@@ -27,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     prefs.setString("email", email);
     prefs.setBool("verified", verified);
     prefs.setBool("premium", premium);
+    isPremium = premium;
     prefs.setString("token", token);
   }
 
@@ -116,7 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
   // variable to obscure and show password
   bool show = false;
   bool errorError = false;
-  String? _currentTime;
 
   @override
   Widget build(BuildContext context) {
