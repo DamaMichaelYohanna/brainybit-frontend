@@ -28,28 +28,24 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Future<String> getData() {
+    print(isPremium);
     return Future.delayed(const Duration(seconds: 0), () async {
       if (questions.containsKey(widget.courseCode)) {
         // no need to run the function since questions already exist.
         return "";
       }
-      print("Damn you");
       // if question are not loaded, try fetch them online.
       var url = Uri.https('brainybit.vercel.app',
           'api/v1/general/question/${widget.courseCode}');
       try {
         final response = await http.get(url);
-        print(response.statusCode);
-        print(response.body);
-        print(questions);
+
         if (response.statusCode == 200) {
           questions[widget.courseCode] = json.decode(response.body);
-          print(questions);
-          print("not working");
           return "done";
         } else {
           throw Exception(
-              'Failed to load video details'); // Handle non-200 status codes
+              'Failed to load quiz details'); // Handle non-200 status codes
         }
       } catch (e) {
         // Log or handle the error appropriately
