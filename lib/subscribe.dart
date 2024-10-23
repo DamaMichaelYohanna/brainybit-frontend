@@ -1,4 +1,4 @@
-import 'package:brainybit/subscrbe_activate.dart';
+import 'package:brainybit/subscribe_activate.dart';
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:brainybit/subscribeManual.dart';
