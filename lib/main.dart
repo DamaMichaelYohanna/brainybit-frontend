@@ -4,32 +4,37 @@ import 'package:brainybit/home_menu.dart';
 import 'package:brainybit/login.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// To format the date/time
 
 bool isPremium = false;
 String name = '';
 String email = '';
 Map<dynamic, dynamic> questions = {};
-Future<void> main() async {
-  // Function to fetch user token to check if the user is logged in.
-  WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
-  // RequestConfiguration requestConfiguration = RequestConfiguration(
-  //     testDeviceIds: ['bbdfd586-6bc3-465f-875c-10ca1ad1abe1']);
-  // MobileAds.instance.updateRequestConfiguration(requestConfiguration);
-  Future<bool> getUserToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+bool shouldLogin = false;
+
+// Function to fetch user token to check if the user is logged in.
+Future<void> getUserToken() async {
+  SharedPreferences.getInstance().then((SharedPreferences prefs) {
+    // Use prefs here
     name = prefs.getString("fullName") ?? "";
-    // String email = prefs.getString("email") ?? "";
     String token = prefs.getString("token") ?? "";
     isPremium = prefs.getBool("premium") ?? false;
     if (token.isNotEmpty) {
-      return true;
+      shouldLogin = false;
     } else {
-      return false;
+      shouldLogin = true;
     }
-  }
+  });
+}
 
-  var userInfo = await getUserToken();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  getUserToken();
+
+  // Admob initializer
+  MobileAds.instance.initialize();
+  // fetch the details for check
+  print(shouldLogin);
   runApp(MaterialApp(
       title: "BrainyBit",
       debugShowCheckedModeBanner: false,
@@ -38,5 +43,5 @@ Future<void> main() async {
         useMaterial3: true,
         //<-- SEE HERE
       ),
-      home: userInfo ? const HomePage() : const LoginScreen()));
+      home: shouldLogin ? const LoginScreen() : const HomePage()));
 }
