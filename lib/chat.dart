@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:brainybit/colorScheme.dart';
@@ -15,6 +14,7 @@ class _ChatScreenState extends State<ChatScreen> {
   List<List<String>> chat = [];
   final TextEditingController chatController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  bool isTyping = false; // State to track if AI is typing
 
   Future<void> fetchResponse(String prompt) async {
     const String baseUrl = 'https://brainybit.vercel.app/chat';
@@ -23,39 +23,49 @@ class _ChatScreenState extends State<ChatScreen> {
       'prompt': prompt,
     };
     final Uri uri = Uri.parse(baseUrl).replace(queryParameters: queryParams);
+
     try {
-      // final response = await http.get(Uri.https("dummyjson.com", "products/1"));
+      setState(() {
+        isTyping = true; // Show typing indicator
+        chat.add(["ai", "typing..."]);
+      });
+
       final response = await http.get(uri);
 
+      setState(() {
+        // Remove "typing..." message
+        chat.removeWhere(
+            (message) => message[0] == "ai" && message[1] == "typing...");
+        isTyping = false;
+      });
+
       if (response.statusCode == 200) {
-        // Request successful, handle response data
-        debugPrint('Response body: ${response.body}');
         final body = json.decode(response.body);
         setState(() {
           chat.add(["ai", body["message"]]);
         });
       } else {
-        // Request failed
-        debugPrint('Request failed with status: ${response.statusCode}');
         setState(() {
-          chat.add(["ai", "Sorry! An error occured"]);
+          chat.add(["ai", "Sorry! An error occurred."]);
         });
       }
     } catch (e) {
-      // An error occurred
       setState(() {
-        chat.add(["ai", "Sorry! An error occured"]);
+        chat.removeWhere(
+            (message) => message[0] == "ai" && message[1] == "typing...");
+        chat.add(["ai", "Sorry! An error occurred."]);
+        isTyping = false;
       });
     }
   }
 
   void sendMessage() {
-    String message = chatController.text;
-    chatController.text = "";
+    String message = chatController.text.trim();
     if (message.isNotEmpty) {
       setState(() {
         chat.add(["user", message]);
       });
+      chatController.clear();
       fetchResponse(message);
     }
   }
@@ -64,62 +74,78 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastOutSlowIn);
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn,
+        );
       }
     });
+
     return Scaffold(
-      body: ListView.builder(
-          itemCount: chat.length,
-          controller: _scrollController,
-          itemBuilder: (BuildContext context, int index) {
-            return Align(
-              alignment: chat[index][0] == "user"
-                  ? Alignment.centerRight
-                  : Alignment.centerLeft,
-              child: Card(
-                elevation: 0,
-                margin: chat[index][0] == "user"
-                    ? const EdgeInsets.only(
-                        left: 45, right: 10, top: 10, bottom: 10)
-                    : const EdgeInsets.only(
-                        left: 10, right: 45, top: 10, bottom: 10),
-                color: chat[index][0] == "user"
-                    ? const Color.fromARGB(255, 221, 229, 237)
-                    : mine.shade100,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    chat[index][1],
-                    style: const TextStyle(),
-                    // textAlign: true == true ? TextAlign.right : TextAlign.left,
+      body: Column(
+        children: [
+          // Chat messages
+          Expanded(
+            child: ListView.builder(
+              itemCount: chat.length,
+              controller: _scrollController,
+              itemBuilder: (BuildContext context, int index) {
+                return Align(
+                  alignment: chat[index][0] == "user"
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Card(
+                    elevation: 0,
+                    margin: chat[index][0] == "user"
+                        ? const EdgeInsets.only(
+                            left: 45, right: 10, top: 10, bottom: 10)
+                        : const EdgeInsets.only(
+                            left: 10, right: 45, top: 10, bottom: 10),
+                    color: chat[index][0] == "user"
+                        ? const Color.fromARGB(255, 221, 229, 237)
+                        : mine.shade100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        chat[index][1],
+                        style: const TextStyle(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          }),
-      bottomNavigationBar: BottomAppBar(
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: TextField(
-              controller: chatController,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10),
-                hintText: "Enter Your Prompt",
-                suffixIcon: IconButton(
-                  icon: const Icon(
-                    Icons.send_rounded,
-                  ),
-                  onPressed: () {
-                    sendMessage();
-                  },
-                ),
-                border: const OutlineInputBorder(),
-              ),
+                );
+              },
             ),
-          )),
+          ),
+          // Input field
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                // Expanded Text Field
+                Expanded(
+                  child: TextFormField(
+                    controller: chatController,
+                    minLines: 1,
+                    maxLines: 5, // Limit the max height to 5 lines
+                    decoration: InputDecoration(
+                      hintText: "Enter your message...",
+                      contentPadding: const EdgeInsets.all(10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.send_rounded, color: mine),
+                        onPressed: sendMessage,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
