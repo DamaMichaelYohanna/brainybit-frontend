@@ -1,3 +1,4 @@
+import 'package:brainybit/resource1.dart';
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:brainybit/quiz.dart';
@@ -130,7 +131,7 @@ class _VideoPlayListState extends State<VideoPlayList> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => LearningResource(
+                    builder: (context) => Resources(
                       courseName: widget.courseName,
                       courseCode: widget.courseCode,
                     ),
