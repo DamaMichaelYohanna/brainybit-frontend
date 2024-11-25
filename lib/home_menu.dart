@@ -6,7 +6,6 @@ import 'package:brainybit/chat.dart';
 import 'package:brainybit/drawer_pages/hot_line.dart';
 import 'package:brainybit/drawer_pages/suggestion.dart';
 import 'package:brainybit/index.dart';
-import 'package:brainybit/main.dart';
 import 'package:brainybit/notification.dart';
 import 'package:brainybit/profile.dart';
 import 'package:brainybit/colorScheme.dart';
@@ -22,60 +21,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _tabSwitch(int index) {
-    setState(() {
-      _selectedIndex = index;
-      print(index);
-    });
-  }
+  int _selectedIndex = 0;
+  String username = '';
+  bool premium = false;
 
+  // Get username and handle login checks
   void getUsername() async {
-    String lastLogin;
-    DateTime lastLoginDateTime;
-    DateTime timeNow;
-    Duration difference;
-    await SharedPreferences.getInstance().then(
-      (value) => {
-        lastLogin = value.getString('lastLogin') ?? '',
-        if (lastLogin.isNotEmpty)
-          {
-            lastLoginDateTime = DateTime.parse(lastLogin),
-            timeNow = _getCurrentTime(),
-            difference = timeNow.difference(lastLoginDateTime),
-            if (difference.inDays > 10)
-              {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
-                )
-              }
-            else
-              {
-                setState(
-                  () {
-                    username = value.getString("fullName") ?? "";
-                    premium = value.getBool("premium") ?? false;
-                  },
-                ),
-              }
-          }
-        else
-          {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const LoginScreen(),
-              ),
-            )
-          },
-      },
-    );
-  }
-
-// Function to get the current time and format it
-  DateTime _getCurrentTime() {
-    DateTime now = DateTime.now();
-    return now; // Format: YYYY-MM-DD HH:mm:ss
+    await SharedPreferences.getInstance().then((value) {
+      String lastLogin = value.getString('lastLogin') ?? '';
+      if (lastLogin.isNotEmpty) {
+        DateTime lastLoginDateTime = DateTime.parse(lastLogin);
+        DateTime timeNow = DateTime.now();
+        Duration difference = timeNow.difference(lastLoginDateTime);
+        if (difference.inDays > 10) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+          );
+        } else {
+          setState(() {
+            username = value.getString("fullName") ?? "";
+            premium = value.getBool("premium") ?? false;
+          });
+        }
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      }
+    });
   }
 
   @override
@@ -84,187 +57,72 @@ class _HomePageState extends State<HomePage> {
     getUsername();
   }
 
-  int _selectedIndex = 0;
-  String username = '';
-  bool premium = false;
+  // Pages for the BottomNavigationBar
+  final List<Widget> _pages = [
+    const IndexPage(name: '', premium: false),
+    const ChatScreen(),
+    const ProfilePage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> tabScreen = [
-      IndexPage(name: username, premium: premium),
-      const ChatScreen(),
-      const ProfilePage()
-    ];
     return Scaffold(
       appBar: AppBar(
-          title: const Text("BrainyBit"),
-          backgroundColor: mine,
-          foregroundColor: Colors.white,
-          centerTitle: true,
-          // leading: const Icon(Icons.menu),
-          actions: [
-            !isPremium
-                ? IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const SubscribePage()));
-                    },
-                    icon: const Icon(Icons.monetization_on),
-                  )
-                : Text(""),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const NotifcationList()));
-                },
-                icon: const Icon(Icons.notifications))
-          ]),
-      body: tabScreen.elementAt(_selectedIndex),
+        title: const Text("BrainyBit"),
+        backgroundColor: mine,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        actions: [
+          !premium
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SubscribePage()));
+                  },
+                  icon: const Icon(Icons.monetization_on),
+                )
+              : const SizedBox.shrink(),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const NotifcationList()));
+            },
+            icon: const Icon(Icons.notifications),
+          ),
+        ],
+      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: mine,
         selectedItemColor: Colors.white,
+        currentIndex: _selectedIndex,
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.chat_sharp), label: "ChatAI"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.admin_panel_settings), label: "Profile")
+              icon: Icon(Icons.admin_panel_settings), label: "Profile"),
         ],
-        onTap: _tabSwitch,
-        currentIndex: _selectedIndex,
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: ListView(
-          children: [
-            DrawerHeader(
-              child: Image.asset("assets/images/logo.png"),
-            ),
-            ListTile(
-              title: const Text("NSUK Hot Lines"),
-              leading: const Icon(Icons.call),
-              onTap: (() {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HotLine(),
-                ));
-              }),
-            ),
-            ListTile(
-                title: const Text("About BrainyBit"),
-                leading: const Icon(Icons.apps_outage),
-                // tileColor: Colors.white,
-                onTap: (() {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AboutUsPage(),
-                  ));
-                })),
-            const Divider(
-              color: Colors.white,
-            ),
-            // const Padding(
-            //   padding: EdgeInsets.all(10.0),
-            //   child: Text(
-            //     "Special",
-            //     style: TextStyle(fontStyle: FontStyle.italic),
-            //   ),
-            // ),
-            // ListTile(
-            //   title: const Text("Make Donation"),
-            //   leading: const Icon(Icons.attach_money),
-            //   onTap: () {
-            //     Navigator.of(context).push(MaterialPageRoute(
-            //       builder: (context) => const DonationPage(),
-            //     ));
-            //   },
-            // ),
-            // ListTile(
-            //     title: const Text("Be A Contributor"),
-            //     leading: const Icon(Icons.bubble_chart),
-            //     // tileColor: Colors.white,
-            //     onTap: (() {
-            //       Navigator.of(context).push(MaterialPageRoute(
-            //         builder: (context) => const Collab(),
-            //       ));
-            //     })),
-            // const Divider(
-            //   color: Colors.white,
-            // ),
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                "More..",
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-
-            ListTile(
-              title: const Text("Drop Suggestion"),
-              leading: const Icon(Icons.local_offer_rounded),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SuggestionPage(),
-                ));
-              },
-            ),
-            ListTile(
-              title: const Text("Privacy Policy"),
-              leading: const Icon(Icons.privacy_tip),
-              onTap: () {
-                final Uri _url =
-                    Uri.parse('https://brainybit.vercel.app/general/privacy/');
-                launchUrl(_url);
-              },
-            ),
-            ListTile(
-              title: const Text("Rate BrainyBit"),
-              leading: const Icon(Icons.star),
-              onTap: () {
-                final Uri _url = Uri.parse(
-                    'https://play.google.com/store/apps/details?id=codewithdama.brainybit');
-                launchUrl(_url);
-              },
-            ),
-            // const ListTile(
-            //   title: Text("Share application"),
-            //   leading: Icon(Icons.share),
-            //   // onTap: () {},
-            // ),
-            // const Divider(
-            //   color: Colors.white,
-            // ),
-            // const Padding(
-            //   padding: EdgeInsets.all(10.0),
-            //   child: Text(
-            //     "Coming Soon",
-            //     style: TextStyle(fontStyle: FontStyle.italic),
-            //   ),
-            // ),
-
-            // ListTile(
-            //   title: const Text("Hire A tutor"),
-            //   leading: const Icon(Icons.work),
-            //   onTap: () {},
-            // ),
-            // ListTile(
-            //   title: const Text("Become A tutor"),
-            //   leading: const Icon(Icons.group),
-            //   onTap: () {},
-            // ),
-            // ListTile(
-            //   title: const Text("Campus Transport"),
-            //   leading: const Icon(Icons.bus_alert),
-            //   onTap: () {},
-            // ),
-          ],
-        ),
-      ),
+      drawer: _buildDrawer(),
       floatingActionButton: _selectedIndex != 1
           ? FloatingActionButton(
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(100),
-                      bottomLeft: Radius.circular(100),
-                      bottomRight: Radius.circular(100),
-                      topLeft: Radius.circular(20))),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(100),
+                  bottomLeft: Radius.circular(100),
+                  bottomRight: Radius.circular(100),
+                  topLeft: Radius.circular(20),
+                ),
+              ),
               tooltip: "Live Chat",
               backgroundColor: mine,
               onPressed: () async {
@@ -273,11 +131,76 @@ class _HomePageState extends State<HomePage> {
                 String androidUrl = "whatsapp://send?phone=$contact&text=$text";
                 await launchUrl(Uri.parse(androidUrl));
               },
-              child: const Icon(
-                FontAwesomeIcons.rocketchat,
-                color: Colors.white,
-              ))
+              child:
+                  const Icon(FontAwesomeIcons.rocketchat, color: Colors.white),
+            )
           : null,
+    );
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+      backgroundColor: Colors.white,
+      child: ListView(
+        children: [
+          DrawerHeader(
+            child: Image.asset("assets/images/logo.png"),
+          ),
+          ListTile(
+            title: const Text("NSUK Hot Lines"),
+            leading: const Icon(Icons.call),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const HotLine()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text("About BrainyBit"),
+            leading: const Icon(Icons.apps_outage),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+              );
+            },
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              "More..",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+          ListTile(
+            title: const Text("Drop Suggestion"),
+            leading: const Icon(Icons.local_offer_rounded),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SuggestionPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text("Privacy Policy"),
+            leading: const Icon(Icons.privacy_tip),
+            onTap: () {
+              final Uri _url =
+                  Uri.parse('https://brainybit.vercel.app/general/privacy/');
+              launchUrl(_url);
+            },
+          ),
+          ListTile(
+            title: const Text("Rate BrainyBit"),
+            leading: const Icon(Icons.star),
+            onTap: () {
+              final Uri _url = Uri.parse(
+                  'https://play.google.com/store/apps/details?id=codewithdama.brainybit');
+              launchUrl(_url);
+            },
+          ),
+        ],
+      ),
     );
   }
 }
