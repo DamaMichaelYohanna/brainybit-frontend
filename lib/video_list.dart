@@ -1,8 +1,7 @@
-import 'package:brainybit/resource1.dart';
+import 'package:brainybit/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:brainybit/colorScheme.dart';
 import 'package:brainybit/quiz.dart';
-import 'package:brainybit/resources.dart';
 import 'package:brainybit/course_detail.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
