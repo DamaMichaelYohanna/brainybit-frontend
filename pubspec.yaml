@@ -42,6 +42,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^24.2.8
   font_awesome_flutter: ^9.0.0
   google_mobile_ads: ^5.2.0
+  flutter_cached_pdfview: ^0.4.3
 
 dev_dependencies:
   flutter_test:
