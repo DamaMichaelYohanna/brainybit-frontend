@@ -16,7 +16,7 @@ class AboutUsPage extends StatelessWidget {
           SizedBox(
               height: 200.0,
               width: 200.0,
-              child: Image.asset('assets/images/about.jpg')),
+              child: Image.asset('assets/images/about.png')),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
@@ -50,7 +50,7 @@ class AboutUsPage extends StatelessWidget {
                 color: const Color.fromARGB(255, 236, 241, 245),
                 borderRadius: BorderRadius.circular(10)),
             child: const Text(
-                "My vission is to empower every student with accessible and comprehensive educational resources, fostering a dynamic learning environment that transcends traditional boundaries.",
+                "Our vision is to empower every student with accessible and comprehensive educational resources, fostering a dynamic learning environment that transcends traditional boundaries.",
                 style: TextStyle(
                     fontSize: 16, color: Color.fromARGB(255, 2, 8, 14))),
           ),
@@ -69,7 +69,7 @@ class AboutUsPage extends StatelessWidget {
                 color: const Color.fromARGB(255, 236, 241, 245),
                 borderRadius: BorderRadius.circular(10)),
             child: const Text(
-                "My mission is to provide a centralized platform for students, offering past questions, learning materials, and essential school information, thereby enhancing academic excellence, promoting student success, and cultivating a vibrant community of lifelong learners"),
+                "Our mission is to provide a centralized platform for students, offering past questions, learning materials, and essential school information, thereby enhancing academic excellence, promoting student success, and cultivating a vibrant community of lifelong learners"),
           ),
           // const Divider(),
           const Padding(
