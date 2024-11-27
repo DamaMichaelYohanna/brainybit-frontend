@@ -10,228 +10,209 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  // Declare some variable to use in our fields
+  // Form fields
   String expOption = '';
   String sugOption = '';
   final TextEditingController submissionControl = TextEditingController();
+  bool isSubmitting = false; // State for showing the loading indicator
 
-  Future<String> submitFeedback(
-      String experience, String submission, String category) async {
-    var url = Uri.https('brainybit.vercel.app', 'feedback/upload');
-    // prepare the form data
+  Future<void> submitFeedback() async {
+    final experience = expOption;
+    final submission = submissionControl.text.trim();
+    final category = sugOption;
+
+    if (experience.isEmpty || submission.isEmpty || category.isEmpty) {
+      _showDialog("Error!", "All fields are required.");
+      return;
+    }
+
+    var url =
+        Uri.https('brainybit.vercel.app', 'api/v1/general/feedback/upload');
     final Map<String, String> formData = {
       'experience': experience,
       "submission": submission,
-      "category": category
+      "category": category,
     };
+
+    setState(() {
+      isSubmitting = true; // Show loading indicator
+    });
 
     try {
       final response = await http.post(url, body: formData);
+
       if (response.statusCode == 200) {
-        return "done";
+        // Clear inputs on success
+        submissionControl.clear();
+        setState(() {
+          expOption = '';
+          sugOption = '';
+        });
+        _showDialog(
+            "Success!", "Your feedback has been submitted successfully.");
       } else {
-        // Request failed
-        return "error";
+        _showDialog("Error!", "Feedback not submitted. Please try again.");
       }
     } catch (e) {
-      return "internet";
+      _showDialog("Error!", "Check your internet connection and try again.");
+    } finally {
+      setState(() {
+        isSubmitting = false; // Hide loading indicator
+      });
     }
   }
 
-  void afterSubmission(value) {
-    if (value == "done") {
-      showDialog(
-        context: context,
-        builder: (_) => const AlertDialog(
-          title: Text('Sucess!'),
-          // icon:Text("hell"),
-          content: Text("Your feedback have been submitted succesfully."),
-        ),
-      );
-    } else if (value == "error") {
-      showDialog(
-          context: context,
-          builder: (_) => const AlertDialog(
-                title: Text('Error!'),
-                // icon:Text("hell"),
-                content: Text("Some thing happened. Feedback not submitted"),
-              ));
-    } else {
-      showDialog(
-          context: context,
-          builder: (_) => const AlertDialog(
-                title: Text('Error!'),
-                // icon:Text("hell"),
-                content: Text(
-                    "Please Check your internet connection and try again."),
-              ));
-    }
+  void _showDialog(String title, String content) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Suggestions"),
-        backgroundColor: mine,
-        foregroundColor: mine,
-        elevation: 0,
-      ),
-      body: ListView(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 150,
-            color: mine,
-            padding: const EdgeInsets.all(12),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
+    return GestureDetector(
+      onTap: () {
+        // Dismiss the keyboard when tapping outside of the input field
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Suggestions"),
+          backgroundColor: mine,
+          foregroundColor: mine,
+          elevation: 0,
+        ),
+        body: ListView(
+          children: [
+            // Header
+            Container(
+              height: 150,
+              color: mine,
+              padding: const EdgeInsets.all(12),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
                     "Let's hear from you.",
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    "Do you have suggestion, or did you find any bug with our application? Let Us know in the fields below",
+                  SizedBox(height: 8),
+                  Text(
+                    "Do you have suggestions, or did you find any bugs with our application? Let us know below.",
                     style: TextStyle(color: Colors.white),
                   ),
-                )
-              ],
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-            child: Text(
-              "How was your experience?.",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22.0),
-            child: Row(
-              children: [
-                Column(
-                  children: [
-                    Radio(
-                        value: "good",
+
+            // Experience question
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Text(
+                "How was your experience?",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Row(
+              children: ["good", "fair", "bad"].map((option) {
+                return Expanded(
+                  child: Column(
+                    children: [
+                      Radio(
+                        value: option,
                         groupValue: expOption,
                         onChanged: (value) {
                           setState(() {
                             expOption = value.toString();
                           });
-                        }),
-                    const Text("Good 😊")
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Column(
-                    children: [
-                      Radio(
-                          value: "fair",
-                          groupValue: expOption,
-                          onChanged: (value) {
-                            setState(() {
-                              expOption = value.toString();
-                            });
-                          }),
-                      const Text("Fair 😌")
+                        },
+                      ),
+                      Text(option[0].toUpperCase() + option.substring(1)),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Column(
-                    children: [
-                      Radio(
-                          value: "bad",
-                          groupValue: expOption,
-                          onChanged: (value) {
-                            setState(() {
-                              expOption = value.toString();
-                            });
-                          }),
-                      const Text("Bad 😒")
-                    ],
-                  ),
-                ),
-              ],
+                );
+              }).toList(),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextField(
-              controller: submissionControl,
-              decoration: const InputDecoration(
+
+            // Submission text field
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                controller: submissionControl,
+                decoration: const InputDecoration(
                   filled: true,
                   fillColor: Color.fromARGB(255, 236, 240, 244),
                   hintText: "Tell us your experience or suggestions",
-                  border: InputBorder.none),
-              maxLines: 7,
+                  border: OutlineInputBorder(borderSide: BorderSide.none),
+                ),
+                maxLines: 7,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(),
-            child: Row(
-              children: [
-                Radio(
-                    value: "bug",
-                    groupValue: sugOption,
-                    onChanged: (value) {
-                      setState(() {
-                        sugOption = value.toString();
-                      });
-                    }),
-                const Text("Bug"),
-                Radio(
-                    value: "suggestion",
-                    groupValue: sugOption,
-                    onChanged: (value) {
-                      setState(() {
-                        sugOption = value.toString();
-                      });
-                    }),
-                const Text("Suggestion"),
-                Radio(
-                    value: "others",
-                    groupValue: sugOption,
-                    onChanged: (value) {
-                      setState(() {
-                        sugOption = value.toString();
-                      });
-                    }),
-                const Text("Others")
-              ],
+
+            // Suggestion category
+            Row(
+              children: ["bug", "suggestion", "others"].map((option) {
+                return Expanded(
+                  child: Column(
+                    children: [
+                      Radio(
+                        value: option,
+                        groupValue: sugOption,
+                        onChanged: (value) {
+                          setState(() {
+                            sugOption = value.toString();
+                          });
+                        },
+                      ),
+                      Text(option[0].toUpperCase() + option.substring(1)),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                String value = await submitFeedback(
-                    expOption, submissionControl.text, sugOption);
-                afterSubmission(value);
-              },
-              style: ElevatedButton.styleFrom(
+
+            // Submit button
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
                   backgroundColor: mine,
-                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5))),
-              child: const Text("Send Feedback"),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: const EdgeInsets.all(15),
+                ),
+                onPressed: isSubmitting ? null : submitFeedback,
+                child: isSubmitting
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color: Colors.white),
+                      )
+                    : const Text(
+                        "Submit Feedback",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
