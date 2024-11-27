@@ -91,28 +91,48 @@ class _ChatScreenState extends State<ChatScreen> {
               itemCount: chat.length,
               controller: _scrollController,
               itemBuilder: (BuildContext context, int index) {
-                return Align(
-                  alignment: chat[index][0] == "user"
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Card(
-                    elevation: 0,
-                    margin: chat[index][0] == "user"
-                        ? const EdgeInsets.only(
-                            left: 45, right: 10, top: 10, bottom: 10)
-                        : const EdgeInsets.only(
-                            left: 10, right: 45, top: 10, bottom: 10),
-                    color: chat[index][0] == "user"
-                        ? const Color.fromARGB(255, 221, 229, 237)
-                        : mine.shade100,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        chat[index][1],
-                        style: const TextStyle(),
+                final isUser = chat[index][0] == "user";
+                return Row(
+                  mainAxisAlignment:
+                      isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (!isUser)
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage('assets/images/bot.png'),
+                        // Replace with your AI profile image
+                        backgroundColor: Colors.grey[200],
+                      ),
+                    // if (!isUser) const SizedBox(width: 5),
+                    Flexible(
+                      child: Card(
+                        elevation: 0,
+                        margin: isUser
+                            ? const EdgeInsets.only(
+                                left: 45, right: 10, top: 10, bottom: 10)
+                            : const EdgeInsets.only(
+                                left: 10, right: 45, top: 10, bottom: 10),
+                        color: isUser
+                            ? const Color.fromARGB(255, 221, 229, 237)
+                            : mine.shade100,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            chat[index][1],
+                            style: const TextStyle(),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    if (isUser)
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage('assets/images/logo.png'),
+                        // Replace with your user profile image
+                        backgroundColor: Colors.grey[200],
+                      ),
+                  ],
                 );
               },
             ),
@@ -126,6 +146,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: chatController,
+                    autofocus: false,
                     minLines: 1,
                     maxLines: 5, // Limit the max height to 5 lines
                     decoration: InputDecoration(
