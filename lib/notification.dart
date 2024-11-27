@@ -16,7 +16,7 @@ class _NotifcationListState extends State<NotifcationList> {
 
   void fetch() async {
     // Await the result of the asynchronous online query
-    var url = Uri.https('brainybit.vercel.app', 'news');
+    var url = Uri.https('brainybit.vercel.app', '/api/v1/general/news');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -58,16 +58,20 @@ class _NotifcationListState extends State<NotifcationList> {
               )
             : Center(
                 child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
                 child: Column(
                   children: [
-                    Image.asset("assets/images/notif.gif"),
-                    Text(
-                      "No New Notification Available!",
-                      style: TextStyle(
-                          fontSize: 17,
-                          color: mine,
-                          fontWeight: FontWeight.bold),
+                    Image.asset("assets/images/news.png"),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "No New Notification Available!",
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: mine,
+                            fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
                 ),
