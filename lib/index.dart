@@ -85,7 +85,7 @@ class IndexPage extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           height: 180,
           child: Row(
             children: [
@@ -112,7 +112,7 @@ class IndexPage extends StatelessWidget {
                     child: Container(
                       height: 50,
                       width: double.infinity,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: const BoxDecoration(
                           color: Color.fromARGB(187, 78, 115, 148),
                           borderRadius: BorderRadius.only(
@@ -140,7 +140,7 @@ class IndexPage extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    margin: EdgeInsets.only(left: 8),
+                    margin: const EdgeInsets.only(left: 8),
                     width: double.infinity,
                     alignment: Alignment.bottomCenter,
                     decoration: BoxDecoration(
@@ -152,7 +152,7 @@ class IndexPage extends StatelessWidget {
                     child: Container(
                       height: 50,
                       width: double.infinity,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: const BoxDecoration(
                           color: Color.fromARGB(187, 78, 115, 148),
                           borderRadius: BorderRadius.only(
@@ -171,7 +171,7 @@ class IndexPage extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 30,
         ),
         Expanded(
@@ -209,18 +209,27 @@ class IndexPage extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                            // height: 60,
-                            width: 130,
-                            padding: const EdgeInsets.all(6),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF4E7394),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              "Proceed",
-                              style: TextStyle(color: Colors.white),
-                            )),
+                        child: InkWell(
+                          onTap:(){Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const CourseListTile(
+                          dept: "CMP",
+                        ),
+                      ),
+                    );},
+                          child: Container(
+                              // height: 60,
+                              width: 130,
+                              padding: const EdgeInsets.all(6),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFF4E7394),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: const Text(
+                                "Proceed",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
                       )
                     ],
                   ),
@@ -255,11 +264,11 @@ class IndexPage extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => NoteListPage()));
+                          builder: (context) => const NoteListPage()));
                     },
                     child: Container(
                       height: 130,
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -296,7 +305,7 @@ class IndexPage extends StatelessWidget {
                     },
                     child: Container(
                       height: 130,
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -331,7 +340,7 @@ class IndexPage extends StatelessWidget {
                     },
                     child: Container(
                       height: 125,
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Colors.white,
