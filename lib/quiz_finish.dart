@@ -65,7 +65,7 @@ class QuizFinish extends StatelessWidget {
                         children: [
                           const Divider(),
                           const Text(
-                              "You are on free plan with only 10 free questions. Get more with premium subscription",
+                              "You are on free plan with only 30 free questions. Get more with premium subscription",
                               textAlign: TextAlign.center,
                               style: TextStyle(color: Colors.red)),
                           ElevatedButton(
