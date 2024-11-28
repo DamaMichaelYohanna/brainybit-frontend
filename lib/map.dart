@@ -12,9 +12,9 @@ class MapPage extends StatelessWidget {
         backgroundColor: Colors.white,
         body: ListView(children: [
           SizedBox(
-              height: 200.0,
-              width: 200.0,
-              child: Image.asset('assets/images/about.jpg')),
+              height: 300.0,
+              width: 300.0,
+              child: Image.asset('assets/images/map.png')),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
