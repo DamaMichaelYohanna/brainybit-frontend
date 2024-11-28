@@ -35,8 +35,8 @@ class _SubscribeManualPageState extends State<SubscribeManualPage> {
         children: [
           Container(
               margin: const EdgeInsets.only(top: 12),
-              height: 80,
-              width: 30,
+              height: 300,
+              width: 300,
               child: Image.asset("assets/images/dollar.png")),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
