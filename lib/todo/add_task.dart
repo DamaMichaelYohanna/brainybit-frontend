@@ -87,12 +87,17 @@ class AddTaskState extends State<AddTask> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: submitTask,
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: mine,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
               child: const Text("Save Task "),
             ),
-          )
+          ),
         ],
       ),
     );

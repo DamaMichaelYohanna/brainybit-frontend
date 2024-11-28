@@ -12,58 +12,55 @@ class SwipeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key(object["title"]),
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(Icons.delete, color: Colors.white),
-      ),
-      secondaryBackground: Container(
-        color: Colors.blue,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(Icons.edit, color: Colors.white),
-      ),
-      confirmDismiss: (direction) async {
-        if (direction == DismissDirection.startToEnd) {
-          // Delete action
-          databaseHelper.delete("Task", object['id']);
-        } else if (direction == DismissDirection.endToStart) {
-          // Edit action
-          // return await onEdit();
-        }
-        return false;
-      },
-      child: Container(
-        color: mine.shade100,
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        child: ListTile(
-            title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "${object["title"]}",
-                      // overflow: TextOverflow.ellipsis,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Dismissible(
+        key: Key(object["title"]),
+        background: Container(
+          color: Colors.red,
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: const Icon(Icons.delete, color: Colors.white),
+        ),
+        direction: DismissDirection.startToEnd,
+        confirmDismiss: (direction) async {
+          if (direction == DismissDirection.startToEnd) {
+            // Delete action
+            databaseHelper.delete("Task", object['id']);
+          } else if (direction == DismissDirection.endToStart) {
+            // Edit action
+            // return await onEdit();
+          }
+          return false;
+        },
+        child: Container(
+          color: mine.shade100,
+          child: ListTile(
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "${object["title"]}",
+                        // overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  Checkbox(
-                      activeColor: Colors.white,
-                      checkColor: mine,
-                      value: object["status"] == 0 ? false : true,
-                      onChanged: (value) {
-                        if (value == true) {
-                          databaseHelper.update(
-                              "Task", {"status": 1}, object["id"]);
-                        } else {
-                          databaseHelper.update(
-                              "Task", {"status": 0}, object["id"]);
-                        }
-                      })
-                ]),
-            subtitle: Text("${object['time']}")),
+                    Checkbox(
+                        activeColor: Colors.white,
+                        checkColor: mine,
+                        value: object["status"] == 0 ? false : true,
+                        onChanged: (value) {
+                          if (value == true) {
+                            databaseHelper.update(
+                                "Task", {"status": 1}, object["id"]);
+                          } else {
+                            databaseHelper.update(
+                                "Task", {"status": 0}, object["id"]);
+                          }
+                        })
+                  ]),
+              subtitle: Text("${object['time']}")),
+        ),
       ),
     );
   }
