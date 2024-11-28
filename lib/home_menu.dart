@@ -66,75 +66,81 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("BrainyBit"),
-        backgroundColor: mine,
-        foregroundColor: Colors.white,
-        centerTitle: true,
-        actions: [
-          !premium
-              ? IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SubscribePage()));
-                  },
-                  icon: const Icon(Icons.monetization_on),
-                )
-              : const SizedBox.shrink(),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const NotifcationList()));
-            },
-            icon: const Icon(Icons.notifications),
-          ),
-        ],
-      ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: mine,
-        selectedItemColor: Colors.white,
-        currentIndex: _selectedIndex,
-        onTap: (int index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.chat_sharp), label: "ChatAI"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.admin_panel_settings), label: "Profile"),
-        ],
-      ),
-      drawer: _buildDrawer(),
-      floatingActionButton: _selectedIndex != 1
-          ? FloatingActionButton(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(100),
-                  bottomLeft: Radius.circular(100),
-                  bottomRight: Radius.circular(100),
-                  topLeft: Radius.circular(20),
-                ),
-              ),
-              tooltip: "Live Chat",
-              backgroundColor: mine,
-              onPressed: () async {
-                String contact = "+2348160535033";
-                String text = 'Hello from BrainyBit';
-                String androidUrl = "whatsapp://send?phone=$contact&text=$text";
-                await launchUrl(Uri.parse(androidUrl));
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("BrainyBit"),
+          backgroundColor: mine,
+          foregroundColor: Colors.white,
+          centerTitle: true,
+          actions: [
+            !premium
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const SubscribePage()));
+                    },
+                    icon: const Icon(Icons.monetization_on),
+                  )
+                : const SizedBox.shrink(),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const NotifcationList()));
               },
-              child:
-                  const Icon(FontAwesomeIcons.rocketchat, color: Colors.white),
-            )
-          : null,
+              icon: const Icon(Icons.notifications),
+            ),
+          ],
+        ),
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _pages,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: mine,
+          selectedItemColor: Colors.white,
+          currentIndex: _selectedIndex,
+          onTap: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.chat_sharp), label: "ChatAI"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.admin_panel_settings), label: "Profile"),
+          ],
+        ),
+        drawer: _buildDrawer(),
+        floatingActionButton: _selectedIndex != 1
+            ? FloatingActionButton(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(100),
+                    bottomLeft: Radius.circular(100),
+                    bottomRight: Radius.circular(100),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
+                tooltip: "Live Chat",
+                backgroundColor: mine,
+                onPressed: () async {
+                  String contact = "+2348160535033";
+                  String text = 'Hello from BrainyBit';
+                  String androidUrl =
+                      "whatsapp://send?phone=$contact&text=$text";
+                  await launchUrl(Uri.parse(androidUrl));
+                },
+                child: const Icon(FontAwesomeIcons.rocketchat,
+                    color: Colors.white),
+              )
+            : null,
+      ),
     );
   }
 
