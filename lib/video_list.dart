@@ -81,14 +81,15 @@ class _VideoPlayListState extends State<VideoPlayList> {
     return Scaffold(
       appBar: AppBar(title: Text("${widget.courseCode} Resources")),
       body: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 150,
+            height: 350,
+            margin: EdgeInsets.all(8),
             width: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: AssetImage("assets/images/cmp.jpg"),
+                image: AssetImage("assets/images/read.png"),
                 fit: BoxFit.cover,
               ),
             ),
