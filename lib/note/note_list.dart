@@ -77,21 +77,6 @@ class _NoteListPageState extends State<NoteListPage>
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                print("Have been pressed");
-              },
-              child: const TextField(
-                enabled: false,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.search),
-                    contentPadding: EdgeInsets.all(2)),
-              ),
-            ),
-          ),
           Expanded(
             child: ListView.builder(
               itemCount: taskList.length,
