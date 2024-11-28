@@ -24,7 +24,6 @@ class _SubscribePageState extends State<SubscribePage> {
 
   // function call to logout the user
   Future clearUserInfo() async {
-    debugPrint("something");
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }
@@ -51,20 +50,16 @@ class _SubscribePageState extends State<SubscribePage> {
         child: ListView(
           children: [
             Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: CircleAvatar(
-                minRadius: 50,
-                maxRadius: 60,
-                child: imageUrl.isEmpty
-                    ? Image.asset('assets/images/logo.png')
-                    : Image.network(imageUrl),
-              ),
-            ),
-            const Center(
-              child: Text(
-                "Unlock Everything",
-                style: TextStyle(
-                  fontSize: 29,
+                padding: const EdgeInsets.all(0),
+                child: Image.asset('assets/images/sub.png')),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  "Unlock Everything",
+                  style: TextStyle(
+                    fontSize: 29,
+                  ),
                 ),
               ),
             ),
