@@ -17,29 +17,34 @@ Map<String, Map<String, Map<String, String>>> department = {
       "GST 121": "Nigerian Peoples and Culture",
     },
     "200": {
-      "GST 211": "History and Philosopy of science",
+      "GST 212": "Logic, Philosopy and Human Existence ",
       "GST 221": "Peace Studies And Conflict Resolution",
+    },
+    "400": {
+      "GST 411": "Leadership in Contemporary Nigeria",
     }
   },
   "CMP": {
     "100": {
-      "CSC 101": "Introduction to Computing Sciences",
+      "COS 111": "Introduction to Computing Sciences",
       "CSC 112": "Computer Hardware",
-      "COS 121": "Introduction to Problem solving",
-      "CSC 122": "Introductio to Web Design",
-      "CSC 123": "Introduction to Database Management System",
+      // "COS 121": "Introduction to Problem solving",
+      // "CSC 122": "Introductio to Web Design",
+      // "CSC 123": "Introduction to Database Management System",
     },
     "200": {
-      "CMP 211": "Introduction to Programming I",
-      "CMP 212": "introduction to Low Level Programming.",
-      "CMP 213": "Digital Electronics",
-      "CMP 214": "Introduction to Data Structure.",
-      "CMP 215": "System Analysis and design",
-      "CMP 221": "Computer Programming II",
-      "CMP 222": "Introduction To Database Management System",
-      "CMP 223": "Logic Design",
-      "CMP 224": "Introduction To Web Programming II",
-      "CMP 225": "Discrete Structure",
+      "COS 211": "Introduction to Programming I",
+      "CSC 211": "Discrete Structure",
+      "IFT 211": "Digital Logic Design",
+      "SEN 211": "introduction to Software Engineering",
+      "NS-CSC 211": "Front-End Web Development",
+
+      // "CMP 215": "System Analysis and design",
+      // "CMP 221": "Computer Programming II",
+      // "CMP 222": "Introduction To Database Management System",
+      // "CMP 223": "Logic Design",
+      // "CMP 224": "Introduction To Web Programming II",
+      // "CMP 225": "",
 
       // "CMP "
     },

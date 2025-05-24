@@ -120,27 +120,27 @@ class _VideoPlayListState extends State<VideoPlayList> {
           // Column(
           //   children: _buildListItems(),
           // ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: mine,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5))),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Resources(
-                      courseName: widget.courseName,
-                      courseCode: widget.courseCode,
-                    ),
-                  ),
-                );
-              },
-              child: const Text("Learning Resources"),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //         backgroundColor: mine,
+          //         foregroundColor: Colors.white,
+          //         shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(5))),
+          //     onPressed: () {
+          //       Navigator.of(context).push(
+          //         MaterialPageRoute(
+          //           builder: (context) => Resources(
+          //             courseName: widget.courseName,
+          //             courseCode: widget.courseCode,
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //     child: const Text("Learning Resources"),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
             child: ElevatedButton(

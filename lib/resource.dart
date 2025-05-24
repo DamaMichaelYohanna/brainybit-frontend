@@ -21,21 +21,19 @@ class Resources extends StatefulWidget {
 
 class ResourcesState extends State<Resources>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
   // Simulating video details for demo purposes
   Map<String, dynamic> videoDetails = {};
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    // _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    // _tabController.dispose();
   }
 
   // Build list items for the "Videos" tab
@@ -116,58 +114,49 @@ class ResourcesState extends State<Resources>
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Container(
-              height: 55,
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-              child: TabBar(
-                controller: _tabController,
-                tabs: const [
-                  Tab(text: "Videos"),
-                  Tab(text: "Notes"),
-                ],
-              ),
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  // Tab for "Videos"
-
-                  FutureBuilder(
-                    future: getData(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<dynamic> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            "Vidoes will be added soon.",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        );
-                      } else {
-                        return ListView(children: <Widget>[
-                          Column(children: buildListItems())
-                        ]);
-                      }
-                    },
-                  ),
-                  SfPdfViewer.network(
-                      'https://brainybit.vercel.app/api/v1/general/pdf/${widget.courseCode}.pdf')
-                  // Tab for "Notes"
-                  // PDFViewPage(
-                  //   pdfUrl:
-                  //       'https://brainybit.vercel.app/api/v1/general/pdf/${widget.courseCode}.pdf',
-                  // ),
-                ],
-              ),
+            // Container(
+            //   height: 55,
+            //   padding: const EdgeInsets.all(8),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(2.0),
+            //   ),
+            //   child: TabBar(
+            //     controller: _tabController,
+            //     tabs: const [
+            //       Tab(text: "Notes"),
+            //     ],
+            //   ),
+            // ),
+            // Expanded(
+            //   child: FutureBuilder(
+            //     future: getData(),
+            //     builder:
+            //         (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const Center(child: CircularProgressIndicator());
+            //       } else if (snapshot.hasError) {
+            //         return Center(
+            //           child: Text(
+            //             "Vidoes will be added soon.",
+            //             style: TextStyle(
+            //               fontSize: 16,
+            //               color: Colors.grey[600],
+            //             ),
+            //           ),
+            //         );
+            //       } else {
+            //         return ListView(
+            //             children: <Widget>[Column(children: buildListItems())]);
+            //       }
+            //     },
+            //   ),
+            // ),
+            // SfPdfViewer.network(
+            //     'https://brainybit.vercel.app/api/v1/general/pdf/${widget.courseCode}.pdf')
+            // Tab for "Notes"
+            PDFViewPage(
+              pdfUrl:
+                  'https://brainybit.vercel.app/api/v1/general/pdf/${widget.courseCode}.pdf',
             ),
           ],
         ),
